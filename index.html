@@ -243,7 +243,7 @@
     <div class="container is-max-desktop">
       <div class="hero-body">
         <h4 class="subtitle has-text-centered">
-          🔥<span style="color: #ff3860">[NEW!]</span> InternVL-Chat-V1.5 has been released at HF link, approaching the performance of GPT-4V and Gemini Pro on various benchmarks like MMMU, DocVQA, ChartQA, MathVista, etc
+          🔥<span style="color: #ff3860">[NEW!]</span> InternVL-Chat-V1.5 has been released at <a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-5">HF link</a>, approaching the performance of GPT-4V and Gemini Pro on various benchmarks like MMMU, DocVQA, ChartQA, MathVista, etc
           <br><br>
           we present InternVL, a large-scale visionlanguage foundation model that scales up the vision foundation model to 6 billion parameters and is aligned for generic
           visual-linguistic tasks.
@@ -252,13 +252,13 @@
       </div>
     </div>
   </section>
-
+<!--
   <section class="section"  style="background-color:#efeff081">
     <div class="container is-max-desktop" id="gradio">
       <gradio-app src="https://internvl.opengvlab.com/"></gradio-app>
     </div>
   </section>
-
+-->
   <section class="section"  style="background-color:#efeff081">
     <div class="container is-max-desktop">
       <!-- Abstract. -->
@@ -267,13 +267,13 @@
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              Instruction tuning large language models (LLMs) using machine-generated instruction-following data has improved zero-shot capabilities on new tasks in the language domain, but the idea is less explored in the multimodal field.
+              InternVL is a 6-billion-parameter vision-language foundation model that, with only 28% of the parameter count, possesses visual capabilities equivalent to ViT-22B. It integrates with large language models (LLM) through an innovative progressive alignment strategy to construct a multimodal dialogue system. InternVL has achieved optimal performance on 32 general vision-language benchmark tasks!
               <ol type="1">
-                <li><b>Multimodal Instruct Data</b>. <span style="font-size: 95%;">We present the first attempt to use <a href="https://openai.com/research/gpt-4">language-only GPT-4</a> to generate multimodal language-image instruction-following data. </span></li>
-                <li><b>InternVL Model</b>. <span style="font-size: 95%;">We introduce <it><b>LLaVA</b> (<b>L</b>arge <b>L</b>anguage-<b>a</b>nd-<b>V</b>ision <b>A</b>ssistant)</it>, an end-to-end trained large multimodal model that connects a vision encoder and LLM for general-purpose visual and language understanding.</li>
-                <li><b>Performance</b>. <span style="font-size: 95%;">Our early experiments show that LLaVA demonstrates impressive multimodel chat abilities, sometimes exhibiting the behaviors of multimodal GPT-4 on unseen images/instructions, and yields a 85.1% relative score compared with GPT-4 on a synthetic multimodal instruction-following dataset.
+                <li><b>Powerful Visual Encoder</b>. <span style="font-size: 95%;">InternVL, through its unique visual encoder, InternViT-6B, employs a continuous learning strategy to greatly enhance the depth and breadth of visual understanding. This strategy enables InternViT-6B to achieve seamless transfer and reuse among various large language models, strengthening the model's ability to parse complex visual content and exhibit more precise recognition and interpretation capabilities in image-intensive tasks.</span></li>
+                <li><b>Dynamic High Resolution</b>. <span style="font-size: 95%;">We introduce <it><b>LLaVA</b> (<b>L</b>arge <b>L</b>anguage-<b>a</b>nd-<b>V</b>ision <b>A</b>ssistant)</it>, an end-to-end trained large multimodal model that connects a vision encoder and LLM for general-purpose visual and language understanding.</li>
+                <li><b>High-Quality Bilingual Dataset</b>. <span style="font-size: 95%;">Our early experiments show that LLaVA demonstrates impressive multimodel chat abilities, sometimes exhibiting the behaviors of multimodal GPT-4 on unseen images/instructions, and yields a 85.1% relative score compared with GPT-4 on a synthetic multimodal instruction-following dataset.
                   When fine-tuned on <a href="https://scienceqa.github.io/">Science QA</a>, the synergy of LLaVA and GPT-4  achieves a new state-of-the-art accuracy of 92.53%.</li>
-                <li><b>Open-source</b>. <span style="font-size: 95%;">We make GPT-4 generated visual instruction tuning data, our model and code base publicly available.</li>
+                <li><b>Performance</b>. <span style="font-size: 95%;">We make GPT-4 generated visual instruction tuning data, our model and code base publicly available.</li>
               </ol>  
            </p>
   

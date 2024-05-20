@@ -73,9 +73,9 @@
                     </header>
                     <div class="post-content e-content" itemprop="articleBody">
                         <p>We are excited to introduce Mini-InternVL-Chat. In the era of large global models, many researchers have started to focus on smaller models, such as Gemma-2B and Qwen-1.8B. Inspired by their efforts, we have distilled our vision foundation model <a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-2">InternViT-6B</a> down to 300M and used InternLM-1.8B as our language model. This resulted in a small model with excellent performance.</p>
-                        <img width="650" alt="image" src="images/mini.png">
-    
-                        <p>From the experimental results, we've observed that a smaller language model (1.8B) is well-suited for our smaller vision model (InternViT-300M). This combination maximizes efficiency while maintaining impressive performance across various benchmarks, demonstrating the effectiveness of small models in handling complex tasks.</p>
+                        <img width="650" alt="image" src="images/mini.png"><br>
+
+                        <p>From the experimental results, we've observed that a smaller language model (1.8B) is well-suited for our smaller vision model (InternViT-300M). This combination maximizes efficiency while maintaining impressive performance across various benchmarks, demonstrating the effectiveness of small models in handling complex tasks. Additionally, our small model significantly reduces memory requirements, making it more accessible and efficient for practical use.    </p>
     
                         <p>For better training reproducibility, our training process remains consistent with our InternVL 1.5 model. The data and methodologies used are also largely aligned with those of InternVL 1.5. To reduce training costs, we provide a pre-trained MLP projector and employ around 1 million visual instruction tuning samples for SFT. Our model has a total of 2.1 billion parameters and can be trained within 1 day using 16 A100 GPUs. The code, data, and model will be made publicly available.</p>
     

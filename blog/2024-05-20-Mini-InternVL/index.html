@@ -81,7 +81,7 @@
     
                         <h3>Data Preparation</h3>
                         <p>Inspired by InternVL 1.5, we adopted a data-efficient SFT strategy to train Mini-InternVL-Chat, utilizing approximately 1.2M of visual instruction tuning samples in total, all of which are fully open-source. In a macro sense, we build upon <a href="https://github.com/InternLM/InternLM-XComposer/blob/main/projects/ShareGPT4V/docs/Data.md#prepare-images">ShareGPT-4V</a> and additionally integrate <a href="https://huggingface.co/datasets/openbmb/llava_zh">LLaVA-ZH</a>, <a href="https://github.com/kushalkafle/DVQA_dataset">DVQA</a>, <a href="https://github.com/vis-nlp/ChartQA">ChartQA</a>, <a href="https://allenai.org/data/diagrams">AI2D</a>, <a href="https://www.docvqa.org/datasets">DocVQA</a>, <a href="https://github.com/SCNU203/GeoQA-Plus">GeoQA+</a>, and <a href="https://huggingface.co/datasets/naver-clova-ix/synthdog-en">SynthDoG-EN</a>. Most of the data remains consistent with InternVL 1.5.</p>
-                        <p>For more details about data preparation, please see <a href="./internvl_chat#prepare-training-datasets">here</a>.</p>
+                        <p>For more details about data preparation, please see <a href="https://github.com/OpenGVLab/InternVL/tree/main/internvl_chat#prepare-training-datasets">here</a>.</p>
     
                         <h3>Performance</h3>
                         <p><em>Proprietary Model</em></p>
@@ -489,7 +489,7 @@
                         <p>MMBench results are collected from the <a href="https://mmbench.opencompass.org.cn/leaderboard">leaderboard</a>.</p>
     
                         <h3>Training (SFT)</h3>
-                        <p>We provide <a href="./internvl_chat/shell/hermes2_yi34b/internvl_chat_v1_2_hermes2_yi34b_448_res_finetune.sh">slurm scripts</a> for multi-node multi-GPU training. You can use either 32 or 64 GPUs to train this model. If you use 64 GPUs, training will take approximately 18 hours.</p>
+                        <p>We provide slurm scripts for multi-node multi-GPU training. You can use either 32 or 64 GPUs to train this model. If you use 64 GPUs, training will take approximately 18 hours.</p>
     
                         <p>The hyperparameters used for finetuning are listed in the following table.</p>
                         <table>

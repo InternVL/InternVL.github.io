@@ -274,7 +274,6 @@
                 <li><b>Powerful Visual Encoder</b>. <span style="font-size: 95%;">InternVL 1.5, through its unique visual encoder, InternViT-6B, employs a continuous learning strategy to greatly enhance the depth and breadth of visual understanding. This strategy enables InternViT-6B to achieve seamless transfer and reuse among various large language models, strengthening the model's ability to parse complex visual content and exhibit more precise recognition and interpretation capabilities in image-intensive tasks.</span></li>
                 <li><b>Dynamic High Resolution</b>. <span style="font-size: 95%;">InternVL 1.5 introduces a brand-new dynamic high-resolution strategy for image processing.This feature supports input resolutions of up to 4K, optimizing the presentation of image details and improving the model's expressiveness and accuracy on high-resolution images, while also ensuring efficient computation. This revolutionary feature significantly enhances the overall image processing performance and is expected to be a game-changer in the field of image processing.</span></li>
                 <li><b>High-Quality Bilingual Dataset</b>. <span style="font-size: 95%;">InternVL 1.5 integrates a wide range of high-quality bilingual datasets covering English and Chinese, significantly improving the model's operational flexibility and accuracy in multilingual environments. In addition, through the data translation pipeline developed by open-source large language models, InternVL 1.5 can automatically expand to more languages, showing tremendous potential in global applications.</li>
-                <li><b>Performance</b>. <span style="font-size: 95%;">We conducted extensive evaluations in 18 multimodal benchmark tests</li>
               </ol>
               <img src="images/vs.png" alt="VS" style="margin-top: 20px; width: 100%; max-width: 600px; display: block; margin-left: auto; margin-right: auto;">  
            </p>
@@ -440,15 +439,11 @@
     <div class="column is-full-width">
       <div class="content has-text-justified"> 
         <p>
-          LLaVa connects pre-trained <a href="https://openai.com/research/clip">CLIP ViT-L/14</a> visual encoder and large language model <a href="https://github.com/lm-sys/FastChat">Vicuna</a>, using a simple projection matrix.   We consider a two-stage instruction-tuning procedure:
+          LLaVa InternVL connects the InternViT-6B vision encoder and the QLLaMA language middleware, utilizing a progressive alignment strategy. The training consists of three stages:
           <ul type="1">
-            <li><b>Stage 1: Pre-training for Feature Alignment</b>. <span style="font-size: 95%;">Only the projection matrix is updated, based on a subset of CC3M.</span></li>
-            <li><b>Stage 2: Fine-tuning End-to-End</b>. <span style="font-size: 95%;">Both the projection matrix and LLM are updated for two different use senarios: 
-              <ul type="1">
-                <li> <b>Visual Chat</b>: LLaVA is fine-tuned on our generated multimodal instruction-following data for daily user-oriented applications. 
-                <li> <b>Science QA</b>: LLaVA is fine-tuned on this multimodal reasonsing dataset for the science domain.</span></li>
-              </ul>  
-          </ul>  
+            <li><b>Stage 1: Vision-Language Contrastive Training</b>. <span style="font-size: 95%;">Here, the vision encoder is aligned with a multilingual LLaMA-7B using large-scale, noisy image-text pairs from various datasets, including LAION-en and COYO. Only the vision encoder's and the text encoder's parameters are updated.</span></li>
+            <li><b>Stage 2: Vision-Language Generative Training</b>. <span style="font-size: 95%;">Both the vision encoder and QLLaMA, initialized from the first stage, are fine-tuned on high-quality image-text pairs. This stage involves training the newly added learnable queries and cross-attention layers.</span></li>
+            <li><b>Stage 3: Supervised Fine-Tuning</b>. <span style="font-size: 95%;">The complete InternVL model or the vision encoder alone is fine-tuned on high-quality multimodal instruction data for tasks such as multi-modal dialogue and visual question answering .</span></li>
           Please check out our 
           <a href="https://github.com/OpenGVLab/InternVL?tab=readme-ov-file#model-zoo">[Model Zoo]</a>.
         </p>
@@ -486,18 +481,19 @@
   <!-- Grounedtext2img. -->
   <div class="columns is-centered">
     <div class="column is-full-width">
-      <h2 class="title is-4"><img id="painting_icon" width="4%" src="https://cdn-icons-png.flaticon.com/512/1698/1698535.png"> <span style="font-size: 100%;">Visual Chat:</span> Towards building multimodal GPT-4 level chatbot  </h2>
-      
+      <h2 class="title is-4"><img id="painting_icon" width="4%" src="https://cdn-icons-png.flaticon.com/512/1698/1698535.png"> <span style="font-size: 100%;">Benchmarks:</span>InternVL 1.5 VS GPT-4V in 18 multimodal benchmark tests</h2>
+      <!--
       <div>
         <a href="https://plotly.com/~lichunyuan24/5/?share_key=d78QObaCAYCIy8PJpe3gd1" target="_blank" title="llava_gpt4_pie" style="display: block; text-align: center;">  <img id="painting_icon" width="90%" src="images/pie_llava_gpt4.png"> </a>
 
-    </div>
-
-    <p style="font-family:Times New Roman"><b>An evaluation dataset with 30 unseen images is constructed: each image is assocaited with three types of instructions: conversation, detailed description and complex reasoning. This leads to 90 new language-image instructions, on which we test LLaVA and GPT-4, and use GPT-4 to rate their responses from score 1 to 10. The summed score and relative score per type is reported. Overall, LLaVA achieves 85.1% relative score compared with GPT-4, indicating the effectinvess of the proposed self-instruct method in multimodal settings</b>               
+    </div> -->
+    <img src="images/benchmark.png" alt="VS" style="margin-top: 20px; width: 100%; max-width: 600px; display: block; margin-left: auto; margin-right: auto;">  
+    <p style="font-family:Times New Roman"><b>To evaluate InternVL 1.5's performance, the research team conducted extensive evaluations in 18 multimodal benchmark tests. These benchmarks cover various aspects, including OCR-related, general multimodal, mathematical, and multi-turn dialogues. InternVL 1.5 performs well on multiple key dimensions, narrowing the gap between open-source models and GPT-4V, especially reaching the SOTA level in tasks such as OCR, MMB, SEED, and Math.</b>               
     </div>
   </div>
 
   <!-- Grounedtext2img. -->
+  <!--
   <div class="columns is-centered">
     <div class="column is-full-width">
       <h2 class="title is-4"> <img id="painting_icon" width="3%" src="https://scienceqa.github.io/img/logo.png"><span style="font-size: 100%;"> Science QA:</span> New SoTA with the synergy of LLaVA with GPT-4</h2>
@@ -509,7 +505,7 @@
         <p style="font-family:Times New Roman"><b>LLaVA alones achieve 90.92%. We use the text-only GPT-4 as the judge, to predict the final answer based on its own previous answers and the LLaVA answers. This "GPT-4 as judge" scheme yields a new SOTA 92.53%.</b>
               
     </div>
-  </div>
+  </div>-->
 </section>
 
 

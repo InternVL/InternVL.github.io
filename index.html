@@ -118,9 +118,9 @@
             <h5 class="subtitle is-5 publication-awards">CVPR 2024 (Oral)</h5>
             <div class="is-size-5 publication-authors">
               <span class="author-block">
-                <a href="https://scholar.google.com.hk/citations?hl=zh-CN&user=j1rq_lYAAAAJ" style="color:#f68946;font-weight:normal;">Zhe Chen<sup>*</sup></a>,
+                <a href="https://scholar.google.com.hk/citations?hl=zh-CN&user=j1rq_lYAAAAJ" style="color:#f68946;font-weight:normal;">Zhe Chen</a>, et al.
               </span>
-              <span class="author-block">
+              <!--<span class="author-block">
                 <a href="https://scholar.google.com.hk/citations?hl=zh-CN&user=j1rq_lYAAAAJ" style="color:#008AD7;font-weight:normal;">Zhe Chen<sup>*</sup></a>,
               </span>
               <span class="author-block">
@@ -129,12 +129,12 @@
               <span class="author-block">
                 <a href="https://scholar.google.com.hk/citations?hl=zh-CN&user=j1rq_lYAAAAJ" style="color:#f68946;font-weight:normal;">Zhe Chen</a>
               </span>
-            </div>
+            </div> -->
 
             <div class="is-size-5 publication-authors">
               <span class="author-block"><b style="color:#f68946; font-weight:normal">&#x25B6 </b> OpenGVLab, Shanghai AI Laboratory</b></span>
-              <span class="author-block"><b style="color:#008AD7; font-weight:normal">&#x25B6 </b> Nanjing University</span>
-              <span class="author-block"><b style="color:#F2A900; font-weight:normal">&#x25B6 </b> The University of Hong Kong</span>
+        <!--  <span class="author-block"><b style="color:#008AD7; font-weight:normal">&#x25B6 </b> Nanjing University</span>
+              <span class="author-block"><b style="color:#F2A900; font-weight:normal">&#x25B6 </b> The University of Hong Kong</span>-->
             </div>
 
             
@@ -170,7 +170,7 @@
                     <span class="icon">
                       <i class="ai ai-arxiv"></i>
                     </span>
-                    <span>arXiv</span>
+                    <span>arXiv (InternVL)</span>
                   </a>
                 </span>
                 <span class="link-block">
@@ -243,9 +243,11 @@
     <div class="container is-max-desktop">
       <div class="hero-body">
         <h4 class="subtitle has-text-centered">
+          🔥<span style="color: #ff3860">[NEW!]</span> The preview version of Mini-InternVL has been deployed on the <a href="https://internvl.opengvlab.com/">demo</a>. Select Mini-InternVL-Chat-V1-5 in the demo to experience lightning-fast performance
+          <br><br>
           🔥<span style="color: #ff3860">[NEW!]</span> InternVL-Chat-V1.5 has been released at <a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-5">HF link</a>, approaching the performance of GPT-4V and Gemini Pro on various benchmarks like MMMU, DocVQA, ChartQA, MathVista, etc
           <br><br>
-          we present InternVL, a large-scale visionlanguage foundation model that scales up the vision foundation model to 6 billion parameters and is aligned for generic
+          We present InternVL, a large-scale visionlanguage foundation model that scales up the vision foundation model to 6 billion parameters and is aligned for generic
           visual-linguistic tasks.
           We hope this work could contribute to the development of the VLLM community
         </h4>
@@ -269,12 +271,12 @@
             <p>
               InternVL is a 6-billion-parameter vision-language foundation model that, with only 28% of the parameter count, possesses visual capabilities equivalent to ViT-22B. It integrates with large language models (LLM) through an innovative progressive alignment strategy to construct a multimodal dialogue system. InternVL has achieved optimal performance on 32 general vision-language benchmark tasks!
               <ol type="1">
-                <li><b>Powerful Visual Encoder</b>. <span style="font-size: 95%;">InternVL, through its unique visual encoder, InternViT-6B, employs a continuous learning strategy to greatly enhance the depth and breadth of visual understanding. This strategy enables InternViT-6B to achieve seamless transfer and reuse among various large language models, strengthening the model's ability to parse complex visual content and exhibit more precise recognition and interpretation capabilities in image-intensive tasks.</span></li>
-                <li><b>Dynamic High Resolution</b>. <span style="font-size: 95%;">We introduce <it><b>LLaVA</b> (<b>L</b>arge <b>L</b>anguage-<b>a</b>nd-<b>V</b>ision <b>A</b>ssistant)</it>, an end-to-end trained large multimodal model that connects a vision encoder and LLM for general-purpose visual and language understanding.</li>
-                <li><b>High-Quality Bilingual Dataset</b>. <span style="font-size: 95%;">Our early experiments show that LLaVA demonstrates impressive multimodel chat abilities, sometimes exhibiting the behaviors of multimodal GPT-4 on unseen images/instructions, and yields a 85.1% relative score compared with GPT-4 on a synthetic multimodal instruction-following dataset.
-                  When fine-tuned on <a href="https://scienceqa.github.io/">Science QA</a>, the synergy of LLaVA and GPT-4  achieves a new state-of-the-art accuracy of 92.53%.</li>
-                <li><b>Performance</b>. <span style="font-size: 95%;">We make GPT-4 generated visual instruction tuning data, our model and code base publicly available.</li>
-              </ol>  
+                <li><b>Powerful Visual Encoder</b>. <span style="font-size: 95%;">InternVL 1.5, through its unique visual encoder, InternViT-6B, employs a continuous learning strategy to greatly enhance the depth and breadth of visual understanding. This strategy enables InternViT-6B to achieve seamless transfer and reuse among various large language models, strengthening the model's ability to parse complex visual content and exhibit more precise recognition and interpretation capabilities in image-intensive tasks.</span></li>
+                <li><b>Dynamic High Resolution</b>. <span style="font-size: 95%;">InternVL 1.5 introduces a brand-new dynamic high-resolution strategy for image processing.This feature supports input resolutions of up to 4K, optimizing the presentation of image details and improving the model's expressiveness and accuracy on high-resolution images, while also ensuring efficient computation. This revolutionary feature significantly enhances the overall image processing performance and is expected to be a game-changer in the field of image processing.</span></li>
+                <li><b>High-Quality Bilingual Dataset</b>. <span style="font-size: 95%;">InternVL 1.5 integrates a wide range of high-quality bilingual datasets covering English and Chinese, significantly improving the model's operational flexibility and accuracy in multilingual environments. In addition, through the data translation pipeline developed by open-source large language models, InternVL 1.5 can automatically expand to more languages, showing tremendous potential in global applications.</li>
+                <li><b>Performance</b>. <span style="font-size: 95%;">We conducted extensive evaluations in 18 multimodal benchmark tests</li>
+              </ol>
+              <img src="images/vs.png" alt="VS" style="margin-top: 20px; width: 100%; max-width: 600px; display: block; margin-left: auto; margin-right: auto;">  
            </p>
   
           </div>
@@ -285,16 +287,15 @@
   </section>
 
 
-  
+<!--
 <section class="section">
-  <!-- Results. -->
+  
   <div class="columns is-centered has-text-centered">
     <div class="column is-six-fifths">
       <h2 class="title is-3"><img id="painting_icon" width="3%" src="https://cdn-icons-png.flaticon.com/512/5886/5886212.png"> Multimodal Instrucion-Following Data</h2>
     </div>
   </div>
-  <!-- </div> -->
-  <!--/ Results. -->    
+    
 <div class="container is-max-desktop">
 
   <div class="columns is-centered">
@@ -304,7 +305,7 @@
           Based on the COCO dataset, we interact with language-only GPT-4, and collect 158K unique language-image instruction-following samples in total, including 58K in conversations, 23K in detailed description, and 77k in complex reasoning, respectively. Please check out ``LLaVA-Instruct-150K''' on 
           <a href="https://huggingface.co/datasets/liuhaotian/LLaVA-Instruct-150K">[HuggingFace Dataset]</a>.
 
-<!-- CSS Code: Place this code in the document's head (between the 'head' tags) -->
+
 <style>
   table.GeneratedTable {
     width: 100%;
@@ -328,7 +329,6 @@
   }
   </style>
   
-  <!-- HTML Code: Place this code in the document's body (between the 'body' tags) where the table should appear -->
   <div class="column is-six-fifths" width="80%">
   <table class="GeneratedTable">
     <thead>
@@ -357,7 +357,6 @@
     </tbody>
   </table>
 </div>
-  <!-- Codes by Quackit.com -->
   
         </p>
         <p>
@@ -423,13 +422,14 @@
 
 
 </section>
- 
+-->
 
 <section class="section">
   <!-- Results. -->
   <div class="columns is-centered has-text-centered">
     <div class="column is-six-fifths">
-      <h2 class="title is-3"><img id="painting_icon" width="3%" src="https://cdn-icons-png.flaticon.com/512/5379/5379860.png"> LLaVA: Large Language-and-Vision Assistant</h2>
+      <h2 class="title is-3"><img id="painting_icon" width="3%" src="https://cdn-icons-png.flaticon.com/512/5379/5379860.png"> InternVL: Scaling up Vision Foundation Models and Aligning
+        for Generic Visual-Linguistic Tasks</h2>
     </div>
   </div>
   <!-- </div> -->

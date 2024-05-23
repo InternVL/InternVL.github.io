@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>InternVL 1.5: How Far Are We to GPT-4V?</title>
+    <meta name="description" content="InternVL 1.5 achieves performance parity with top commercial models like GPT-4V, demonstrating the power of open-source vision-language models.">
+    <link rel="stylesheet" href="/blog/assets/main.css">
+</head>
+<body>
+    <header class="site-header" role="banner">
+        <div class="wrapper">
+            <a class="site-title" rel="author" href="/blog/">InternVL</a>
+            <nav class="site-nav">
+                <input type="checkbox" id="nav-trigger" class="nav-trigger"/>
+                <label for="nav-trigger">
+                    <span class="menu-icon">
+                        <svg viewBox="0 0 18 15" width="18px" height="15px">
+                            <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                        </svg>
+                    </span>
+                </label>
+                <div class="trigger"></div>
+            </nav>
+        </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+                <header class="post-header">
+                    <h1 class="post-title p-name" itemprop="name headline">InternVL 1.5: How Far Are We to GPT-4V? Closing the Gap to Commercial Multimodal Models with Open-Source Suites</h1>
+                    <p class="post-meta">
+                        <time class="dt-published" datetime="2024-04-30" itemprop="datePublished">2024/04/30</time>
+                        • 
+                        <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+                            <span class="p-author h-card" itemprop="name">Zhe Chen, Weiyun Wang, Hao Tian, Shenglong Ye, Zhangwei Gao, Erfei Cui, Wenwen Tong, Kongzhi Hu, Jiapeng Luo, Zheng Ma, Ji Ma, Jiaqi Wang, Xiaoyi Dong, Hang Yan, Hewei Guo, Conghui He, Botian Shi, Zhenjiang Jin, Chao Xu, Bin Wang, Xingjian Wei, Wei Li, Wenjian Zhang, Bo Zhang, Pinlong Cai, Licheng Wen, Xiangchao Yan, Min Dou, Lewei Lu, Xizhou Zhu, Tong Lu, Dahua Lin, Yu Qiao, Jifeng Dai, Wenhai Wang</span>
+                        </span>
+                    </p>
+                </header>
+                <table>
+                        <thead>
+                        <tr>
+                        <th>Type</th>
+                        <th>Model</th>
+                        <th>Release Date</th>
+                        <th>Download</th>
+                        <th>Note</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+                        <td rowspan="2">Vision Large Language Model</td>
+                        <td>InternVL−Chat−V1.5-Int8</td>
+                        <td>2024.04.28</td>
+                        <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-5-Int8" rel="nofollow">HF link</a></td>
+                        <td>The INT8 version of InternVL-Chat-V1-5</td>
+                        </tr>
+
+                        <tr>
+                        <td>InternVL−Chat−V1.5</td>
+                        <td>2024.04.18</td>
+                        <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-5" rel="nofollow">HF link</a></td>
+                        <td>support 4K image; super strong OCR; Approaching the performance of GPT-4V and Gemini Pro on various benchmarks like MMMU, DocVQA, ChartQA, MathVista, etc. (🔥new)</td>
+                        </tr>
+
+                        <tr>
+                         <td>Vision Foundation Model</td>
+                            <td>InternViT−6B−448px−V1.5</td>
+                        <td>2024.04.20</td>
+                        <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-5" rel="nofollow">HF link</a></td>
+                        <td>support dynamic resolution, super strong OCR (🔥new)</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                <div class="post-content e-content" itemprop="articleBody">
+                    <center>
+                        <p><img width="70%" alt="image" src="images/v1.5_sota.png"></p>
+                </center>
+
+                    <p>We introduce InternVL 1.5, an open-source multimodal large language model (MLLM) to bridge the capability gap between open-source and proprietary commercial models in multimodal understanding. We introduce three simple designs:
+                    </p>
+
+                    <ol>
+                        <li><b>Strong Vision Encoder:</b> we explored a continuous learning strategy for the large-scale vision foundation model---InternViT-6B, boosting its visual understanding capabilities, and making it can be transferred and reused in different LLMs. </li>
+                    <li><b>Dynamic High-Resolution:</b> we divide images into tiles ranging from 1 to 40 of 448 × 448 pixels according to the aspect ratio and resolution of the input images, which supports up to 4K resolution input.</li>
+                    <li><b>High-Quality Bilingual Dataset:</b> we carefully collected a high-quality bilingual dataset that covers common scenes, document images, and annotated them with English and Chinese question-answer pairs, significantly enhancing performance in OCR- and Chinese-related tasks.</li>
+                    </ol>
+
+<h3 id="method">Method</h3>
+
+                    <p>
+                        As illustrated in Figure 3, InternVL 1.5 employs an architecture akin to widely-used open-source MLLMs, specifically the “ViT-MLP-LLM” configuration referenced in various existing studies. Our implementation of this architecture integrates a pre-trained InternViT-6B with a pre-trained InternLM2-20B using a randomly initialized MLP projector.
+                        During training, we implemented a dynamic resolution strategy, dividing images into tiles of 448 × 448 pixels in sizes ranging from 1 to 12, based on the aspect ratio and resolution of the input images. During testing, this can be zero-shot scaled up to 40 tiles (i.e., 4K resolution). To enhance scalability for high resolution, we simply employed a pixel shuffle operation to reduce the number of visual tokens to one-quarter of the original. Therefore, in our model, a 448 × 448 image is represented by 256 visual tokens.
+                    </p>
+                    <center>
+                                            <p><img width="80%" alt="image" src="images/internvl1.5_method.png"></p>
+                    </center>
+
+<h3 id="model-card">Model Card</h3>
+
+                        <table  style="text-align: center;">
+                          <tr><th colspan="2">Name</th><th>InternVL-Chat-V1.5</th><th>InternVL-Chat-V1.5-Plus</th></tr>
+                          <tr><th rowspan="4">Model Size</th><td>Total</td><td><b>25.51B</b></td><td><b>40.07B</b></td></tr>
+                          <tr><td>ViT</td><td>5.54B</td><td>5.54B</td></tr>
+                          <tr><td>MLP</td><td>116.43M</td><td>143.17M</td></tr>
+                          <tr><td>LLM</td><td>19.86B</td><td>34.39B</td></tr>
+                          <tr><th colspan="2">Resolution</th><td colspan="2" >dynamic resolution, max to 12 tiles of 448 x 448 in training, max to 40 tiles in testing (4K resolution).</td></tr>
+                            <tr><th rowspan="2">Stage-1</th><th>Training Data</th><td colspan="2"  style="text-align: left;">The pre-training dataset utilized in our InternVL 1.5 encompasses a diverse range of publicly accessible sources. These datasets span multiple tasks, including captioning, which predominantly uses datasets such as Laion-EN, Laion-ZH, COYO, and GRIT, constituting 53.9% of the total data. Detection and grounding tasks utilize datasets like Objects365, GRIT, and All-Seeing, making up 5.2%. For OCR tasks, we utilized large-scale datasets such as Wukong-OCR, LaionCOCO-OCR, and Common Crawl PDFs, which constitute 32.0% of our data. These datasets were constructed using PaddleOCR to perform OCR on Chinese images from Wukong and on English images from LaionCOCO. Smaller OCR datasets include MMC-Inst, LSVT, ST-VQA, RCTW-17, ArT, and others, accounting for 8.9% of the data, which focus on more specific or constrained OCR challenges.</td></tr>
+                          <tr><th>Trainable Module</th><td colspan="1">ViT + MLP</td><td colspan="1">MLP</td></tr>
+                          <tr><th rowspan="2">Stage-2</th><th>Training Data</th><td colspan="2">5M high-quality bilingual data. Please see our technical report for more details.</td></tr>
+                          <tr><th>Trainable Module</th><td colspan="2">ViT + MLP + LLM</td></tr>
+                        </table>
+
+                        <p>The hyperparameters used for pr-etraining and fine-tuning are listed in the following table.</p>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Stage</th>
+                                    <th>Trainable Module</th>
+                                    <th>#Samples</th>
+                                    <th>Batch Size</th>
+                                    <th>Learning rate</th>
+                                    <th>Epoch</th>
+                                    <th>Max length</th>
+                                    <th>Weight decay</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Pre-train</td>
+                                    <td>ViT + MLP / MLP</td>
+                                    <td>~200M</td>
+                                    <td>2048</td>
+                                    <td>1e-5</td>
+                                    <td>1</td>
+                                    <td>4096</td>
+                                    <td>0.05</td>
+                                </tr>
+                                <tr>
+                                    <td>Fine-tune</td>
+                                    <td>ViT + MLP + LLM (full model)</td>
+                                    <td>~5M</td>
+                                    <td>1024</td>
+                                    <td>2e-5</td>
+                                    <td>1</td>
+                                    <td>4096</td>
+                                    <td>0.05</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3 id="performance">Performance</h3>
+                    <center>
+                        <p><img width="90%" alt="image" src="images/img.png"></p>
+                        <p><img width="90%" alt="image" src="images/img_2.png"></p>
+                    </center>
+
+
+                </div>
+                <a class="u-url" href="/blog/2024-05-20-InternVL-1-5-vs-GPT-4V" hidden></a>
+
+
+                <h2 class="title">Examples</h2>
+                <center>
+                    <p><a rel="nofollow" href="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/YVr-93mvVMR6UFpGezns7.png"><img alt="image/png" width="90%"  src="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/YVr-93mvVMR6UFpGezns7.png"></a>
+                    <a rel="nofollow" href="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/ivhj4QqcO2NHUa28DTDkK.png"><img alt="image/png" width="90%" src="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/ivhj4QqcO2NHUa28DTDkK.png"></a>
+                    <a rel="nofollow" href="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/18GeOW10QVcSt5g--TgDY.png"><img alt="image/png" width="90%" src="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/18GeOW10QVcSt5g--TgDY.png"></a>
+                    <a rel="nofollow" href="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/tGM_TwdV297H1fCxQ0PZU.png"><img alt="image/png" width="90%" src="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/tGM_TwdV297H1fCxQ0PZU.png"></a>
+                    <a rel="nofollow" href="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/FwlSRBpKgURAVkXNOLoSp.png"><img alt="image/png" width="90%" src="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/FwlSRBpKgURAVkXNOLoSp.png"></a>
+                    <a rel="nofollow" href="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/to3nOaAnyv-fGLEoNPLzz.png"><img alt="image/png" width="90%" src="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/to3nOaAnyv-fGLEoNPLzz.png"></a></p>
+
+                </center>
+
+                <h2 class="title">Citation</h2>
+<pre><code>
+  @article{chen2023internvl,
+      title={InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks},
+      author={Chen, Zhe and Wu, Jiannan and Wang, Wenhai and Su, Weijie and Chen, Guo and Xing, Sen and Zhong, Muyan and Zhang, Qinglong and Zhu, Xizhou and Lu, Lewei and Li, Bin and Luo, Ping and Lu, Tong and Qiao, Yu and Dai, Jifeng},
+      journal={arXiv preprint arXiv:2312.14238},
+      year={2023}
+  }
+  @article{chen2024far,
+    title={How Far Are We to GPT-4V? Closing the Gap to Commercial Multimodal Models with Open-Source Suites},
+    author={Chen, Zhe and Wang, Weiyun and Tian, Hao and Ye, Shenglong and Gao, Zhangwei and Cui, Erfei and Tong, Wenwen and Hu, Kongzhi and Luo, Jiapeng and Ma, Zheng and others},
+    journal={arXiv preprint arXiv:2404.16821},
+    year={2024}
+  }
+  </code></pre>
+
+            </article>
+        </div>
+    </main>
+    <footer class="site-footer h-card">
+        <data class="u-url" href="/blog/"></data>
+        <div class="wrapper">
+            <div class="footer-col-wrapper">
+                <div class="footer-col footer-col-1">
+                    <ul class="contact-list">
+                    </ul>
+                </div>
+                <div class="footer-col footer-col-2">
+                    <ul class="social-media-list"></ul>
+                </div>
+                <div class="footer-col footer-col-3">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

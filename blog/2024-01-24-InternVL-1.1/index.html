@@ -5,20 +5,16 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Begin Jekyll SEO tag v2.8.0 -->
-        <title>InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks</title>
+        <title>InternVL 1.1: Enhance Chinese and OCR Capabilities</title>
         <meta name="generator" content="Jekyll v3.9.4"/>
-        <meta property="og:title" content="InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks"/>
+        <meta property="og:title" content="InternVL 1.1: Enhance Chinese and OCR Capabilities"/>
         <meta name="author" content="chenzhe"/>
         <meta property="og:locale" content="en_US"/>
-        <meta name="description" content="ld knowledge. LLaVA-NeXT even exceeds Gemini Pro on several benchmarks."/>
-        <meta property="og:description" content="LLaVA team presents LLaVA-NeXT, with improved reasoning, OCR, and world knowledge. LLaVA-NeXT even exceeds Gemini Pro on several benchmarks."/>
-        <link rel="canonical" href="/2023-12-12-InternVL-1.0/"/>
-        <meta property="og:url" content="/2023-12-12-InternVL-1.0/"/>
         <meta property="og:site_name" content="InternVL"/>
         <meta property="og:type" content="article"/>
         <meta property="article:published_time" content="2024-01-30T12:33:38-06:00"/>
         <meta name="twitter:card" content="summary"/>
-        <meta property="twitter:title" content="InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks"/>
+        <meta property="twitter:title" content="InternVL 1.1: Enhance Chinese and OCR Capabilities"/>
         <script type="application/ld+json">
             {
                 "@context": "https://schema.org",
@@ -75,37 +71,212 @@
                     </header>
                     <div class="post-content e-content" itemprop="articleBody">
                         <!-- 插入Markdown转换后的HTML内容 -->
+                    <table>
+                        <thead>
+                        <tr>
+                        <th>Type</th>
+                        <th>Model</th>
+                        <th>Release Date</th>
+                        <th>Download</th>
+                        <th>Note</th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-                        <p>We released <a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-1">InternVL-Chat-V1.1</a>, featuring a structure similar to LLaVA, including a ViT, an MLP projector, and an LLM. In this version, we explored increasing the resolution to 448x448, enhancing OCR capabilities, and improving support for Chinese conversations. Below is an example of the improved capabilities.</p>
+                        <tr>
+                        <td>Vision Large Language Model</td>
+                        <td>InternVL−Chat−V1.1</td>
+                        <td>2024.01.24</td>
+                        <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-1" rel="nofollow">HF link</a></td>
+                        <td>support Chinese and stronger OCR</td>
+                        </tr>
+                        <tr>
+                         <td>Vision Foundation Model</td>
+                            <td>InternViT−6B−448px−V1.0</td>
+                        <td>2024.01.30</td>
+                        <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-0" rel="nofollow">HF link</a></td>
+                        <td>vision foundation model, 448 resolution</td>
+                        </tr>
 
-                        <h2 id="model-card">Model Card</h2>
+                        </tbody>
+                    </table>
+
+                        <p>We released <a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-1">🤗 InternVL-Chat-V1.1</a>, featuring a structure similar to LLaVA, including a ViT, an MLP projector, and an LLM.
+                        As shown in the figure below, we connected our InternViT-6B to LLaMA2-13B through a simple MLP projector. Note that the LLaMA2-13B used here is not the original model but an internal chat version obtained by incrementally pre-training and fine-tuning the LLaMA2-13B base model for Chinese language tasks. Overall, our model has a total of 19 billion parameters.</p>
+                        <p><img width="650" alt="image" src="images/architecture.png"></p>
+
+                        <p>In this version, we explored increasing the resolution to 448x448, enhancing OCR capabilities, and improving support for Chinese conversations. Since the 448x448 input image generates 1024 visual tokens after passing through the ViT, leading to a significant computational burden, we use a pixel shuffle operation to reduce the 1024 tokens to 256 tokens.</p>
+
+
+                        <p>Below is the model card.</p>
+
+                        <h3 id="model-card">Model Card</h3>
 
                         <table>
-                          <tr><th colspan="2">Name</th><th>LLaVA-NeXT-7B</th><th>LLaVA-NeXT-13B</th><th>LLaVA-NeXT-34B</th></tr>
-                          <tr><th rowspan="4">Model Size</th><td>Total</td><td><b>7.06B</b></td><td><b>13.35B</b></td><td><b>34.75B</b></td></tr>
-                          <tr><td>Vision Encoder</td><td>303.5M</td><td>303.5M</td><td>303.5M</td></tr>
-                          <tr><td>Connector</td><td>21M</td><td>31.5M</td><td>58.7M</td></tr>
-                          <tr><td>LLM</td><td>6.74B</td><td>13B</td><td>34.39B</td></tr>
-                          <tr><th colspan="2">Resolution</th><td colspan="3">336 x [(2,2), (1,2), (2,1), (1,3), (3,1), (1,4), (4,1)]</td></tr>
-                          <tr><th>Stage-1</th><th>Training Data</th><td colspan="3">558K</td></tr>
-                          <tr><th></th><th>Trainable Module</th><td colspan="3">Connector</td></tr>
-                          <tr><th>Stage-2</th><th>Training Data</th><td colspan="3">760K</td></tr>
-                          <tr><th></th><th>Trainable Module</th><td colspan="3">Full model</td></tr>
-                          <tr><th colspan="2">Compute (#GPU x #Hours)</th><td>8x20</td><td>16x24</td><td>32x30</td></tr>
-                          <tr><th colspan="2">Training Data (#Samples)</th><td colspan="3">1318K</td></tr>
+                          <tr><th colspan="2">Name</th><th>InternVL-Chat-V1.1</th></tr>
+                          <tr><th rowspan="4">Model Size</th><td>Total</td><td><b>19.11B</b></td></tr>
+                          <tr><td>ViT</td><td>5.91B</td></tr>
+                          <tr><td>MLP</td><td>91.78M</td></tr>
+                          <tr><td>LLM</td><td>13.12B</td></tr>
+                          <tr><th colspan="2">Resolution</th><td colspan="1">448 x 448</td></tr>
+                            <tr><th rowspan="2">Stage-1</th><th>Training Data</th><td colspan="1">Trained on 72M samples, including COYO, LAION, CC12M, CC3M, SBU, Wukong, GRIT, Objects365, OpenImages, and OCR-related datasets. In this stage, we load the pretrained weights of the original <a href="https://huggingface.co/OpenGVLab/InternViT-6B-224px">InternViT-6B-224px</a> and interpolate its position embedding to the size corresponding to 448 x 448 pixels. Moreover, in order to reduce the number of visual tokens, we use a pixel shuffle operation to reduce 1024 tokens to 256 tokens.</td></tr>
+                          <tr><th>Trainable Module</th><td colspan="1">ViT + MLP</td></tr>
+                          <tr><th rowspan="2">Stage-2</th><th>Training Data</th><td colspan="1">A comprehensive collection of open-source datasets, along with their Chinese translation versions, totaling approximately 6M samples.</td></tr>
+                          <tr><th>Trainable Module</th><td colspan="1">MLP + LLM</td></tr>
                         </table>
+
+                        <p>The hyperparameters used for pr-etraining and fine-tuning are listed in the following table.</p>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Stage</th>
+                                    <th>Trainable Module</th>
+                                    <th>#Samples</th>
+                                    <th>Batch Size</th>
+                                    <th>Learning rate</th>
+                                    <th>Epoch</th>
+                                    <th>Max length</th>
+                                    <th>Weight decay</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Pre-train</td>
+                                    <td>ViT + MLP</td>
+                                    <td>72M</td>
+                                    <td>8192</td>
+                                    <td>2e-5</td>
+                                    <td>1</td>
+                                    <td>384</td>
+                                    <td>0.05</td>
+                                </tr>
+                                <tr>
+                                    <td>Fine-tune</td>
+                                    <td>ViT + MLP + LLM (full model)</td>
+                                    <td>6M</td>
+                                    <td>2048</td>
+                                    <td>2e-5</td>
+                                    <td>1</td>
+                                    <td>768</td>
+                                    <td>0.05</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3 id="performance">Performance</h3>
+                        <table>
+                                    <thead>
+                                        <tr>
+                                            <th>method</th>
+                                            <th>vision encoder</th>
+                                            <th>LLM</th>
+                                            <th>res.</th>
+                                            <th>VQAv2</th>
+                                            <th>GQA</th>
+                                            <th>VizWiz</th>
+                                            <th>SQA</th>
+                                            <th>TextVQA</th>
+                                            <th>POPE</th>
+                                            <th>MME</th>
+                                            <th>MMB</th>
+                                            <th>MMB<sub>CN</sub></th>
+                                            <th>MMVet</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="background-color: rgba(117, 209, 215, 0.1);">
+                                            <td>LLaVA-1.5</td>
+                                            <td>CLIP-L-336px</td>
+                                            <td>Vicuna-13B</td>
+                                            <td>336</td>
+                                            <td>80.0</td>
+                                            <td>63.3</td>
+                                            <td>53.6</td>
+                                            <td>71.6</td>
+                                            <td>61.3</td>
+                                            <td>85.9</td>
+                                            <td>1531.3</td>
+                                            <td>67.7</td>
+                                            <td>63.6</td>
+                                            <td>35.4</td>
+                                        </tr>
+
+                                        <tr style="background-color: rgba(249, 242, 248, 1);">
+                                            <td><a href="https://huggingface.co/OpenGVLab/InternVL-Chat-ViT-6B-Vicuna-13B">InternVL-Chat-V1.0</a></td>
+                                            <td><a href="https://huggingface.co/OpenGVLab/InternViT-6B-224px">IViT-6B-224px</a></td>
+                                            <td>Vicuna-13B</td>
+                                            <td>336</td>
+                                            <td>80.2</td>
+                                            <td>63.9</td>
+                                            <td>54.6</td>
+                                            <td>70.1</td>
+                                            <td>58.7</td>
+                                            <td>87.1</td>
+                                            <td>1546.9</td>
+                                            <td>66.5</td>
+                                            <td>61.9</td>
+                                            <td>33.7</td>
+                                        </tr>
+                                        <tr style="background-color: rgba(249, 242, 248, 1);">
+                                            <td><a href="https://huggingface.co/OpenGVLab/InternVL-Chat-ViT-6B-Vicuna-13B-448px">InternVL-Chat-V1.0</a></td>
+                                            <td><a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-0">IViT-6B-448px</a></td>
+                                            <td>Vicuna-13B</td>
+                                            <td>448</td>
+                                            <td><b>82.0</b></td>
+                                            <td><b>64.1</b></td>
+                                            <td><b>60.1</b></td>
+                                            <td>71.6</td>
+                                            <td>64.8</td>
+                                            <td><b>87.2</b></td>
+                                            <td>1579.0</td>
+                                            <td>68.2</td>
+                                            <td>64.0</td>
+                                            <td>36.7</td>
+                                        </tr>
+                                        <tr style="background-color: rgb(255,248,227);">
+                                            <td><a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-1">InternVL-Chat-V1.1</a></td>
+                                            <td><a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-0">IViT-6B-448px</a></td>
+                                            <td>LLaMA2-13B</td>
+                                            <td>448</td>
+                                            <td>80.9</td>
+                                            <td>62.5</td>
+                                            <td>57.3</td>
+                                            <td><b>90.1</b></td>
+                                            <td><b>68.6</b></td>
+                                            <td>87.1</td>
+                                            <td><b>1659.8</b></td>
+                                            <td><b>75.4</b></td>
+                                            <td><b>70.3</b></td>
+                                            <td><b>46.7</b></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                        <h3 id="examples">Examples</h3>
+
+                        <p>Below is an example of the improved capabilities.</p>
+
                         <p><img width="650" alt="image" src="images/Intern1_2_2.png"></p>
 
                     </div>
+
+<h2 class="title">Citation</h2>
+<pre><code>
+  @article{chen2023internvl,
+      title={InternVL 1.1: Enhance Chinese and OCR Capabilities},
+      author={Chen, Zhe and Wu, Jiannan and Wang, Wenhai and Su, Weijie and Chen, Guo and Xing, Sen and Zhong, Muyan and Zhang, Qinglong and Zhu, Xizhou and Lu, Lewei and Li, Bin and Luo, Ping and Lu, Tong and Qiao, Yu and Dai, Jifeng},
+      journal={arXiv preprint arXiv:2312.14238},
+      year={2023}
+  }
+  </code></pre>
                 </article>
             </div>
         </main>
         <footer class="site-footer h-card">
         <!--   <data class="u-url" href="https://internvl.github.io/blog/">InternVL</data>--> 
             <p class="footer-colophon">
-                <a href="https://internvl.github.io/blog/">InternVL</a> <br>
-                <a href="https://internvl.github.io/blog/2024-05-15-InternVL/">InternVL-1.5</a> <br>
-                <a href="https://internvl.github.io/blog/2024-05-20-Mini-InternVL/">Mini-InternVL</a>
             </p>
         </footer>
     </body>

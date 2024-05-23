@@ -5,20 +5,20 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Begin Jekyll SEO tag v2.8.0 -->
-        <title>InternVL 1.0-1.3: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks| InternVL</title>
+        <title>InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks</title>
         <meta name="generator" content="Jekyll v3.9.4"/>
-        <meta property="og:title" content="InternVL 1.0-1.3: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks"/>
+        <meta property="og:title" content="InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks"/>
         <meta name="author" content="chenzhe"/>
         <meta property="og:locale" content="en_US"/>
-        <meta name="description" content="LLaVA team presents LLaVA-NeXT, with improved reasoning, OCR, and world knowledge. LLaVA-NeXT even exceeds Gemini Pro on several benchmarks."/>
+        <meta name="description" content="ld knowledge. LLaVA-NeXT even exceeds Gemini Pro on several benchmarks."/>
         <meta property="og:description" content="LLaVA team presents LLaVA-NeXT, with improved reasoning, OCR, and world knowledge. LLaVA-NeXT even exceeds Gemini Pro on several benchmarks."/>
-        <link rel="canonical" href="https://internvl.github.io/blog/2024-05-10-InternVL/"/>
-        <meta property="og:url" content="https://internvl.github.io/blog/2024-05-10-InternVL/"/>
+        <link rel="canonical" href="/2023-12-12-InternVL-1.0/"/>
+        <meta property="og:url" content="/2023-12-12-InternVL-1.0/"/>
         <meta property="og:site_name" content="InternVL"/>
         <meta property="og:type" content="article"/>
         <meta property="article:published_time" content="2024-01-30T12:33:38-06:00"/>
         <meta name="twitter:card" content="summary"/>
-        <meta property="twitter:title" content="InternVL 1.0-1.3: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks"/>
+        <meta property="twitter:title" content="InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks"/>
         <script type="application/ld+json">
             {
                 "@context": "https://schema.org",
@@ -62,478 +62,41 @@
             <div class="wrapper">
                 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
                     <header class="post-header">
-                        <h1 class="post-title p-name" itemprop="name headline">InternVL 1.0-1.3: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks</h1>
+                        <h1 class="post-title p-name" itemprop="name headline">InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks</h1>
                         <p class="post-meta">
-                            <time class="dt-published" datetime="2024-01-30T12:33:38-06:00" itemprop="datePublished">May 10, 2024
+                            <time class="dt-published" datetime="2024-01-30T12:33:38-06:00" itemprop="datePublished">2023/12/12
       </time>
-                            • 
+                            •
                             <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-                                <span class="p-author h-card" itemprop="name">cuierfei</span>
+                                <span class="p-author h-card" itemprop="name">Zhe Chen, Jiannan Wu, Wenhai Wang, Weijie Su, Guo Chen, Sen Xing, Muyan Zhong, Qinglong Zhang, Xizhou Zhu, Lewei Lu, Bin Li, Ping Luo, Tong Lu, Yu Qiao, Jifeng Dai
+                                </span>
                             </span>
                         </p>
                     </header>
                     <div class="post-content e-content" itemprop="articleBody">
-                        <!-- 插入Markdown转换后的HTML内容 -->
-                        <h1>InternVL's Blog</h1>
 
-                        <h2>InternVL-Chat-V1.2-Plus</h2>
+                        <h3>What is InternVL?</h3>
 
-                        <blockquote>
-                            <p>Date: 2024/02/21<br>Developed by: Zhe Chen, Weiyun Wang, Wenhai Wang, Erfei Cui, Zhangwei Gao, Xizhou Zhu, Lewei Lu, Tong Lu, Yu Qiao, Jifeng Dai</p>
-                        </blockquote>
+                        <p>We released <a href="https://arxiv.org/abs/2312.14238">InternVL</a>, scaling up the ViT to 6B parameters and aligning it with LLM. It is the largest open-source vision/vision-language foundation model (14B) to date, achieving 32 state-of-the-art performance on a wide range of tasks such as visual perception, cross-modal retrieval, multimodal dialogue, etc.</p>
 
-                        <p><a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-2-Plus">InternVL-Chat-V1.2-Plus</a> uses the same model architecture as InternVL-Chat-V1.2, but the difference lies in the SFT dataset. InternVL-Chat-V1.2 only utilizes an SFT dataset with 1.2M samples, while our plus version employs an SFT dataset with 12M samples.</p>
-
-                        <h3>Performance</h3>
-
-                        <p>* Proprietary Model † Training Set Observed</p>
-
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>name</th>
-                                    <th>image size</th>
-                                    <th>MMMU<br>(val)</th>
-                                    <th>MMMU<br>(test)</th>
-                                    <th>MathVista<br>(testmini)</th>
-                                    <th>MMB<br>(test)</th>
-                                    <th>MMB−CN<br>(test)</th>
-                                    <th>MMVP</th>
-                                    <th>MME</th>
-                                    <th>ScienceQA<br>(image)</th>
-                                    <th>POPE</th>
-                                    <th>TextVQA<br>(val)</th>
-                                    <th>SEEDv1<br>(image)</th>
-                                    <th>VizWiz<br>(test)</th>
-                                    <th>GQA<br>(test)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>GPT-4V*</td>
-                                    <td>unknown</td>
-                                    <td>56.8</td>
-                                    <td>55.7</td>
-                                    <td>49.9</td>
-                                    <td>77.0</td>
-                                    <td>74.4</td>
-                                    <td>38.7</td>
-                                    <td>1409/517</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>78.0</td>
-                                    <td>71.6</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <td>Gemini Ultra*</td>
-                                    <td>unknown</
-
-td>
-                                    <td>59.4</td>
-                                    <td>-</td>
-                                    <td>53.0</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>82.3</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <td>Gemini Pro*</td>
-                                    <td>unknown</td>
-                                    <td>47.9</td>
-                                    <td>-</td>
-                                    <td>45.2</td>
-                                    <td>73.6</td>
-                                    <td>74.3</td>
-                                    <td>40.7</td>
-                                    <td>1497/437</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>74.6</td>
-                                    <td>70.7</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <td>Qwen−VL−Plus*</td>
-                                    <td>unknown</td>
-                                    <td>45.2</td>
-                                    <td>40.8</td>
-                                    <td>43.3</td>
-                                    <td>67.0</td>
-                                    <td>70.7</td>
-                                    <td>-</td>
-                                    <td>1681/502</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>78.9</td>
-                                    <td>65.7</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <td>Qwen−VL−Max*</td>
-                                    <td>unknown</td>
-                                    <td>51.4</td>
-                                    <td>46.8</td>
-                                    <td>51.0</td>
-                                    <td>77.6</td>
-                                    <td>75.7</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>79.5</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>LLaVA−NEXT−34B</td>
-                                    <td>672x672</td>
-                                    <td>51.1</td>
-                                    <td>44.7</td>
-                                    <td>46.5</td>
-                                    <td>79.3</td>
-                                    <td>79.0</td>
-                                    <td>-</td>
-                                    <td>1631/397</td>
-                                    <td>81.8</td>
-                                    <td>87.7</td>
-                                    <td>69.5</td>
-                                    <td>75.9</td>
-                                    <td>63.8</td>
-                                    <td>67.1†</td>
-                                </tr>
-                                <tr>
-                                    <td>InternVL−Chat−V1.2</td>
-                                    <td>448x448</td>
-                                    <td>51.6</td>
-                                    <td>46.2</td>
-                                    <td>47.7</td>
-                                    <td>82.2</td>
-                                    <td>81.2</td>
-                                    <td>56.7</td>
-                                    <td>1687/489</td>
-                                    <td>83.3</td>
-                                    <td>88.0</td>
-                                    <td>72.5</td>
-                                    <td>75.6</td>
-                                    <td>60.0</td>
-                                    <td>64.0†</td>
-                                </tr>
-                                <tr>
-                                    <td>InternVL−Chat−V1.2−Plus</td>
-                                    <td>448x448</td>
-                                    <td>50.3</td>
-                                    <td>45.6</td>
-                                    <td>59.9</td>
-                                    <td>83.8</td>
-                                    <td>82.0</td>
-                                    <td>58.7</td>
-                                    <td>1625/553</td>
-                                    <td>98.1†</td>
-                                    <td>88.7</td>
-                                    <td>74.1†</td>
-                                    <td>76.4</td>
-                                    <td>59.5</td>
-                                    <td>66.9†</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <ul>
-                            <li>MMBench results are collected from the <a href="https://mmbench.opencompass.org.cn/leaderboard">leaderboard</a>.</li>
-                            <li>Update (2024-04-21): We have fixed a bug in the evaluation code, and the TextVQA results have been corrected.</li>
-                        </ul>
-
-                        <h2>InternVL-Chat-V1.2</h2>
-
-                        <blockquote>
-                            <p>Date: 2024/02/12<br>Developed by: Zhe Chen, Weiyun Wang, Wenhai Wang, Erfei Cui, Zhangwei Gao, Xizhou Zhu, Lewei Lu, Tong Lu, Yu Qiao, Jifeng Dai</p>
-                        </blockquote>
-
-                        <p>We are excited to introduce InternVL-Chat-V1.2. Inspired by <a href="https://llava-vl.github.io/blog/2024-01-30-llava-next/">LLaVA-NeXT-34B</a>, we have also adopted <a href="https://huggingface.co/NousResearch/Nous-Hermes-2-Yi-34B">Nous-Hermes-2-Yi-34B</a> as the language model. Below is the pipeline.</p>
-
-                        <p><img width="650" alt="image" src="images/Intern1_2_1.png"></p>
-
-                        <p>From the experimental results, <strong>we've observed that a stronger language model (34B) can better leverage the powerful capabilities of our vision foundation model (<a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-2">InternViT-6B</a>).</strong></p>
-
-                        <p>For better training reproducibility, we follow the minimalist design and data efficiency similar to LLaVA-NeXT. To reduce training costs, we provide a pre-trained MLP projector and only employ around 1 million visual instruction tuning samples for SFT. Our model has a total of 40 billion parameters and can be trained within 1.5 days using 32 A100 GPUs. The code, data, and model will be made publicly available.</p>
-
-                        <h3>Data Preparation</h3>
-
-                        <p>Inspired by LLaVA-NeXT, we adopted a data-efficient SFT strategy to train InternVL-Chat-V1.2, utilizing approximately 1.2M of visual instruction tuning samples in total, all of which are fully open-source. In a macro sense, we build upon <a href="https://github.com/InternLM/InternLM-XComposer/blob/main/projects/ShareGPT4V/docs/Data.md#prepare-images">ShareGPT-4V</a> and additionally integrate <a href="https://huggingface.co/datasets/openbmb/llava_zh">LLaVA-ZH</a>, <a href="https://github.com/kushalkafle/DVQA_dataset">DVQA</a>, <a href="https://github.com/vis-nlp/ChartQA">ChartQA</a>, <a href="https://allenai.org/data/diagrams">AI2D</a>, <a href="https://www.docvqa.org/datasets">DocVQA</a>, <a href="https://github.com/SCNU203/GeoQA-Plus">GeoQA+</a>, and <a href="https://huggingface.co/datasets/naver-clova-ix/synthdog-en">SynthDoG-EN</a>. Most of the data remains consistent with LLaVA-NeXT.</p>
-
-
-                        <h3>Performance</h3>
-
-                        <p>* Proprietary Model</p>
-
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>name</th>
-                                    <th>image size</th>
-                                    <th>MMMU<br>(val)</th>
-                                    <th>MMMU<br>(test)</th>
-                                    <th>
-
-MathVista<br>(testmini)</th>
-                                    <th>MMB<br>(test)</th>
-                                    <th>MMB−CN<br>(test)</th>
-                                    <th>MMVP</th>
-                                    <th>MME</th>
-                                    <th>ScienceQA<br>(image)</th>
-                                    <th>POPE</th>
-                                    <th>TextVQA</th>
-                                    <th>SEEDv1<br>(image)</th>
-                                    <th>VizWiz<br>(test)</th>
-                                    <th>GQA<br>(test)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>GPT-4V*</td>
-                                    <td>unknown</td>
-                                    <td>56.8</td>
-                                    <td>55.7</td>
-                                    <td>49.9</td>
-                                    <td>77.0</td>
-                                    <td>74.4</td>
-                                    <td>38.7</td>
-                                    <td>1409/517</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>78.0</td>
-                                    <td>71.6</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <td>Gemini Ultra*</td>
-                                    <td>unknown</td>
-                                    <td>59.4</td>
-                                    <td>-</td>
-                                    <td>53.0</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>82.3</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <td>Gemini Pro*</td>
-                                    <td>unknown</td>
-                                    <td>47.9</td>
-                                    <td>-</td>
-                                    <td>45.2</td>
-                                    <td>73.6</td>
-                                    <td>74.3</td>
-                                    <td>40.7</td>
-                                    <td>1497/437</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>74.6</td>
-                                    <td>70.7</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <td>Qwen-VL-Plus*</td>
-                                    <td>unknown</td>
-                                    <td>45.2</td>
-                                    <td>40.8</td>
-                                    <td>43.3</td>
-                                    <td>67.0</td>
-                                    <td>70.7</td>
-                                    <td>-</td>
-                                    <td>1681/502</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>78.9</td>
-                                    <td>65.7</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <td>Qwen-VL-Max*</td>
-                                    <td>unknown</td>
-                                    <td>51.4</td>
-                                    <td>46.8</td>
-                                    <td>51.0</td>
-                                    <td>77.6</td>
-                                    <td>75.7</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>79.5</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>LLaVA−NEXT−34B</td>
-                                    <td>672x672</td>
-                                    <td>51.1</td>
-                                    <td>44.7</td>
-                                    <td>46.5</td>
-                                    <td>79.3</td>
-                                    <td>79.0</td>
-                                    <td>-</td>
-                                    <td>1631/397</td>
-                                    <td>81.8</td>
-                                    <td>87.7</td>
-                                    <td>69.5</td>
-                                    <td>75.9</td>
-                                    <td>63.8</td>
-                                    <td>67.1</td>
-                                </tr>
-                                <tr>
-                                    <td>InternVL−Chat−V1.2</td>
-                                    <td>448x448</td>
-                                    <td>51.6</td>
-                                    <td>46.2</td>
-                                    <td>47.7</td>
-                                    <td>82.2</td>
-                                    <td>81.2</td>
-                                    <td>56.7</td>
-                                    <td>1687/489</td>
-                                    <td>83.3</td>
-                                    <td>88.0</td>
-                                    <td>72.5</td>
-                                    <td>75.6</td>
-                                    <td>60.0</td>
-                                    <td>64.0</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <ul>
-                            <li>MMBench results are collected from the <a href="https://mmbench.opencompass.org.cn/leaderboard">leaderboard</a>.</li>
-                            <li>In most benchmarks, InternVL-Chat-V1.2 achieves better performance than LLaVA-NeXT-34B.</li>
-                            <li>Update (2024-04-21): We have fixed a bug in the evaluation code, and the TextVQA result has been corrected to 72.5.</li>
-                        </ul>
-
-                        <h3>Training (SFT)</h3>
-
-                        <p>We provide <a href="./internvl_chat/shell/hermes2_yi34b/internvl_chat_v1_2_hermes2_yi34b_448_res_finetune.sh">slurm scripts</a> for multi-node multi-GPU training. You can use either 32 or 64 GPUs to train this model. If you use 64 GPUs, training will take approximately 18 hours.</p>
-
-
-                        <p>The hyperparameters used for finetuning are listed in the following table.</p>
-
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Hyperparameter</th>
-                                    <th>Trainable Param</th>
-                                    <th>Global Batch Size</th>
-                                    <th>Learning rate</th>
-                                    <th>Epochs</th>
-                                    <th>Max length</th>
-                                    <th>Weight decay</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>InternVL-Chat-V1.2</td>
-                                    <td>40B (full model)</td>
-                                    <td>512</td>
-                                    <td>1e-5</td>
-                                    <td>1</td>
-                                    <td>2048</td>
-                                    <td>0.05</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <h2>InternVL-Chat-V1.1</h2>
-
-                        <blockquote>
-                            <p>Date: 2024/01/24<br>Developed by: Zhe Chen, Wenhai Wang, Xizhou Zhu, Lewei Lu, Tong Lu, Yu Qiao, Jifeng Dai</p>
-                        </blockquote>
-
-                        <p>We released <a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-1">InternVL-Chat-V1.1</a>, featuring a structure similar to LLaVA, including a ViT, an MLP projector, and an LLM. In this version, we explored increasing the resolution to 448x448, enhancing OCR capabilities, and improving support for Chinese conversations. Below is an example of the improved capabilities.</p>
-
-                        <p><img width="650" alt="image" src="images/Intern1_2_2.png"></p>
-
-                        <h2>InternVL</h2>
-
-                        <blockquote>
-                            <p>Date: 2023/12/12<br>Developed by: Zhe Chen, Jiannan Wu, Wenhai Wang, Weijie Su, Guo Chen, Sen Xing, Muyan Zhong, Qinglong Zhang, Xizhou Zhu, Lewei Lu, Bin Li, Ping Luo, Tong Lu, Yu Qiao, Jifeng Dai</p>
-                        </blockquote>
-
-                        <h3>What is InternVL?</
-
-h3>
-
-                        <p>We released <a href="https://huggingface.co/collections/OpenGVLab/internvl-65b92d6be81c86166ca0dde4">InternVL</a>, scaling up the ViT to 6B parameters and aligning it with LLM. It is the largest open-source vision/vision-language foundation model (14B) to date, achieving 32 state-of-the-art performances on a wide range of tasks such as visual perception, cross-modal retrieval, multimodal dialogue, etc.</p>
-
-                        <p><img width="950" alt="image" src="images/Intern1_2_3.png"></p>
-
+                        <div style="text-align: center;">
+                            <p><img width="90%" alt="image"  src="images/sota.png"></p>
+                        </div>
                         <h3>How is InternVL trained?</h3>
 
                         <p>The training strategy of InternVL consists of three progressive stages, including vision-language contrastive training, vision-language generative training, and supervised fine-tuning. These stages effectively leverage public data from diverse sources, ranging from noisy image-text pairs on the web to high-quality caption, VQA, and multi-modal dialogue datasets.</p>
-
-                        <p><img width="700" alt="image" src="images/strategy.png"></p>
+                        <div style="text-align: center;">
+                        <p><img width="70%" alt="image" align="center" src="images/training.png"></p>
+                        </div>
 
                         <h3>What can InternVL do?</h3>
 
-                        <p>InternVL is a “Swiss Army Knife” Model. By flexibly combining the vision encoder and the language middleware, InternVL can support various vision or vision-language tasks, including</p>
+                        <p>InternVL is a “Swiss Army Knife” Model. By flexibly combining the vision encoder and the language middleware, InternVL can support various vision or vision-language tasks, including:</p>
 
-                        <details>
-                            <summary>Visual Perception (click to expand)</summary>
+                            <h4>Visual Perception</h4>
                             <ul>
                                 <li>Linear-Probe Image Classification
-                                <p>ViT-22B uses the private JFT-3B dataset.</p>
+                                <p>* ViT-22B uses the private JFT-3B dataset.</p>
                                 <table>
                                     <thead>
                                         <tr>
@@ -716,9 +279,7 @@ h3>
                                         </tr>
                                         <tr>
                                             <td>InternVL-C (ours)</td>
-                                            <
-
-td>83.2</td>
+                                            <td>83.2</td>
                                             <td>83.8</td>
                                             <td>95.5</td>
                                             <td>77.3</td>
@@ -727,7 +288,7 @@ td>83.2</td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <li>Multilingual Zero-Shot Image Classification</a>]</li>
+                                <li>Multilingual Zero-Shot Image Classification</a></li>
                                 <p>EN: English, ZH: Chinese, JP: Japanese, Ar: Arabic, IT: Italian</p>
                                 <table>
                                     <thead>
@@ -849,10 +410,8 @@ td>83.2</td>
                                     </tbody>
                                 </table>
                             </ul>
-                        </details>
 
-                        <details>
-                            <summary>Cross-Modal Retrieval (click to expand)</summary>
+                            <h4>Cross-Modal Retrieval</h4>
                             <ul>
                                 <li>English Zero-Shot Image-Text Retrieval</li>
                                 <table>
@@ -1132,10 +691,8 @@ td>83.2</td>
                                     </tbody>
                                 </table>
                             </ul>
-                        </details>
 
-                        <details>
-                            <summary>Multimodal Dialogue (click to expand)</summary>
+                            <summary>Multimodal Dialogue</summary>
                             <ul>
                                 <li>Zero-Shot Image Captioning</li>
                                 <table>
@@ -1374,81 +931,8 @@ td>83.2</td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <li>Tiny LVLM [<a href="https://github.com/OpenGVLab/Multi-Modality-Arena/tree/main/tiny_lvlm_evaluation">see details</a>]</li>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Rank</th>
-                                            <th>Model</th>
-                                            <th>Version</th>
-                                            <th>Score</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>🏅️</td>
-                                            <td><a href="https://github.com/OpenGVLab/InternVL"><strong>InternVL</strong></a></td>
-                                            <td>InternVL-Chat</td>
-                                            <td><strong>327.61</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td>🥈</td>
-                                            <td><a href="https://github.com/InternLM/InternLM-XComposer"><strong>InternLM-XComposer-VL</strong></a></td>
-                                            <td>InternLM-XComposer-VL-7B</td>
-                                            <td><strong>322.51</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td>🥉</td>
-                                            <td><a href="https://bard.google.com/"><strong>Bard</strong></a></td>
-                                            <td>Bard</td>
-                                            <td><strong>319.59</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td><a href="https://github.com/QwenLM/Qwen-VL">Qwen-VL-Chat</a></td>
-                                            <td>Qwen-VL-Chat</td>
-                                            <td>316.81</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td><a href="https://github.com/haotian-liu/LLaVA">LLaVA-1.5</a></td>
-                                            <td>Vicuna-7B</td>
-                                            <td>307.17</td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td><a href="https://github.com/salesforce/LAVIS/tree/main/projects/instructblip">InstructBLIP</a></td>
-                                            <td>Vicuna-7B</td>
-                                            <td>300.64</td>
-                                        </tr>
-                                        <tr>
-                                            <td>7</td>
-                                            <td><a href="https://github.com/InternLM/InternLM-XComposer">InternLM-XComposer</a></td>
-                                            <td>InternLM-XComposer-7B</td>
-                                            <td>288.89</td>
-                                        </tr>
-                                        <tr>
-                                            <td>8</td>
-                                            <td><a href="https://github.com/salesforce/LAVIS/tree/main/projects/blip2">BLIP2</a></td>
-                                            <td>FlanT5xl</td>
-                                            <td>284.72</td>
-                                        </tr>
-                                        <tr>
-                                            <td>9</td>
-                                            <td><a href="https://github.com/mlpc-ucsd/BLIVA">BLIVA</a></td>
-                                            <td>Vicuna-7B</td>
-                                            <td>284.17</td>
-                                        </tr>
-                                        <tr>
-                                            <td>10</td>
-                                            <td><a href="https://github.com/bytedance/lynx-llm">Lynx</a></td>
-                                            <td>Vicuna-7B</td>
-                                            <td>279.24</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                
                             </ul>
-                        </details>
                     </div>
                 </article>
             </div>
@@ -1456,9 +940,9 @@ td>83.2</td>
         <footer class="site-footer h-card">
         <!--   <data class="u-url" href="https://internvl.github.io/blog/">InternVL</data>--> 
             <p class="footer-colophon">
-                <a href="https://internvl.github.io/blog/">InternVL</a> <br>
-                <a href="https://internvl.github.io/blog/2024-05-15-InternVL/">InternVL-1.5</a> <br>
-                <a href="https://internvl.github.io/blog/2024-05-20-Mini-InternVL/">Mini-InternVL</a>
+<!--                <a href="https://internvl.github.io/blog/">InternVL</a> <br>-->
+<!--                <a href="https://internvl.github.io/blog/2024-05-15-InternVL/">InternVL-1.5</a> <br>-->
+<!--                <a href="https://internvl.github.io/blog/2024-05-20-Mini-InternVL/">Mini-InternVL</a>-->
             </p>
         </footer>
     </body>

@@ -20,7 +20,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
-  <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.16.0/gradio.js"></script>
+  <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.35.2/gradio.js"></script>
 </head>
 
 <style>
@@ -114,123 +114,104 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">InternVL Family: <span class="is-size-2">Closing the Gap to Commercial Multimodal Models</span></h1>
+            <h1 class="title is-1 publication-title">InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks</h1>
             <h5 class="subtitle is-5 publication-awards">CVPR 2024 (Oral)</h5>
             <div class="is-size-5 publication-authors">
               <span class="author-block">
-                <a href="https://scholar.google.com.hk/citations?hl=zh-CN&user=j1rq_lYAAAAJ" style="color:#f68946;font-weight:normal;">Zhe Chen</a>, et al.
+                <a href="https://scholar.google.com.hk/citations?hl=zh-CN&user=j1rq_lYAAAAJ" style="color:#f68946;font-weight:normal;">Zhe Chen</a>,
+                <a href="https://scholar.google.com.hk/citations?user=1euA66EAAAAJ&hl=zh-CN" style="color:#f68946;font-weight:normal;">Jiannan Wu</a>,
+                <a href="https://whai362.github.io/" style="color:#f68946;font-weight:normal;">Wenhai Wang</a>,
+                <a href="https://www.weijiesu.com/" style="color:#f68946;font-weight:normal;">Weijie Su</a>,
+                <a href="https://scholar.google.com/citations?user=lRj3moAAAAAJ&hl=en" style="color:#f68946;font-weight:normal;">Guo Chen</a>,
+                <a href="https://scholar.google.com/citations?user=2ZZz69AAAAAJ&hl=en" style="color:#f68946;font-weight:normal;">Sen Xing</a>,
+                <a href="https://github.com/zmyzxb" style="color:#f68946;font-weight:normal;">Muyan Zhong</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=LYR7l98AAAAJ&view_op=list_works&sortby=pubdate" style="color:#f68946;font-weight:normal;">Qinglong Zhang</a>,<br>
+                <a href="https://scholar.google.com/citations?user=02RXI00AAAAJ&hl=en" style="color:#f68946;font-weight:normal;">Xizhou Zhu</a>,
+                <a href="https://scholar.google.com.tw/citations?user=zdgKJXIAAAAJ&hl=zh-CN" style="color:#f68946;font-weight:normal;">Lewei Lu</a>,
+                <a href="http://staff.ustc.edu.cn/~binli/" style="color:#f68946;font-weight:normal;">Bin Li</a>,
+                <a href="http://luoping.me/" style="color:#f68946;font-weight:normal;">Ping Luo</a>,
+                <a href="https://scholar.google.com/citations?user=mgqhQGkAAAAJ&hl=en" style="color:#f68946;font-weight:normal;">Tong Lu</a>,
+                <a href="https://scholar.google.com.tw/citations?user=gFtI-8QAAAAJ&hl=zh-CN" style="color:#f68946;font-weight:normal;">Yu Qiao</a>,
+                <a href="https://scholar.google.com.hk/citations?hl=zh-CN&user=j1rq_lYAAAAJ" style="color:#f68946;font-weight:normal;">Jifeng Dai</a>
               </span>
-              <!--<span class="author-block">
-                <a href="https://scholar.google.com.hk/citations?hl=zh-CN&user=j1rq_lYAAAAJ" style="color:#008AD7;font-weight:normal;">Zhe Chen<sup>*</sup></a>,
-              </span>
-              <span class="author-block">
-                <a href="https://scholar.google.com.hk/citations?hl=zh-CN&user=j1rq_lYAAAAJ" style="color:#F2A900;font-weight:normal;">Zhe Chen</a>,
-              </span>
-              <span class="author-block">
-                <a href="https://scholar.google.com.hk/citations?hl=zh-CN&user=j1rq_lYAAAAJ" style="color:#f68946;font-weight:normal;">Zhe Chen</a>
-              </span>
-            </div> -->
+
 
             <div class="is-size-5 publication-authors">
               <span class="author-block"><b style="color:#f68946; font-weight:normal">&#x25B6 </b> OpenGVLab, Shanghai AI Laboratory</b></span>
-        <!--  <span class="author-block"><b style="color:#008AD7; font-weight:normal">&#x25B6 </b> Nanjing University</span>
-              <span class="author-block"><b style="color:#F2A900; font-weight:normal">&#x25B6 </b> The University of Hong Kong</span>-->
+              <span class="author-block"><b style="color:#008AD7; font-weight:normal">&#x25B6 </b> Nanjing University</span>
+              <span class="author-block"><b style="color:#F2A900; font-weight:normal">&#x25B6 </b> The University of Hong Kong</span>
+              <span class="author-block"><b style="color:#3ec40f; font-weight:normal">&#x25B6 </b> The Chinese University of Hong Kong</span>
+              <span class="author-block"><b style="color:#ff481c; font-weight:normal">&#x25B6 </b> Tsinghua University</span> <br>
+              <span class="author-block"><b style="color:#bb52ff; font-weight:normal">&#x25B6 </b> University of Science and Technology of China</span>
+              <span class="author-block"><b style="color:#00f2c2; font-weight:normal">&#x25B6 </b> SenseTime Research</span>
             </div>
-
-            
-          <!-- <div class="column has-text-centered">
-            <h3 class="title is-3 publication-title">Improved Baselines with Visual Instruction Fine-tuning</h3>
-            <div class="is-size-5 publication-authors">
-              <span class="author-block">
-                <a href="https://hliu.cc/" style="color:#f68946;font-weight:normal;">Haotian Liu<sup>*</sup></a>,
-              </span>
-              <span class="author-block">
-                <a href="https://chunyuan.li/" style="color:#008AD7;font-weight:normal;">Chunyuan Li<sup>*</sup></a>,
-              </span>
-              <span class="author-block">
-                <a href="https://yuheng-li.github.io" style="color:#008AD7;font-weight:normal;">Yuheng Li</a>,
-              </span>
-              <span class="author-block">
-                <a href="https://pages.cs.wisc.edu/~yongjaelee/" style="color:#f68946;font-weight:normal;">Yong Jae
-                  Lee</a>
-              </span>
-            </div>
-
-            <div class="is-size-5 publication-authors">
-              <span class="author-block"><b style="color:#f68946; font-weight:normal">&#x25B6 </b> University of
-                Wisconsin-Madison</b></span>
-              <span class="author-block"><b style="color:#008AD7; font-weight:normal">&#x25B6 </b> Microsoft Research</span>
-            </div> -->
 
             <div class="column has-text-centered">
               <div class="publication-links">
                 <span class="link-block">
-                  <a href="https://arxiv.org/pdf/2312.14238" target="_blank"
+                  <a href="https://arxiv.org/abs/2312.14238" target="_blank"
                     class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
+                    <span class="icon" style="color:#ffffff">
                       <i class="ai ai-arxiv"></i>
                     </span>
-                    <span>arXiv (InternVL)</span>
+                    <span style="color:#ffffff">arXiv (InternVL-1.0)</span>
                   </a>
                 </span>
                 <span class="link-block">
                   <a href="https://arxiv.org/abs/2404.16821" target="_blank"
                     class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
+                    <span class="icon" style="color:#ffffff">
                       <i class="ai ai-arxiv"></i>
                     </span>
-                    <span>arXiv (InternVL-1.5)</span>
+                    <span style="color:#ffffff">arXiv (InternVL-1.5)</span>
                   </a>
                 </span>
-                <span class="link-block">
+                <span class="link-block" >
                   <a href="https://github.com/OpenGVLab/InternVL" target="_blank"
                     class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
+                    <span class="icon" style="color:#ffffff">
                       <i class="fab fa-github"></i>
                     </span>
-                    <span>Code</span>
+                    <span style="color:#ffffff">Code</span>
                   </a>
                 </span>
                 <span class="link-block">
                   <a href="https://internvl.opengvlab.com/" target="_blank"
                     class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
+                    <span class="icon" style="color:#ffffff">
                       <i class="far fa-images"></i>
                     </span>
-                    <span>Demo</span>
+                    <span style="color:#ffffff">Demo</span>
                   </a>
                 </span>
                 <span class="link-block">
                   <a href="https://huggingface.co/collections/OpenGVLab/internvl-65b92d6be81c86166ca0dde4" target="_blank"
                     class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fas fa-share-square"></i>
+                    <span class="icon" style="color:#ffffff">
+                      <i class="fas fa-download"></i>
                     </span>
-                    <span>Model</span>
+                    <span style="color:#ffffff">Model</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="./files/internvl_slides_chinese.pdf" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon" style="color:#ffffff">
+                      <i class="fas fa-file-powerpoint"></i>
+                    </span>
+                    <span style="color:#ffffff">Slides (Chinese)</span>
                   </a>
                 </span>
                 <span class="link-block">
                   <a href="https://internvl.github.io/blog" target="_blank"
                     class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fab fa-github"></i>
+                    <span class="icon" style="color:#ffffff">
+                      <i class="fas fa-book"></i>
                     </span>
-                    <span>Blog</span>
+                    <span style="color:#ffffff">Blog</span>
                   </a>
                 </span>
-
-
-                
-
-                <!-- <span class="link-block">
-                <a href="#"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                    <i class="fab fa-youtube"></i>
-                  </span>
-                  <span>Video</span>
-                  </a>
-              </span> -->
               </div>
             </div>
           </div>
@@ -243,25 +224,22 @@
     <div class="container is-max-desktop">
       <div class="hero-body">
         <h4 class="subtitle has-text-centered">
-          🔥<span style="color: #ff3860">[NEW!]</span> The preview version of Mini-InternVL has been deployed on the <a href="https://internvl.opengvlab.com/">demo</a>. Select Mini-InternVL-Chat-V1-5 in the demo to experience lightning-fast performance
+          🔥<span style="color: #ff3860">[NEW!]</span> Mini-InternVL has been deployed on the <a href="https://internvl.opengvlab.com/">demo</a>. Select Mini-InternVL-Chat-2B-V1-5 <br>in the demo to experience lightning-fast performance.
           <br><br>
-          🔥<span style="color: #ff3860">[NEW!]</span> InternVL-Chat-V1.5 has been released at <a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-5">HF link</a>, approaching the performance of GPT-4V and Gemini Pro on various benchmarks like MMMU, DocVQA, ChartQA, MathVista, etc
+          🔥<span style="color: #ff3860">[NEW!]</span> InternVL-Chat-V1.5 has been released at <a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-5">HF link</a>, approaching the performance of GPT-4V <br> and Gemini Pro on various benchmarks like MMMU, DocVQA, ChartQA, MathVista, etc.
           <br><br>
-          We present InternVL, a large-scale visionlanguage foundation model that scales up the vision foundation model to 6 billion parameters and is aligned for generic
-          visual-linguistic tasks.
-          We hope this work could contribute to the development of the VLLM community
         </h4>
       </div>
     </div>
   </section>
-<!--
+
   <section class="section"  style="background-color:#efeff081">
     <div class="container is-max-desktop" id="gradio">
       <gradio-app src="https://internvl.opengvlab.com/"></gradio-app>
     </div>
   </section>
--->
-  <section class="section"  style="background-color:#efeff081">
+
+  <section class="section"  style="background-color:#ffffffff">
     <div class="container is-max-desktop">
       <!-- Abstract. -->
       <div class="columns is-centered has-text-centered">
@@ -269,326 +247,147 @@
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              InternVL is a 6-billion-parameter vision-language foundation model that, with only 28% of the parameter count, possesses visual capabilities equivalent to ViT-22B. It integrates with large language models (LLM) through an innovative progressive alignment strategy to construct a multimodal dialogue system. InternVL has achieved optimal performance on 32 general vision-language benchmark tasks!
-              <ol type="1">
-                <li><b>Powerful Visual Encoder</b>. <span style="font-size: 95%;">InternVL 1.5, through its unique visual encoder, InternViT-6B, employs a continuous learning strategy to greatly enhance the depth and breadth of visual understanding. This strategy enables InternViT-6B to achieve seamless transfer and reuse among various large language models, strengthening the model's ability to parse complex visual content and exhibit more precise recognition and interpretation capabilities in image-intensive tasks.</span></li>
-                <li><b>Dynamic High Resolution</b>. <span style="font-size: 95%;">InternVL 1.5 introduces a brand-new dynamic high-resolution strategy for image processing.This feature supports input resolutions of up to 4K, optimizing the presentation of image details and improving the model's expressiveness and accuracy on high-resolution images, while also ensuring efficient computation. This revolutionary feature significantly enhances the overall image processing performance and is expected to be a game-changer in the field of image processing.</span></li>
-                <li><b>High-Quality Bilingual Dataset</b>. <span style="font-size: 95%;">InternVL 1.5 integrates a wide range of high-quality bilingual datasets covering English and Chinese, significantly improving the model's operational flexibility and accuracy in multilingual environments. In addition, through the data translation pipeline developed by open-source large language models, InternVL 1.5 can automatically expand to more languages, showing tremendous potential in global applications.</li>
-              </ol>
-              <img src="images/vs.png" alt="VS" style="margin-top: 20px; width: 100%; max-width: 600px; display: block; margin-left: auto; margin-right: auto;">  
+               The exponential growth of large language models (LLMs) has opened up numerous possibilities for multimodal AGI systems. However, the progress in vision and vision-language foundation models, which are also critical elements of multi-modal AGI, has not kept pace with LLMs. In this work, we design a large-scale vision-language foundation model (InternVL), which scales up the vision foundation model to 6 billion parameters and progressively aligns it with the LLM, using web-scale image-text data from various sources. This model can be broadly applied to and achieve state-of-the-art performance on 32 generic visual-linguistic benchmarks including visual perception tasks such as image-level or pixel-level recognition, vision-language tasks such as zero-shot image/video classification, zero-shot image/video-text retrieval, and link with LLMs to create multi-modal dialogue systems. It has powerful visual capabilities and can be a good alternative to the ViT-22B. We hope that our research could contribute to the development of multi-modal large models.
            </p>
-  
+
+          <img id="pipeline" width="100%" src="images/pipeline.png">
+            <br>
+            <br>
+          <img id="sota" width="100%" src="images/sota.png">
+
           </div>
         </div>
       </div>
-        
+
     </div>
   </section>
 
-
-<!--
-<section class="section">
-  
+<section class="section"  style="background-color:#efeff081">
+  <!-- Results. -->
   <div class="columns is-centered has-text-centered">
     <div class="column is-six-fifths">
-      <h2 class="title is-3"><img id="painting_icon" width="3%" src="https://cdn-icons-png.flaticon.com/512/5886/5886212.png"> Multimodal Instrucion-Following Data</h2>
+      <h2 class="title is-3">Scaling up Vision Foundation Models</h2>
+
     </div>
   </div>
-    
+  <!-- </div> -->
+  <!--/ Results. -->
 <div class="container is-max-desktop">
 
   <div class="columns is-centered">
     <div class="column is-full-width">
       <div class="content has-text-justified">
         <p>
-          Based on the COCO dataset, we interact with language-only GPT-4, and collect 158K unique language-image instruction-following samples in total, including 58K in conversations, 23K in detailed description, and 77k in complex reasoning, respectively. Please check out ``LLaVA-Instruct-150K''' on 
-          <a href="https://huggingface.co/datasets/liuhaotian/LLaVA-Instruct-150K">[HuggingFace Dataset]</a>.
+          We implement the vision encoder of InternVL (i.e., <b>InternViT-6B</b>) with vanilla vision transformer (ViT). To match the scale of LLMs, we scale up the vision encoder to 6 billion parameters, resulting in the InternViT-6B model.
+          To obtain a good trade-off between accuracy, speed, and stability, we conduct a hyperparameter search for InternViT-6B.
+          We vary the <b>model depth within {32, 48, 64, 80}</b>, the <b>head dimension within {64, 128}</b>, and the <b>MLP ratio within {4, 8}</b>. The model width and the head number are calculated based on the given model scale and other hyperparameters.
 
+          <br>
+          <br>
 
-<style>
-  table.GeneratedTable {
-    width: 100%;
-    background-color: #ffffff;
-    border-collapse: collapse;
-    border-width: 2px;
-    border-color: #c1c4c5;
-    border-style: solid;
-    color: #000000;
-  }
-  
-  table.GeneratedTable td, table.GeneratedTable th {
-    border-width: 2px;
-    border-color: #9b9d9e;
-    border-style: solid;
-    padding: 3px;
-  }
-  
-  table.GeneratedTable thead {
-    background-color: #6691ee;
-  }
-  </style>
-  
-  <div class="column is-six-fifths" width="80%">
-  <table class="GeneratedTable">
-    <thead>
-      <tr>
-        <th>Data file name</th>
-        <th>File Size</th>
-        <th>Sample Size</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a href="https://huggingface.co/datasets/liuhaotian/LLaVA-Instruct-150K/blob/main/conversation_58k.json">conversation_58k.json</a> </td>
-        <td>126 MB</td>
-        <td>58K</td>
-      </tr>
-      <tr>
-        <td><a href="https://huggingface.co/datasets/liuhaotian/LLaVA-Instruct-150K/blob/main/detail_23k.json">detail_23k.json</a></td>
-        <td>20.5 MB</td>
-        <td>23K</td>
-      </tr>
-      <tr>
-        <td><a href="https://huggingface.co/datasets/liuhaotian/LLaVA-Instruct-150K/blob/main/complex_reasoning_77k.json">complex_reasoning_77k.json</a></td>
-        <td>79.6 MB</td>
-        <td>77K</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-  
-        </p>
-        <p>
-          For each subset, we visualize the root noun-verb pairs for the instruction and response. For each chart, please click the link for the interactive page to check out the noun-verb pairs whose frequency is higher the given number.        
-        </p>
-      </div>
+          We employ contrastive learning on a 100M subset of the LAION-en dataset to measure the accuracy, speed, and stability of InternViT-6B variants with different configurations.
+          We report the following findings:
 
-  
-
-
-
-
-      <div class="columns is-centered has-text-centered">
-      <div class="column is-six-fifths" style="display: flex; align-items: flex-start; justify-content: center;">  
-        <figure style="text-align: center;">
-          <img id="teaser" width="100%" src="images/LLaVA-Instruct-150K_noun_verb/conversation_58k_instruction_verb_noun_50.png">  
-          <figcaption>
-            Instruction: Conversation [<a href="images/LLaVA-Instruct-150K_noun_verb/conversation_58k_instruction_verb_noun_0.html">0</a>, <a href="images/LLaVA-Instruct-150K_noun_verb/conversation_58k_instruction_verb_noun_20.html">20</a>, <a href="images/LLaVA-Instruct-150K_noun_verb/conversation_58k_instruction_verb_noun_50.html">50</a>]
-          </figcaption>
-        </figure>
-        <figure style="text-align: center;">
-          <img id="teaser" width="100%" src="images/LLaVA-Instruct-150K_noun_verb/detail_23k_instruction_verb_noun_0.png">  
-          <figcaption>
-            Instruction: Detailed Description  [<a href="images/LLaVA-Instruct-150K_noun_verb/detail_23k_instruction_verb_noun_0.html">0</a>]
-          </figcaption>
-        </figure>
-        <figure style="text-align: center;">
-          <img id="teaser" width="100%" src="images/LLaVA-Instruct-150K_noun_verb/complex_reasoning_77k_instruction_verb_noun_50.png">  
-          <figcaption>
-            Instruction: Complex Reasoning   [<a href="images/LLaVA-Instruct-150K_noun_verb/complex_reasoning_77k_instruction_verb_noun_0.html">0</a>, <a href="images/LLaVA-Instruct-150K_noun_verb/complex_reasoning_77k_instruction_verb_noun_20.html">20</a>, <a href="images/LLaVA-Instruct-150K_noun_verb/complex_reasoning_77k_instruction_verb_noun_50.html">50</a>]
-          </figcaption>
-        </figure>
-      </div>
-      </div>  
-
-
-
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-six-fifths" style="display: flex; align-items: flex-start; justify-content: center;">  
-          <figure style="text-align: center;">
-            <img id="teaser" width="100%" src="images/LLaVA-Instruct-150K_noun_verb/conversation_58k_response_verb_noun_50.png">  
-            <figcaption>
-              Response: Conversation [<a href="images/LLaVA-Instruct-150K_noun_verb/conversation_58k_response_verb_noun_0.html">0</a>, <a href="images/LLaVA-Instruct-150K_noun_verb/conversation_58k_response_verb_noun_20.html">20</a>, <a href="images/LLaVA-Instruct-150K_noun_verb/conversation_58k_response_verb_noun_50.html">50</a>]
-            </figcaption>
-          </figure>
-          <figure style="text-align: center;">
-            <img id="teaser" width="100%" src="images/LLaVA-Instruct-150K_noun_verb/detail_23k_response_verb_noun_50.png">  
-            <figcaption>
-              Response: Detailed Description  [<a href="images/LLaVA-Instruct-150K_noun_verb/detail_23k_response_verb_noun_0.html">0</a>, <a href="images/LLaVA-Instruct-150K_noun_verb/detail_23k_response_verb_noun_20.html">20</a>, <a href="images/LLaVA-Instruct-150K_noun_verb/detail_23k_response_verb_noun_50.html">50</a>]
-            </figcaption>
-          </figure>
-          <figure style="text-align: center;">
-            <img id="teaser" width="100%" src="images/LLaVA-Instruct-150K_noun_verb/complex_reasoning_77k_response_verb_noun_50.png">  
-            <figcaption>
-              Response: Complex Reasoning   [<a href="images/LLaVA-Instruct-150K_noun_verb/complex_reasoning_77k_response_verb_noun_0.html">0</a>, <a href="images/LLaVA-Instruct-150K_noun_verb/complex_reasoning_77k_response_verb_noun_20.html">20</a>, <a href="images/LLaVA-Instruct-150K_noun_verb/complex_reasoning_77k_response_verb_noun_50.html">50</a>]
-            </figcaption>
-          </figure>
-        </div>
-        </div>      
-
-    </div>
-  </div>
-
-
-</section>
--->
-
-<section class="section">
-  <!-- Results. -->
-  <div class="columns is-centered has-text-centered">
-    <div class="column is-six-fifths">
-      <h2 class="title is-3"><img id="painting_icon" width="3%" src="https://cdn-icons-png.flaticon.com/512/5379/5379860.png"> InternVL: Scaling up Vision Foundation Models and Aligning
-        for Generic Visual-Linguistic Tasks</h2>
-    </div>
-  </div>
-  <!-- </div> -->
-  <!--/ Results. -->    
-<div class="container is-max-desktop">
-
-  <div class="columns is-centered">
-    <div class="column is-full-width">
-      <div class="content has-text-justified"> 
-        <p>
-          LLaVa InternVL connects the InternViT-6B vision encoder and the QLLaMA language middleware, utilizing a progressive alignment strategy. The training consists of three stages:
           <ul type="1">
-            <li><b>Stage 1: Vision-Language Contrastive Training</b>. <span style="font-size: 95%;">Here, the vision encoder is aligned with a multilingual LLaMA-7B using large-scale, noisy image-text pairs from various datasets, including LAION-en and COYO. Only the vision encoder's and the text encoder's parameters are updated.</span></li>
-            <li><b>Stage 2: Vision-Language Generative Training</b>. <span style="font-size: 95%;">Both the vision encoder and QLLaMA, initialized from the first stage, are fine-tuned on high-quality image-text pairs. This stage involves training the newly added learnable queries and cross-attention layers.</span></li>
-            <li><b>Stage 3: Supervised Fine-Tuning</b>. <span style="font-size: 95%;">The complete InternVL model or the vision encoder alone is fine-tuned on high-quality multimodal instruction data for tasks such as multi-modal dialogue and visual question answering .</span></li>
+            <li><b>(1) Speed</b>. <span style="font-size: 95%;">For different model settings, when computation is not saturated, the models with smaller depths exhibit faster speed per image.
+          However, as the GPU computation is fully utilized, the speed difference becomes negligible;  </span></li>
+            <li><b>(2) Accuracy</b>. <span style="font-size: 95%;">With the same number of parameters, the depth, head dimension, and MLP ratio have little impact on the performance.
+          Based on these findings, we identified the most stable configuration for our final model, as shown in the following table.   </span></li>
             <br>
-          Please check out our 
-          <a href="https://github.com/OpenGVLab/InternVL?tab=readme-ov-file#model-zoo">[Model Zoo]</a>.
+          </ul>
         </p>
       </div>
       <centering>
         <div style="text-align: center;">
-          <img id="teaser" width="70%" src="images/strategy.png">     
+          <img id="vit6b" width="50%" src="images/vit6b_setting.png">
         </div>
-
-      
-      </centering>           
+      </centering>
     </div>
   </div>
-
+</div>
 
 </section>
-  
 
 
-<section class="section">
+<section class="section" >
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3">Aligning for Generic Visual-Linguistic Tasks</h2>
+    </div>
+  </div>
+  <div class="container is-max-desktop">
+
+  <div class="columns is-centered">
+    <div class="column is-full-width">
+      <div class="content has-text-justified">
+        <p>
+          As shown in Figure 3, the training of InternVL consists of three progressive stages, including vision-language contrastive training, vision-language generative training, and
+supervised fine-tuning. These stages effectively leverage public data from diverse soursota.pngces, ranging from noisy imagetext pairs on the web to high-quality caption, VQA, and multi-modal dialogue datasets.
+          <br>
+          <br>
+
+          <ul type="1">
+            <li><b>Vision-Language Contrastive Training</b>. <span style="font-size: 95%;">
+              In the first stage, we conduct contrastive learning to align InternViT-6B with a multilingual LLaMA-7B on web-scale, noisy imagetext pairs. The data are all publicly available and comprise multilingual content, including LAION-en, LAION-multi, LAION-COCO, COYO, Wukong, etc.
+              We use the combination of these datasets and filter out some extremely low-quality data to train our model.
+              As summarized in Table 2, the original dataset contains 6.03 billion image-text pairs, and 4.98 billion remains after cleaning.</span></li>
+            <li><b>Vision-Language Generative Training</b>. <span style="font-size: 95%;"> In the second stage of training, we connect InternViT-6B with QLLaMA
+and adopt a generative training strategy. Specifically, QLLaMA inherits the weights of LLaMA-7B in the first stage.
+We keep both InternViT-6B and QLLaMA frozen and only
+train the newly added learnable queries and cross-attention
+layers with filtered, high-quality data. Table 2 summarizes
+the datasets for the second stage. It can be seen that we further filtered out data with low-quality captions, reducing it
+from 4.98 billion in the first stage to 1.03 billion. </span></li>
+            <li><b>Supervised Fine-tuning</b>. <span style="font-size: 95%;">To demonstrate the benefits of InternVL in creating multi-modal dialogue systems, we
+connect it with an off-the-shelf LLM decoder (e.g., Vicuna or InternLM) through an MLP layer, and conduct supervised fine-tuning (SFT).
+              As detailed in Table 3, we collect a wide range of high-quality instruction data, totaling approximately 4 million samples. </span></li>
+          </ul>
+        <br>
+        </p>
+      </div>
+      <centering>
+        <div style="text-align: center;">
+          <img id="training" width="100%" src="images/training.png">
+          <br>
+          <br>
+          <img id="data" width="100%" src="images/data.png">
+
+        </div>
+      </centering>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section"   style="background-color:#efeff081">
   <!-- Results. -->
   <div class="columns is-centered has-text-centered">
     <div class="column is-six-fifths">
-      <h2 class="title is-3"><img id="painting_icon" width="3%" src="https://cdn-icons-png.flaticon.com/512/3515/3515174.png"> Performance</h2>
+      <h2 class="title is-3">Performance</h2>
     </div>
   </div>
 
-
-
-  <!-- </div> -->
-  <!--/ Results. -->    
 <div class="container is-max-desktop">
-
-
-  <!-- Grounedtext2img. -->
   <div class="columns is-centered">
     <div class="column is-full-width">
-      <h2 class="title is-4"><img id="painting_icon" width="4%" src="https://cdn-icons-png.flaticon.com/512/1698/1698535.png"> <span style="font-size: 100%;">Benchmarks:</span>InternVL 1.5 VS GPT-4V in 18 multimodal benchmark tests</h2>
-      <!--
-      <div>
-        <a href="https://plotly.com/~lichunyuan24/5/?share_key=d78QObaCAYCIy8PJpe3gd1" target="_blank" title="llava_gpt4_pie" style="display: block; text-align: center;">  <img id="painting_icon" width="90%" src="images/pie_llava_gpt4.png"> </a>
-
-    </div> -->
-    <img src="images/benchmark.png" alt="VS" style="margin-top: 20px; width: 100%; max-width: 800px; display: block; margin-left: auto; margin-right: auto;">  
-    <p style="font-family:Times New Roman"><b>To evaluate InternVL 1.5's performance, the research team conducted extensive evaluations in 18 multimodal benchmark tests. These benchmarks cover various aspects, including OCR-related, general multimodal, mathematical, and multi-turn dialogues. InternVL 1.5 performs well on multiple key dimensions, narrowing the gap between open-source models and GPT-4V, especially reaching the SOTA level in tasks such as OCR, MMB, SEED, and Math.</b>               
+      <h2 class="title is-4">Visual Perception Benchmarks</h2>
+      <img id="perception" width="100%" src="images/perception.png">
     </div>
   </div>
-
-  <!-- Grounedtext2img. -->
-  <!--
   <div class="columns is-centered">
     <div class="column is-full-width">
-      <h2 class="title is-4"> <img id="painting_icon" width="3%" src="https://scienceqa.github.io/img/logo.png"><span style="font-size: 100%;"> Science QA:</span> New SoTA with the synergy of LLaVA with GPT-4</h2>
-      
-      <div>
-        <a href="https://plotly.com/~lichunyuan24/1/?share_key=v4opE3TJpxqQ08RYsDD4iv" target="_blank" title="Plot 1" style="display: block; text-align: center;"><img id="painting_icon" width="65%" src="images/bar_llava_gpt4_scienceqa.png"></a>
-        <script data-plotly="lichunyuan24:1" sharekey-plotly="v4opE3TJpxqQ08RYsDD4iv" src="https://plotly.com/embed.js" async></script>
-    </div>
-        <p style="font-family:Times New Roman"><b>LLaVA alones achieve 90.92%. We use the text-only GPT-4 as the judge, to predict the final answer based on its own previous answers and the LLaVA answers. This "GPT-4 as judge" scheme yields a new SOTA 92.53%.</b>
-              
-    </div>
-  </div>-->
-</section>
+      <h2 class="title is-4">Vision-Language Benchmarks</h2>
+      <img id="zero-shot-cls" width="100%" src="images/zero-shot-cls.png">
+      <img id="zero-shot-retrieval" width="100%" src="images/zero-shot-retrieval.png">
+      <img id="multimodal" width="100%" src="images/multimodal.png">
 
 
-
-<!--
-<section class="section">
-
-  <div class="columns is-centered has-text-centered">
-    <div class="column is-six-fifths">
-      <h2 class="title is-3"> Examples on Visual Instruction Following</h2>
     </div>
   </div>
-
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-six-fifths">
-         <h2 class="title is-4">Visual Reasoning on two examples from <a href="https://arxiv.org/abs/2303.08774">OpenAI GPT-4 Technical Report</a></h2>
-      </div>
-      </div>   
-
-    <div class="columns is-centered has-text-centered">
-    <div class="column is-six-fifths">
-      <img id="teaser" width="35%" src="images/example.png">
-      <img id="teaser" width="38%" src="images/example_2.png">
-    </div>
-    </div>  
-
-  
-
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-six-fifths">
-         <h2 class="title is-4">Optical character recognition (OCR)</a></h2>
-      </div>
-      </div>  
-
-    <div class="columns is-centered has-text-centered">
-    <div class="column is-six-fifths" style="display: flex; align-items: flex-start; justify-content: center;">
-        <img id="teaser" width="32%" src="images/ocr/llava_example_cvpr2023.png">
-        <img id="teaser" width="32%" src="images/ocr/llava_example_cvinw_logo.png">
-        <img id="teaser" width="32%" src="images/ocr/example_llava_exmaple.png">
-    </div>
-    </div>  
--->
-  
-
-  
-
-
-  <div class="container mt-5">
-    <!-- <h2 class="text-center mb-5">Who's GPT-4's favorite? Battles between State-of-the-Art Chatbots</h2> -->
-    <!-- Selection -->
-    <div class="form-row" style="justify-content: flex-end;">
-      <div class="form-group col-md-1">
-        <div class="col-md-2" style="width: 100%"><label>&nbsp;</label></div>
-        <div class="btn-group" role="group" aria-label="Left and Right Controller"
-          style="width: 100%;align-items: flex-end;justify-content: center;flex-direction: row;display: flex;">
-          <button type="button" class="form-control btn btn-primary" id="prev-question"><i
-              class="material-icons">keyboard_arrow_left</i></button>
-          <button type="button" class="form-control btn btn-primary" id="next-question"><i
-              class="material-icons">keyboard_arrow_right</i></button>
-
-        </div>
-      </div>
-    </div>
-
-    <!-- Question Card -->
-    <div style="display: flex; justify-content: center; align-items: center;">
-      <div class="card mb-4" style="width: 100%; display: flex; align-items: center;">
-        <!-- <p><b>Description:</b> Monalisa is a famous painting by Leonardo da Vinci. </p> -->
-
-        <div class="card-body" id="selected-question" style="display: flex; height: 80vh;">
-          <div class="chat-history">
-            <!-- Add your chat messages here -->
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-  </div>
+</div>
 </section>
 
-  <section class="section" id="BibTeX">
+  <section class="section" id="BibTeX"  style="background-color:#ffffffff">
     <div class="container is-max-desktop content">
       <h2 class="title">BibTeX</h2>
       <pre><code>
@@ -609,15 +408,7 @@
     </div>
   </section>
 
-  <section class="section" id="RelatedBlog">
-    <div class="container is-max-desktop content">
-        <h2 class="title">Related Blog</h2>
-        <a href="https://internvl.github.io/blog" target="_blank">Visit our blog</a>
-    </div>
-  </section>
 
-
-  <!--
   <section class="section" id="Acknowledgement">
     <div class="container is-max-desktop content">
       <h2 class="title">Acknowledgement</h2>
@@ -626,21 +417,8 @@
         href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
         Commons Attribution-ShareAlike 4.0 International License</a>.  We thank the LLaMA team for giving us access to their models, and open-source projects, including Alpaca and Vicuna.
       </p>
-
-      <p>
-<b>Usage and License Notices</b>: The data, code and checkpoint is intended and licensed for research use only. They are also restricted to uses that follow the license agreement of CLIP,  LLaMA, Vicuna and GPT-4. The dataset is CC BY NC 4.0 (allowing only non-commercial use) and models trained using the dataset should not be used outside of research purposes.
-</p>
-
-      <p>
-      <a href='https://github.com/Computer-Vision-in-the-Wild/'><img id="painting_icon" width="10%" src="https://avatars.githubusercontent.com/u/97258247?s=200&v=4"></a> 
-      Related Links: 
-      <a href='https://react-vl.github.io/'>[REACT]</a>  
-      <a href='https://gligen.github.io/'>[GLIGEN]</a> 
-      <a href='https://github.com/Computer-Vision-in-the-Wild/'>[Computer Vision in the Wild (CVinW)]</a> 
-      <a href='https://instruction-tuning-with-gpt-4.github.io/'>[Insutrction Tuning with GPT-4]</a>      
-      </p>    
     </div>
-  </section>-->
+  </section>
 
   <script>
     // Handle message showing

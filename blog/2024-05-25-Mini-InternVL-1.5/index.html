@@ -43,7 +43,7 @@
                             <time class="dt-published" datetime="2024-05-20" itemprop="datePublished">May 20, 2024</time>
                             • 
                             <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-                                <span class="p-author h-card" itemprop="name">Zhe Chen*, Zhangwei Gao*, Erfei Cui*, Weiyun Wang, Jinguo Zhu, Hao Tian, Xizhou Zhu, Lewei Lu, Tong Lu, Yu Qiao, Jifeng Dai, Wenhai Wang (* Equal Contribution)</span>
+                                <span class="p-author h-card" itemprop="name">Zhe Chen*, Zhangwei Gao*, Erfei Cui*, Wenhai Wang*, Weiyun Wang, Jinguo Zhu, Hao Tian, Xizhou Zhu, Lewei Lu, Tong Lu, Yu Qiao, Jifeng Dai (* Equal Contribution)</span>
                             </span>
                         </p>
                     </header>
@@ -92,21 +92,21 @@
                                     <th>model</th>
                                     <th>open-<br>source</th>
                                     <th>#param</th>
-                                    <th>DocVQA</th>
-                                    <th>ChartQA</th>
-                                    <th>InfoVQA</th>
-                                    <th>TextVQA</th>
-                                    <th>OCRBench</th>
+                                    <th>DocVQA<br>(test)</th>
+                                    <th>ChartQA<br>(test)</th>
+                                    <th>InfoVQA<br>(test)</th>
+                                    <th>TextVQA<br>(val)</th>
+                                    <th>OCR<br>Bench</th>
                                     <th>MME</th>
                                     <th>RWQA</th>
-                                    <th>AI2D</th>
-                                    <th>MMMU</th>
-                                    <th>MMB-EN/CN</th>
-                                    <th>CCB</th>
+                                    <th>AI2D<br>(test)</th>
+                                    <th>MMMU<br>(val)</th>
+                                    <th>MMB−EN/CN<br>(test)</th>
+                                    <th>CCB<br>(dev)</th>
                                     <th>MMVet</th>
-                                    <th>SEED</th>
+                                    <th>SEED<br>(image)</th>
                                     <th>HallB</th>
-                                    <th>MathVista</th>
+                                    <th>MathVista<br>(mini)</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -251,7 +251,7 @@
                                     <td>-</td>
                                 </tr>
                                 <tr style="background-color: rgba(249, 242, 248, 1);">
-                                    <td>LLaVA-NeXT-34B</td>
+                                    <td>LLaVA-NeXT−34B</td>
                                     <td>✓</td>
                                     <td>35B</td>
                                     <td>84.3</td>
@@ -331,7 +331,7 @@
                                     <td></td>
                                 </tr>
                                 <tr style="background-color: rgba(249, 242, 248, 1);">
-                                    <td>DeepSeek-VL-1.3B</td>
+                                    <td>DeepSeek−VL−1.3B</td>
                                     <td>✓</td>
                                     <td></td>
                                     <td></td>
@@ -363,12 +363,12 @@
                                     <td>67.5</td>
                                     <td>79.0</td>
                                     <td>51.6</td>
-                                    <td>82.1 / 82.0</td>
+                                    <td>82.2 / 81.2</td>
                                     <td>59.2</td>
+                                    <td>48.9</td>
                                     <td>75.6</td>
-                                    <td>49.3</td>
+                                    <td>47.6</td>
                                     <td>47.7</td>
-                                    <td>53.5</td>
                                 </tr>
                                 <tr style="background-color: rgba(249, 242, 248, 1);">
                                     <td>InternVL 1.5</td>
@@ -379,7 +379,7 @@
                                     <td>72.5</td>
                                     <td>80.6</td>
                                     <td>724</td>
-                                    <td>2187.6</td>
+                                    <td>2187.8</td>
                                     <td>66.0</td>
                                     <td>80.7</td>
                                     <td>45.2</td>
@@ -391,24 +391,43 @@
                                     <td>53.5</td>
                                 </tr>
                                 <tr style="background-color: rgb(255,248,227);">
-                                    <td>Mini-InternVL 1.5</td>
+                                    <td>Mini−InternVL&nbsp;1.5</td>
                                     <td>✓</td>
                                     <td>2.2B</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>82.6</td>
+                                    <td>74.6</td>
+                                    <td>56.0</td>
+                                    <td>70.7</td>
+                                    <td>654</td>
+                                    <td>1902.3</td>
+                                    <td>57.9</td>
+                                    <td>70.0</td>
+                                    <td>33.6</td>
+                                    <td>70.7 / 65.6</td>
+                                    <td>63.5</td>
+                                    <td>38.4</td>
+                                    <td>69.8</td>
+                                    <td>37.5</td>
+                                    <td>41.1</td>
+                                </tr>
+                                <tr style="background-color: rgb(255,248,227);">
+                                    <td colspan="2"><b>Percent of InternVL 1.5</b></td>
+                                    <td><b>8.6%</b></td>
+                                    <td><b>90.9%</b></td>
+                                    <td><b>89.0%</b></td>
+                                    <td><b>77.2%</b></td>
+                                    <td><b>87.6%</b></td>
+                                    <td><b>90.3%</b></td>
+                                    <td><b>87.0%</b></td>
+                                    <td><b>87.7%</b></td>
+                                    <td><b>86.7%</b></td>
+                                    <td><b>74.3%</b></td>
+                                    <td><b>83.0%</b></td>
+                                    <td><b>91.0%</b></td>
+                                    <td><b>61.1%</b></td>
+                                    <td><b>91.8%</b></td>
+                                    <td><b>76.1%</b></td>
+                                    <td><b>76.8%</b></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -430,11 +449,11 @@
 
                         <table  style="text-align: center;">
                           <tr><th colspan="2">Name</th><th>Mini-InternVL-Chat-2B-V1-5</th></tr>
-                          <tr><th rowspan="4">Model Size</th><td>Total</td><td><b>25.51B</b></td></tr>
-                          <tr><td>ViT</td><td>5.54B</td></tr>
-                          <tr><td>MLP</td><td>116.43M</td></tr>
-                          <tr><td>LLM</td><td>19.86B</td></tr>
-                          <tr><th colspan="1">Resolution</th><td colspan="2" >dynamic resolution, max to 12 tiles of 448 x 448 in training, max to 40 tiles in testing (4K resolution).</td></tr>
+                          <tr><th rowspan="4">Model Size</th><td>Total</td><td><b>2.21B</b></td></tr>
+                          <tr><td>ViT</td><td>304.01M</td></tr>
+                          <tr><td>MLP</td><td>12.60M</td></tr>
+                          <tr><td>LLM</td><td>1.89B</td></tr>
+                          <tr><th colspan="1">Resolution</th><td colspan="2" >dynamic resolution, max to 12 tiles of 448 × 448 in training, max to 40 tiles in testing (4K resolution).</td></tr>
                             <tr><th rowspan="2">Stage-1</th><th>Training Data</th><td colspan="1"  style="text-align: left;">The pre-training dataset utilized in our InternVL 1.5 encompasses a diverse range of publicly accessible sources. These datasets span multiple tasks, including captioning, which predominantly uses datasets such as Laion-EN, Laion-ZH, COYO, and GRIT, constituting 53.9% of the total data. Detection and grounding tasks utilize datasets like Objects365, GRIT, and All-Seeing, making up 5.2%. For OCR tasks, we utilized large-scale datasets such as Wukong-OCR, LaionCOCO-OCR, and Common Crawl PDFs, which constitute 32.0% of our data. These datasets were constructed using PaddleOCR to perform OCR on Chinese images from Wukong and on English images from LaionCOCO. Smaller OCR datasets include MMC-Inst, LSVT, ST-VQA, RCTW-17, ArT, and others, accounting for 8.9% of the data, which focus on more specific or constrained OCR challenges.</td></tr>
                           <tr><th>Trainable Module</th><td colspan="1">ViT + MLP</td></tr>
                           <tr><th rowspan="2">Stage-2</th><th>Training Data</th><td colspan="1">5M high-quality bilingual data. Please see the technical report of InternVL 1.5 for more details.</td></tr>

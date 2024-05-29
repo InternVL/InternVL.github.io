@@ -38,6 +38,13 @@
             </div>
         </header>
         <main class="page-content" aria-label="Content">
+            <style>
+                @media (max-width: 768px) {
+                        img.responsive {
+                        width: 100% !important;
+                    }
+                }
+            </style>
             <div class="wrapper">
                 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
                     <header class="post-header">
@@ -86,7 +93,7 @@
 
                         <p>We released <a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-1">🤗 InternVL-Chat-V1.1</a>, featuring a structure similar to LLaVA, including a ViT, an MLP projector, and an LLM.
                         As shown in the figure below, we connected our InternViT-6B to LLaMA2-13B through a simple MLP projector. Note that the LLaMA2-13B used here is not the original model but an internal chat version obtained by incrementally pre-training and fine-tuning the LLaMA2-13B base model for Chinese language tasks. Overall, our model has a total of 19 billion parameters.</p>
-                        <p><img width="650" alt="image" src="images/architecture.png"></p>
+                        <p><img class="responsive" width="650" alt="image" src="images/architecture.png"></p>
 
                         <p>In this version, we explored increasing the resolution to 448 × 448, enhancing OCR capabilities, and improving support for Chinese conversations. Since the 448 × 448 input image generates 1024 visual tokens after passing through the ViT, leading to a significant computational burden, we use a pixel shuffle operation to reduce the 1024 tokens to 256 tokens.</p>
 
@@ -241,15 +248,21 @@
 
                         <p>Below is an example of the improved capabilities.</p>
 
-                        <p><img width="650" alt="image" src="images/Intern1_2_2.png"></p>
+                        <p><img class="responsive" width="650" alt="image" src="images/Intern1_2_2.png"></p>
 
                         <h3 class="title">Citation</h3>
 <pre><code>
   @article{chen2023internvl,
-      title={InternVL 1.1: Enhance Chinese and OCR Capabilities},
+      title={InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks},
       author={Chen, Zhe and Wu, Jiannan and Wang, Wenhai and Su, Weijie and Chen, Guo and Xing, Sen and Zhong, Muyan and Zhang, Qinglong and Zhu, Xizhou and Lu, Lewei and Li, Bin and Luo, Ping and Lu, Tong and Qiao, Yu and Dai, Jifeng},
       journal={arXiv preprint arXiv:2312.14238},
       year={2023}
+  }
+  @article{chen2024far,
+    title={How Far Are We to GPT-4V? Closing the Gap to Commercial Multimodal Models with Open-Source Suites},
+    author={Chen, Zhe and Wang, Weiyun and Tian, Hao and Ye, Shenglong and Gao, Zhangwei and Cui, Erfei and Tong, Wenwen and Hu, Kongzhi and Luo, Jiapeng and Ma, Zheng and others},
+    journal={arXiv preprint arXiv:2404.16821},
+    year={2024}
   }
 </code></pre>
                     </div>

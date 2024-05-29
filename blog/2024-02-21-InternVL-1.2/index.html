@@ -38,6 +38,13 @@
             </div>
         </header>
         <main class="page-content" aria-label="Content">
+            <style>
+                @media (max-width: 768px) {
+                        img.responsive {
+                        width: 100% !important;
+                    }
+                }
+            </style>
             <div class="wrapper">
                 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
                     <header class="post-header">
@@ -98,7 +105,7 @@
 
                         <p>We are excited to introduce InternVL-Chat-V1.2. Inspired by <a href="https://llava-vl.github.io/blog/2024-01-30-llava-next/">LLaVA-NeXT-34B</a>, we have also adopted <a href="https://huggingface.co/NousResearch/Nous-Hermes-2-Yi-34B">Nous-Hermes-2-Yi-34B</a> as the language model. Below is the pipeline.</p>
 
-                        <p><img width="650" alt="image" src="images/Intern1_2_1.png"></p>
+                        <p><img class="responsive" width="650" alt="image" src="images/Intern1_2_1.png"></p>
 
                         <p>From the experimental results, <strong>we've observed that a stronger language model (34B) can better leverage the powerful capabilities of our vision foundation model.</strong></p>
 

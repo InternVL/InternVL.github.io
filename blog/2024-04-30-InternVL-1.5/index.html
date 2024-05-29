@@ -27,6 +27,13 @@
         </div>
     </header>
     <main class="page-content" aria-label="Content">
+        <style>
+            @media (max-width: 768px) {
+                    img.responsive {
+                    width: 100% !important;
+                }
+            }
+        </style>
         <div class="wrapper">
             <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
                 <header class="post-header">
@@ -79,7 +86,7 @@
 
                 <div class="post-content e-content" itemprop="articleBody">
                     <center>
-                        <p><img width="70%" alt="image" src="images/v1.5_sota.png"></p>
+                        <p><img class="responsive" width="70%" alt="image" src="images/v1.5_sota.png"></p>
                 </center>
 
                     <p>We introduce InternVL 1.5, an open-source multimodal large language model (MLLM) to bridge the capability gap between open-source and proprietary commercial models in multimodal understanding. We introduce three simple designs:
@@ -98,7 +105,7 @@
                         During training, we implemented a dynamic resolution strategy, dividing images into tiles of 448 × 448 pixels in sizes ranging from 1 to 12, based on the aspect ratio and resolution of the input images. During testing, this can be zero-shot scaled up to 40 tiles (i.e., 4K resolution). To enhance scalability for high resolution, we simply employed a pixel shuffle operation to reduce the number of visual tokens to one-quarter of the original. Therefore, in our model, a 448 × 448 image is represented by 256 visual tokens.
                     </p>
                     <center>
-                                            <p><img width="80%" alt="image" src="images/internvl1.5_method.png"></p>
+                                            <p><img class="responsive" width="80%" alt="image" src="images/internvl1.5_method.png"></p>
                     </center>
 
                     <h3 id="model-card">Model Card</h3>
@@ -157,8 +164,8 @@
 
                         <h3 id="performance">Performance</h3>
                     <center>
-                        <p><img width="90%" alt="image" src="images/img.png"></p>
-                        <p><img width="90%" alt="image" src="images/img_2.png"></p>
+                        <p><img class="responsive" width="90%" alt="image" src="images/img.png"></p>
+                        <p><img class="responsive" width="90%" alt="image" src="images/img_2.png"></p>
                     </center>
 
                     <a class="u-url" href="/blog/2024-05-20-InternVL-1-5-vs-GPT-4V" hidden></a>
@@ -166,12 +173,12 @@
 
                 <h2 class="title">Examples</h2>
                 <center>
-                    <p><a rel="nofollow" href="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/YVr-93mvVMR6UFpGezns7.png"><img alt="image/png" width="90%"  src="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/YVr-93mvVMR6UFpGezns7.png"></a>
-                    <a rel="nofollow" href="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/ivhj4QqcO2NHUa28DTDkK.png"><img alt="image/png" width="90%" src="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/ivhj4QqcO2NHUa28DTDkK.png"></a>
-                    <a rel="nofollow" href="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/18GeOW10QVcSt5g--TgDY.png"><img alt="image/png" width="90%" src="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/18GeOW10QVcSt5g--TgDY.png"></a>
-                    <a rel="nofollow" href="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/tGM_TwdV297H1fCxQ0PZU.png"><img alt="image/png" width="90%" src="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/tGM_TwdV297H1fCxQ0PZU.png"></a>
-                    <a rel="nofollow" href="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/FwlSRBpKgURAVkXNOLoSp.png"><img alt="image/png" width="90%" src="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/FwlSRBpKgURAVkXNOLoSp.png"></a>
-                    <a rel="nofollow" href="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/to3nOaAnyv-fGLEoNPLzz.png"><img alt="image/png" width="90%" src="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/to3nOaAnyv-fGLEoNPLzz.png"></a></p>
+                    <p><a rel="nofollow" href="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/YVr-93mvVMR6UFpGezns7.png"><img class="responsive" alt="image/png" width="90%"  src="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/YVr-93mvVMR6UFpGezns7.png"></a>
+                    <a rel="nofollow" href="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/ivhj4QqcO2NHUa28DTDkK.png"><img class="responsive" alt="image/png" width="90%" src="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/ivhj4QqcO2NHUa28DTDkK.png"></a>
+                    <a rel="nofollow" href="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/18GeOW10QVcSt5g--TgDY.png"><img class="responsive" alt="image/png" width="90%" src="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/18GeOW10QVcSt5g--TgDY.png"></a>
+                    <a rel="nofollow" href="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/tGM_TwdV297H1fCxQ0PZU.png"><img class="responsive" alt="image/png" width="90%" src="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/tGM_TwdV297H1fCxQ0PZU.png"></a>
+                    <a rel="nofollow" href="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/FwlSRBpKgURAVkXNOLoSp.png"><img class="responsive" alt="image/png" width="90%" src="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/FwlSRBpKgURAVkXNOLoSp.png"></a>
+                    <a rel="nofollow" href="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/to3nOaAnyv-fGLEoNPLzz.png"><img class="responsive" alt="image/png" width="90%" src="https://cdn-uploads.huggingface.co/production/uploads/64119264f0f81eb569e0d569/to3nOaAnyv-fGLEoNPLzz.png"></a></p>
 
                 </center>
 

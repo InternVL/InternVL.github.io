@@ -52,6 +52,13 @@
                             </span>
                         </p>
                     </header>
+                     <style>
+                        @media (max-width: 768px) {
+                                img.responsive {
+                                width: 100% !important;
+                            }
+                        }
+                    </style>
                     <div class="post-content e-content" itemprop="articleBody">
 
                         <table>
@@ -107,13 +114,13 @@
                         <p>We released <a href="https://arxiv.org/abs/2312.14238">InternVL</a>, scaling up the ViT to 6B parameters and aligning it with LLM. It is the largest open-source vision/vision-language foundation model (14B) to date, achieving 32 state-of-the-art performance on a wide range of tasks such as visual perception, cross-modal retrieval, multimodal dialogue, etc.</p>
 
                         <div style="text-align: center;">
-                            <p><img width="90%" alt="image"  src="images/sota.png"></p>
+                            <p><img class="responsive" width="90%" alt="image"  src="images/sota.png"></p>
                         </div>
                         <h3>How is InternVL trained?</h3>
 
                         <p>The training strategy of InternVL consists of three progressive stages, including vision-language contrastive training, vision-language generative training, and supervised fine-tuning. These stages effectively leverage public data from diverse sources, ranging from noisy image-text pairs on the web to high-quality caption, VQA, and multi-modal dialogue datasets.</p>
                         <div style="text-align: center;">
-                        <p><img width="70%" alt="image" align="center" src="images/training.png"></p>
+                        <p><img class="responsive" width="70%" alt="image" align="center" src="images/training.png"></p>
                         </div>
 
                         <h3>What can InternVL do?</h3>
@@ -979,6 +986,12 @@
       author={Chen, Zhe and Wu, Jiannan and Wang, Wenhai and Su, Weijie and Chen, Guo and Xing, Sen and Zhong, Muyan and Zhang, Qinglong and Zhu, Xizhou and Lu, Lewei and Li, Bin and Luo, Ping and Lu, Tong and Qiao, Yu and Dai, Jifeng},
       journal={arXiv preprint arXiv:2312.14238},
       year={2023}
+  }
+  @article{chen2024far,
+    title={How Far Are We to GPT-4V? Closing the Gap to Commercial Multimodal Models with Open-Source Suites},
+    author={Chen, Zhe and Wang, Weiyun and Tian, Hao and Ye, Shenglong and Gao, Zhangwei and Cui, Erfei and Tong, Wenwen and Hu, Kongzhi and Luo, Jiapeng and Ma, Zheng and others},
+    journal={arXiv preprint arXiv:2404.16821},
+    year={2024}
   }
   </code></pre>
                     </div>

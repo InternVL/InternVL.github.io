@@ -85,14 +85,29 @@
 
                         </tbody>
                     </table>
+
                     <div class="post-content e-content" itemprop="articleBody">
+                        <style>
+                            @media (max-width: 768px) {
+                                    img.responsive {
+                                    width: 100% !important;
+                                }
+                            }
+                        </style>
+                        <center>
+                            <p><img class="responsive" style="width: 50%;" alt="image" src="images/compare.png"><br></p>
+                        </center>
+
                         <p>You can run multimodal large models using a 1080Ti now.</p>
                         <p>We are delighted to introduce Mini-InternVL-Chat series. In the era of large language models, many researchers have started to focus on smaller language models, such as Gemma-2B, Qwen-1.8B, and InternLM2-1.8B. Inspired by their efforts, we have distilled our vision foundation model <a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-5">InternViT-6B-448px-V1-5</a> down to 300M and used <a href="https://huggingface.co/internlm/internlm2-chat-1_8b">InternLM2-Chat-1.8B</a> or <a href="https://huggingface.co/microsoft/Phi-3-mini-128k-instruct">Phi-3-mini-128k-instruct</a> as our language model. This resulted in a small multimodal model with excellent performance.</p>
 
                         <p>As shown in the figure below, we adopted the same model architecture as InternVL 1.5. We simply replaced the original InternViT-6B with InternViT-300M and InternLM2-Chat-20B with InternLM2-Chat-1.8B or Phi-3-mini-128k-instruct. For training, we used the same data as InternVL 1.5 to train this smaller model. Additionally, due to the lower training costs of smaller models, <b>we used a context length of 8K during training.</b></p>
                         <center>
-                        <img width="80%" alt="image" src="images/mini_internvl_architecture.png"><br>
+                        <img class="responsive" width="80%" alt="image" src="images/mini_internvl_architecture.png"><br>
                         </center>
+
+                        <br>
+
                         <p>From the experimental results, we've observed that our distilled small vision model (InternViT-300M) is well-suited for a smaller language model (1.8B or 3.8B). This combination maximizes efficiency while maintaining impressive performance across various benchmarks, demonstrating the effectiveness of small models in handling complex tasks. Additionally, our small model significantly reduces memory requirements, making it more accessible and efficient for practical use.</p>
 
                         <h3>Performance</h3>

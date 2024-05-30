@@ -81,7 +81,7 @@
                         </tr>
                         <tr>
                          <td>Vision Foundation Model</td>
-                            <td>InternViT−300M−448px</td>
+                            <td>InternViT-300M-448px</td>
                         <td>2024.05.25</td>
                         <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternViT-300M-448px" rel="nofollow">HF link</a></td>
                         <td>Distilled small vision foundation model with 300M parameters.</td>
@@ -155,7 +155,7 @@
                                     <th>RWQA</th>
                                     <th>AI2D<br>(test)</th>
                                     <th>MMMU<br>(val)</th>
-                                    <th>MMB−EN/CN<br>(test)</th>
+                                    <th>MMB-EN/CN<br>(test)</th>
                                     <th>CCBench<br>(dev)</th>
                                     <th>MMVet</th>
                                     <th>SEED<br>(image)</th>
@@ -307,7 +307,7 @@
                                     <td>52.8</td>
                                 </tr>
                                 <tr style="background-color: rgba(249, 242, 248, 1);">
-                                    <td>LLaVA-NeXT−34B</td>
+                                    <td>LLaVA-NeXT-34B</td>
                                     <td>✓</td>
                                     <td>35B</td>
                                     <td>84.0</td>
@@ -327,7 +327,7 @@
                                     <td>46.5</td>
                                 </tr>
                                 <tr style="background-color: rgba(249, 242, 248, 1);">
-                                    <td>LLaVA-NeXT−110B</td>
+                                    <td>LLaVA-NeXT-110B</td>
                                     <td>✓</td>
                                     <td>112B</td>
                                     <td>85.7<sup>(val)</sup></td>
@@ -497,7 +497,7 @@
                                     <td>-</td>
                                 </tr>
                                 <tr style="background-color: rgb(244,252,255);">
-                                    <td>DeepSeek−VL−1.3B</td>
+                                    <td>DeepSeek-VL-1.3B</td>
                                     <td>✓</td>
                                     <td>2.0B</td>
                                     <td>-</td>
@@ -600,7 +600,7 @@
                                 </tr>
 
                                 <tr style="background-color: rgb(255,248,227);">
-                                    <td>Mini−InternVL-2B-1.5</td>
+                                    <td>Mini-InternVL-2B-1.5</td>
                                     <td>✓</td>
                                     <td>2.2B</td>
                                     <td>85.0</td>
@@ -641,7 +641,7 @@
 
 
                                 <tr style="background-color: rgb(255,248,227);">
-                                    <td>Mini−InternVL-4B-1.5</td>
+                                    <td>Mini-InternVL-4B-1.5</td>
                                     <td>✓</td>
                                     <td>4.2B</td>
                                     <td>87.7</td>
@@ -704,9 +704,9 @@
                           <tr><td>MLP</td><td>12.60M</td><td>22.03M</td></tr>
                           <tr><td>LLM</td><td>1.89B</td><td>3.82B</td></tr>
                           <tr><th colspan="2">Resolution</th><td colspan="2" >dynamic resolution, max to 12 tiles of 448 × 448 in training, max to 40 tiles in testing (4K resolution).</td></tr>
-                            <tr><th rowspan="2">Stage−1</th><th>Training Data</th><td colspan="2"  style="text-align: left;">The pre-training dataset utilized in our InternVL 1.5 encompasses a diverse range of publicly accessible sources. These datasets span multiple tasks, including captioning, which predominantly uses datasets such as Laion-EN, Laion-ZH, COYO, and GRIT, constituting 53.9% of the total data. Detection and grounding tasks utilize datasets like Objects365, GRIT, and All-Seeing, making up 5.2%. For OCR tasks, we utilized large-scale datasets such as Wukong-OCR, LaionCOCO-OCR, and Common Crawl PDFs, which constitute 32.0% of our data. These datasets were constructed using PaddleOCR to perform OCR on Chinese images from Wukong and on English images from LaionCOCO. Smaller OCR datasets include MMC-Inst, LSVT, ST-VQA, RCTW-17, ArT, and others, accounting for 8.9% of the data, which focus on more specific or constrained OCR challenges.</td></tr>
+                            <tr><th rowspan="2"><nobr>Stage-1</nobr></th><th>Training Data</th><td colspan="2"  style="text-align: left;">The pre-training dataset utilized in our InternVL 1.5 encompasses a diverse range of publicly accessible sources. These datasets span multiple tasks, including captioning, which predominantly uses datasets such as Laion-EN, Laion-ZH, COYO, and GRIT, constituting 53.9% of the total data. Detection and grounding tasks utilize datasets like Objects365, GRIT, and All-Seeing, making up 5.2%. For OCR tasks, we utilized large-scale datasets such as Wukong-OCR, LaionCOCO-OCR, and Common Crawl PDFs, which constitute 32.0% of our data. These datasets were constructed using PaddleOCR to perform OCR on Chinese images from Wukong and on English images from LaionCOCO. Smaller OCR datasets include MMC-Inst, LSVT, ST-VQA, RCTW-17, ArT, and others, accounting for 8.9% of the data, which focus on more specific or constrained OCR challenges.</td></tr>
                           <tr><th>Trainable Module</th><td colspan="1">ViT + MLP</td><td colspan="1">MLP</td></tr>
-                          <tr><th rowspan="2">Stage−2</th><th>Training Data</th><td colspan="2">5M high-quality bilingual data. Please see the technical report of InternVL 1.5 for more details.</td></tr>
+                          <tr><th rowspan="2">Stage-2</th><th>Training Data</th><td colspan="2">5M high-quality bilingual data. Please see the technical report of InternVL 1.5 for more details.</td></tr>
                           <tr><th>Trainable Module</th><td colspan="2">ViT + MLP + LLM</td></tr>
                         </table>
 

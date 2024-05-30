@@ -62,14 +62,14 @@
 
                         <tr>
                         <td rowspan="2">Vision Large Language Model</td>
-                        <td>InternVL−Chat−V1-5-Int8</td>
+                        <td>InternVL-Chat-V1-5-Int8</td>
                         <td>2024.04.28</td>
                         <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-5-Int8" rel="nofollow">HF link</a></td>
                         <td>The INT8 version of InternVL-Chat-V1-5</td>
                         </tr>
 
                         <tr>
-                        <td>InternVL−Chat−V1-5</td>
+                        <td><nobr>InternVL-Chat-V1-5</nobr></td>
                         <td>2024.04.18</td>
                         <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-5" rel="nofollow">HF link</a></td>
                         <td>support 4K image; super strong OCR; Approaching the performance of GPT-4V and Gemini Pro on various benchmarks like MMMU, DocVQA, ChartQA, MathVista, etc. (🔥new)</td>
@@ -77,7 +77,7 @@
 
                         <tr>
                          <td>Vision Foundation Model</td>
-                            <td>InternViT−6B−448px−V1-5</td>
+                            <td><nobr>InternViT-6B-448px-V1-5</nobr></td>
                         <td>2024.04.20</td>
                         <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-5" rel="nofollow">HF link</a></td>
                         <td>support dynamic resolution, super strong OCR (🔥new)</td>
@@ -119,9 +119,9 @@
                           <tr><td>MLP</td><td>116.43M</td><td>143.17M</td></tr>
                           <tr><td>LLM</td><td>19.86B</td><td>34.39B</td></tr>
                           <tr><th colspan="2">Resolution</th><td colspan="2" >dynamic resolution, max to 12 tiles of 448 × 448 in training, max to 40 tiles in testing (4K resolution).</td></tr>
-                            <tr><th rowspan="2">Stage−1</th><th>Training Data</th><td colspan="2"  style="text-align: left;">The pre-training dataset utilized in our InternVL 1.5 encompasses a diverse range of publicly accessible sources. These datasets span multiple tasks, including captioning, which predominantly uses datasets such as Laion-EN, Laion-ZH, COYO, and GRIT, constituting 53.9% of the total data. Detection and grounding tasks utilize datasets like Objects365, GRIT, and All-Seeing, making up 5.2%. For OCR tasks, we utilized large-scale datasets such as Wukong-OCR, LaionCOCO-OCR, and Common Crawl PDFs, which constitute 32.0% of our data. These datasets were constructed using PaddleOCR to perform OCR on Chinese images from Wukong and on English images from LaionCOCO. Smaller OCR datasets include MMC-Inst, LSVT, ST-VQA, RCTW-17, ArT, and others, accounting for 8.9% of the data, which focus on more specific or constrained OCR challenges.</td></tr>
+                            <tr><th rowspan="2"><nobr>Stage-1</nobr></th><th>Training Data</th><td colspan="2"  style="text-align: left;">The pre-training dataset utilized in our InternVL 1.5 encompasses a diverse range of publicly accessible sources. These datasets span multiple tasks, including captioning, which predominantly uses datasets such as Laion-EN, Laion-ZH, COYO, and GRIT, constituting 53.9% of the total data. Detection and grounding tasks utilize datasets like Objects365, GRIT, and All-Seeing, making up 5.2%. For OCR tasks, we utilized large-scale datasets such as Wukong-OCR, LaionCOCO-OCR, and Common Crawl PDFs, which constitute 32.0% of our data. These datasets were constructed using PaddleOCR to perform OCR on Chinese images from Wukong and on English images from LaionCOCO. Smaller OCR datasets include MMC-Inst, LSVT, ST-VQA, RCTW-17, ArT, and others, accounting for 8.9% of the data, which focus on more specific or constrained OCR challenges.</td></tr>
                           <tr><th>Trainable Module</th><td colspan="1">ViT + MLP</td><td colspan="1">MLP</td></tr>
-                          <tr><th rowspan="2">Stage−2</th><th>Training Data</th><td colspan="2">5M high-quality bilingual data. Please see our technical report for more details.</td></tr>
+                          <tr><th rowspan="2">Stage-2</th><th>Training Data</th><td colspan="2">5M high-quality bilingual data. Please see our technical report for more details.</td></tr>
                           <tr><th>Trainable Module</th><td colspan="2">ViT + MLP + LLM</td></tr>
                         </table>
 

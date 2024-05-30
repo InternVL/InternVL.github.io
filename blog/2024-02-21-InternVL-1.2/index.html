@@ -144,36 +144,47 @@
                         <table>
                             <thead>
                                 <tr>
+                                    <th>Size</th>
                                     <th>Stage</th>
-                                    <th>Trainable Param</th>
+                                    <th>Trainable Module</th>
                                     <th>#Sample</th>
+                                    <th>Drop Path</th>
                                     <th>Batch Size</th>
-                                    <th>Learning Rate</th>
+                                    <th>LR</th>
                                     <th>Epoch</th>
-                                    <th>Max length</th>
+                                    <th>Max Length</th>
                                     <th>Weight Decay</th>
+                                    <th>Config</th>
+                                    <th>Download</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td rowspan="2">40B</td>
                                     <td>Pretrain</td>
                                     <td>ViT + MLP</td>
                                     <td>39.3M</td>
+                                    <td>0.2</td>
                                     <td>8192</td>
                                     <td>2e-5</td>
                                     <td>1</td>
                                     <td>384</td>
                                     <td>0.05</td>
+                                    <td>Link</td>
+                                    <td><a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-2">ViT</a> / <a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-2/blob/main/mlp_projector/hermes_2_yi_34b.pth">MLP</a></td>
                                 </tr>
                                 <tr>
                                     <td>Finetune</td>
                                     <td>ViT + MLP + LLM</td>
-                                    <td>1.2M / 12M</td>
-                                    <td>512 / 2048</td>
+                                    <td>1.2M</td>
+                                    <td>0.4</td>
+                                    <td>512</td>
                                     <td>1e-5</td>
                                     <td>1</td>
                                     <td>2048</td>
                                     <td>0.05</td>
+                                    <td><a href="https://github.com/OpenGVLab/InternVL/blob/main/internvl_chat/shell/hermes2_yi34b/internvl_chat_v1_2_hermes2_yi34b_448_res_finetune.sszh">Link</a></td>
+                                    <td><a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-2">MLLM</a></td>
                                 </tr>
                             </tbody>
                         </table>

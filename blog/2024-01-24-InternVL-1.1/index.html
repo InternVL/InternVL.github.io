@@ -112,9 +112,9 @@
                           <tr><td>MLP</td><td>91.78M</td></tr>
                           <tr><td>LLM</td><td>13.12B</td></tr>
                           <tr><th colspan="2">Resolution</th><td colspan="1">448 × 448</td></tr>
-                            <tr><th rowspan="2">Stage-1</th><th>Training Data</th><td colspan="1">Trained on 72M samples, including COYO, LAION, CC12M, CC3M, SBU, Wukong, GRIT, Objects365, OpenImages, and OCR-related datasets. In this stage, we load the pretrained weights of the original <a href="https://huggingface.co/OpenGVLab/InternViT-6B-224px">InternViT-6B-224px</a> and interpolate its position embedding to the size corresponding to 448 × 448 pixels. Moreover, in order to reduce the number of visual tokens, we use a pixel shuffle operation to reduce 1024 tokens to 256 tokens.</td></tr>
+                            <tr><th rowspan="2">Stage−1</th><th>Training Data</th><td colspan="1">Trained on 72M samples, including COYO, LAION, CC12M, CC3M, SBU, Wukong, GRIT, Objects365, OpenImages, and OCR-related datasets. In this stage, we load the pretrained weights of the original <a href="https://huggingface.co/OpenGVLab/InternViT-6B-224px">InternViT-6B-224px</a> and interpolate its position embedding to the size corresponding to 448 × 448 pixels. Moreover, in order to reduce the number of visual tokens, we use a pixel shuffle operation to reduce 1024 tokens to 256 tokens.</td></tr>
                           <tr><th>Trainable Module</th><td colspan="1">ViT + MLP</td></tr>
-                          <tr><th rowspan="2">Stage-2</th><th>Training Data</th><td colspan="1">A comprehensive collection of open-source datasets, along with their Chinese translation versions, totaling approximately 6M samples.</td></tr>
+                          <tr><th rowspan="2">Stage−2</th><th>Training Data</th><td colspan="1">A comprehensive collection of open-source datasets, along with their Chinese translation versions, totaling approximately 6M samples.</td></tr>
                           <tr><th>Trainable Module</th><td colspan="1">MLP + LLM</td></tr>
                         </table>
 
@@ -125,17 +125,17 @@
                                 <tr>
                                     <th>Stage</th>
                                     <th>Trainable Module</th>
-                                    <th>#Samples</th>
+                                    <th>#Sample</th>
                                     <th>Batch Size</th>
-                                    <th>Learning rate</th>
+                                    <th>Learning Rate</th>
                                     <th>Epoch</th>
                                     <th>Max length</th>
-                                    <th>Weight decay</th>
+                                    <th>Weight Decay</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Pre-train</td>
+                                    <td>Pretrain</td>
                                     <td>ViT + MLP</td>
                                     <td>72M</td>
                                     <td>8192</td>
@@ -145,8 +145,8 @@
                                     <td>0.05</td>
                                 </tr>
                                 <tr>
-                                    <td>Fine-tune</td>
-                                    <td>ViT + MLP + LLM (full model)</td>
+                                    <td>Finetune</td>
+                                    <td>ViT + MLP + LLM</td>
                                     <td>6M</td>
                                     <td>2048</td>
                                     <td>2e-5</td>

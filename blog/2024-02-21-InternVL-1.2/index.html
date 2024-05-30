@@ -128,9 +128,9 @@
                           <tr><td>MLP</td><td colspan="2">143.17M</td></tr>
                           <tr><td>LLM</td><td colspan="2">34.39B</td></tr>
                           <tr><th colspan="2">Resolution</th><td colspan="2">448 × 448</td></tr>
-                            <tr><th rowspan="2">Stage-1</th><th>Training Data</th><td colspan="2">Trained on 39.3 million samples, including COYO, LAION, CC12M, CC3M, SBU, Wukong, GRIT, Objects365, OpenImages, and OCR-related datasets. In this stage, we first load the pre-trained weights of <a rel="nofollow" href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-0">InternViT-6B-448px-V1-0</a> and connect it to Nous-Hermes-2-Yi-34B. After pre-training, the extracted ViT is published as <a rel="nofollow" href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-2">InternViT-6B-448px-V1-2</a>.</td></tr>
+                            <tr><th rowspan="2">Stage−1</th><th>Training Data</th><td colspan="2">Trained on 39.3 million samples, including COYO, LAION, CC12M, CC3M, SBU, Wukong, GRIT, Objects365, OpenImages, and OCR-related datasets. In this stage, we first load the pre-trained weights of <a rel="nofollow" href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-0">InternViT-6B-448px-V1-0</a> and connect it to Nous-Hermes-2-Yi-34B. After pre-training, the extracted ViT is published as <a rel="nofollow" href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-2">InternViT-6B-448px-V1-2</a>.</td></tr>
                           <tr><th>Trainable Module</th><td colspan="2">ViT + MLP</td></tr>
-                            <tr><th rowspan="2">Stage-2</th><th>Training Data</th><td>Open-sourced 1.2M visual instruction tuning samples.</td><td>A comprehensive collection of open-source datasets, along with their Chinese translation versions, totaling approximately 12M samples.</td></tr>
+                            <tr><th rowspan="2">Stage−2</th><th>Training Data</th><td>Open-sourced 1.2M visual instruction tuning samples.</td><td>A comprehensive collection of open-source datasets, along with their Chinese translation versions, totaling approximately 12M samples.</td></tr>
                           <tr><th>Trainable Module</th><td colspan="2">ViT + MLP + LLM</td></tr>
                         </table>
 
@@ -146,17 +146,17 @@
                                 <tr>
                                     <th>Stage</th>
                                     <th>Trainable Param</th>
-                                    <th>#Samples</th>
+                                    <th>#Sample</th>
                                     <th>Batch Size</th>
-                                    <th>Learning rate</th>
+                                    <th>Learning Rate</th>
                                     <th>Epoch</th>
                                     <th>Max length</th>
-                                    <th>Weight decay</th>
+                                    <th>Weight Decay</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Pre-train</td>
+                                    <td>Pretrain</td>
                                     <td>ViT + MLP</td>
                                     <td>39.3M</td>
                                     <td>8192</td>
@@ -166,8 +166,8 @@
                                     <td>0.05</td>
                                 </tr>
                                 <tr>
-                                    <td>Fine-tune</td>
-                                    <td>ViT + MLP + LLM (full model)</td>
+                                    <td>Finetune</td>
+                                    <td>ViT + MLP + LLM</td>
                                     <td>1.2M / 12M</td>
                                     <td>512 / 2048</td>
                                     <td>1e-5</td>

@@ -77,7 +77,7 @@
                         <td>Mini-InternVL-Chat-4B-V1-5</td>
                         <td>2024.05.28</td>
                         <td>🤗 <a href="https://huggingface.co/OpenGVLab/Mini-InternVL-Chat-4B-V1-5" rel="nofollow">HF link</a></td>
-                        <td>🚀🚀 Only 4B parameters, anyone can deploy it locally.</td>
+                        <td>🚀 Only 4B parameters, anyone can deploy it locally.</td>
                         </tr>
                         <tr>
                          <td>Vision Foundation Model</td>
@@ -124,7 +124,21 @@
 
                         <h3>Performance</h3>
 
+                        <p>Note: Comparison with SoTA models on 16 multimodal benchmarks. OCR-related benchmarks include: DocVQA test,
+                            ChartQA average test, InfographicVQA test, TextVQA val, and OCRBench. General multimodal benchmarks encompass:
+                            MME, RealWorldQA, AI2D test, MMMU val, MMBench-EN/CN test, CCBench dev, MMVet,
+                            SEED Image, and HallusionBench. Additionally, the math dataset includes MathVista testmini.
+                            The MME results we report are the sum of the perception and cognition scores.
+                            The results of OCRBench, MMBench, CCBench, and HallusionBench are collected from the OpenCompass leaderboard.</p>
 
+
+                        <style>
+                            .performance thead th
+                        {
+                            position: sticky;
+                            top: 0px;
+                        }
+                        </style>
                         <table class="performance">
 
                             <thead>
@@ -572,9 +586,9 @@
                                     <td>81.4</td>
                                     <td>-</td>
                                     <td>70.9</td>
+                                    <td>639</td>
                                     <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
+                                    <td>58.8</td>
                                     <td>76.7</td>
                                     <td>40.4</td>
                                     <td>- / -</td>

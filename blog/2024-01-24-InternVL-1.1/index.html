@@ -78,14 +78,14 @@
 
                         <tr>
                         <td>Vision Large Language Model</td>
-                        <td>InternVL−Chat−V1.1</td>
+                        <td>InternVL−Chat−V1-1</td>
                         <td>2024.01.24</td>
                         <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-1" rel="nofollow">HF link</a></td>
                         <td>support Chinese and stronger OCR</td>
                         </tr>
                         <tr>
                          <td>Vision Foundation Model</td>
-                            <td>InternViT−6B−448px−V1.0</td>
+                            <td>InternViT−6B−448px−V1-0</td>
                         <td>2024.01.30</td>
                         <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-0" rel="nofollow">HF link</a></td>
                         <td>vision foundation model, 448 resolution</td>
@@ -94,7 +94,7 @@
                         </tbody>
                     </table>
 
-                        <p>We released <a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-1">🤗 InternVL-Chat-V1.1</a>, featuring a structure similar to LLaVA, including a ViT, an MLP projector, and an LLM.
+                        <p>We released <a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-1">🤗 InternVL-Chat-V1-1</a>, featuring a structure similar to LLaVA, including a ViT, an MLP projector, and an LLM.
                         As shown in the figure below, we connected our InternViT-6B to LLaMA2-13B through a simple MLP projector. Note that the LLaMA2-13B used here is not the original model but an internal chat version obtained by incrementally pre-training and fine-tuning the LLaMA2-13B base model for Chinese language tasks. Overall, our model has a total of 19 billion parameters.</p>
                         <p><img class="responsive" width="650" alt="image" src="images/architecture.png"></p>
 
@@ -106,7 +106,7 @@
                         <h3 id="model-card">Model Card</h3>
 
                         <table>
-                          <tr><th colspan="2">Name</th><th>InternVL-Chat-V1.1</th></tr>
+                          <tr><th colspan="2">Name</th><th>InternVL-Chat-V1-1</th></tr>
                           <tr><th rowspan="4">Model Size</th><td>Total</td><td><b>19.11B</b></td></tr>
                           <tr><td>ViT</td><td>5.91B</td></tr>
                           <tr><td>MLP</td><td>91.78M</td></tr>
@@ -123,6 +123,7 @@
                         <table>
                             <thead>
                                 <tr>
+                                    <th>Size</th>
                                     <th>Stage</th>
                                     <th>Trainable Module</th>
                                     <th>#Sample</th>
@@ -131,10 +132,12 @@
                                     <th>Epoch</th>
                                     <th>Max length</th>
                                     <th>Weight Decay</th>
+                                    <th>Download</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td rowspan="2">19B</td>
                                     <td>Pretrain</td>
                                     <td>ViT + MLP</td>
                                     <td>72M</td>
@@ -143,6 +146,7 @@
                                     <td>1</td>
                                     <td>384</td>
                                     <td>0.05</td>
+                                    <td><a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-0">ViT</a></td>
                                 </tr>
                                 <tr>
                                     <td>Finetune</td>
@@ -153,6 +157,7 @@
                                     <td>1</td>
                                     <td>768</td>
                                     <td>0.05</td>
+                                    <td><a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-1">MLLM</a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -228,7 +233,7 @@
                                             <td>36.7</td>
                                         </tr>
                                         <tr style="background-color: rgb(255,248,227);">
-                                            <td><a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-1">InternVL-Chat-V1.1</a></td>
+                                            <td><a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-1">InternVL-Chat-V1-1</a></td>
                                             <td><a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-0">IViT-6B-448px</a></td>
                                             <td>LLaMA2-13B</td>
                                             <td>448</td>
@@ -267,6 +272,7 @@
     journal={arXiv preprint arXiv:2404.16821},
     year={2024}
   }
+
 </code></pre>
                     </div>
 

@@ -80,14 +80,14 @@
 
                         <tr>
                         <td rowspan="2">Vision Large Language Model</td>
-                        <td>InternVL−Chat−V1.2−Plus</td>
+                        <td>InternVL−Chat−V1-2−Plus</td>
                         <td>2024.02.21</td>
                         <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-2-Plus" rel="nofollow">HF link</a></td>
                         <td>more SFT data and stronger</td>
                         </tr>
 
                         <tr>
-                        <td>InternVL−Chat−V1.2</td>
+                        <td>InternVL−Chat−V1-2</td>
                         <td>2024.02.11</td>
                         <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-2" rel="nofollow">HF link</a></td>
                         <td>scaling up LLM to 34B</td>
@@ -95,7 +95,7 @@
 
                         <tr>
                          <td>Vision Foundation Model</td>
-                            <td>InternViT−6B−448px−V1.2</td>
+                            <td>InternViT−6B−448px−V1-2</td>
                         <td>2024.01.30</td>
                         <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-2" rel="nofollow">HF link</a></td>
                         <td>vision foundation model, 448 resolution</td>
@@ -104,25 +104,25 @@
                         </tbody>
                     </table>
 
-                        <h2>InternVL-Chat-V1.2</h2>
+                        <h2>InternVL-Chat-V1-2</h2>
 
 
-                        <p>We are excited to introduce InternVL-Chat-V1.2. Inspired by <a href="https://llava-vl.github.io/blog/2024-01-30-llava-next/">LLaVA-NeXT-34B</a>, we have also adopted <a href="https://huggingface.co/NousResearch/Nous-Hermes-2-Yi-34B">Nous-Hermes-2-Yi-34B</a> as the language model. Below is the pipeline.</p>
+                        <p>We are excited to introduce InternVL-Chat-V1-2. Inspired by <a href="https://llava-vl.github.io/blog/2024-01-30-llava-next/">LLaVA-NeXT-34B</a>, we have also adopted <a href="https://huggingface.co/NousResearch/Nous-Hermes-2-Yi-34B">Nous-Hermes-2-Yi-34B</a> as the language model. Below is the pipeline.</p>
 
                         <p><img class="responsive" width="650" alt="image" src="images/Intern1_2_1.png"></p>
 
                         <p>From the experimental results, <strong>we've observed that a stronger language model (34B) can better leverage the powerful capabilities of our vision foundation model.</strong></p>
 
-                        <p>For better training reproducibility, we follow the minimalist design and data efficiency similar to LLaVA-NeXT. To reduce training costs, we provide a <a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-2/resolve/main/mlp_projector.pth?download=true">pre-trained MLP projector</a> and only employ around 1.2 million visual instruction tuning samples for SFT. Our model has a total of 40 billion parameters and can be trained within 1.5 days using 32 A100 GPUs. The code, data, and model have been made publicly available.</p>
+                        <p>For better training reproducibility, we follow the minimalist design and data efficiency similar to LLaVA-NeXT. To reduce training costs, we provide a <a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-2/blob/main/mlp_projector/hermes_2_yi_34b.pth">pre-trained MLP projector</a> and only employ around 1.2 million visual instruction tuning samples for SFT. Our model has a total of 40 billion parameters and can be trained within 1.5 days using 32 A100 GPUs. The code, data, and model have been made publicly available.</p>
 
                         <h3>Data Preparation</h3>
 
-                        <p>Inspired by LLaVA-NeXT, we adopted a data-efficient SFT strategy to train InternVL-Chat-V1.2, utilizing approximately 1.2M of visual instruction tuning samples in total, all of which are fully open-source. In a macro sense, we build upon <a href="https://github.com/InternLM/InternLM-XComposer/blob/main/projects/ShareGPT4V/docs/Data.md#prepare-images">ShareGPT-4V</a> and additionally integrate <a href="https://huggingface.co/datasets/openbmb/llava_zh">LLaVA-ZH</a>, <a href="https://github.com/kushalkafle/DVQA_dataset">DVQA</a>, <a href="https://github.com/vis-nlp/ChartQA">ChartQA</a>, <a href="https://allenai.org/data/diagrams">AI2D</a>, <a href="https://www.docvqa.org/datasets">DocVQA</a>, <a href="https://github.com/SCNU203/GeoQA-Plus">GeoQA+</a>, and <a href="https://huggingface.co/datasets/naver-clova-ix/synthdog-en">SynthDoG-EN</a>. Most of the data remains consistent with LLaVA-NeXT.</p>
+                        <p>Inspired by LLaVA-NeXT, we adopted a data-efficient SFT strategy to train InternVL-Chat-V1-2, utilizing approximately 1.2M of visual instruction tuning samples in total, all of which are fully open-source. In a macro sense, we build upon <a href="https://github.com/InternLM/InternLM-XComposer/blob/main/projects/ShareGPT4V/docs/Data.md#prepare-images">ShareGPT-4V</a> and additionally integrate <a href="https://huggingface.co/datasets/openbmb/llava_zh">LLaVA-ZH</a>, <a href="https://github.com/kushalkafle/DVQA_dataset">DVQA</a>, <a href="https://github.com/vis-nlp/ChartQA">ChartQA</a>, <a href="https://allenai.org/data/diagrams">AI2D</a>, <a href="https://www.docvqa.org/datasets">DocVQA</a>, <a href="https://github.com/SCNU203/GeoQA-Plus">GeoQA+</a>, and <a href="https://huggingface.co/datasets/naver-clova-ix/synthdog-en">SynthDoG-EN</a>. Most of the data remains consistent with LLaVA-NeXT.</p>
 
                         <h3 id="model-card">Model Card</h3>
 
                         <table style="text-align: center;">
-                          <tr><th colspan="2">Name</th><th>InternVL-Chat-V1.2</th><th>InternVL-Chat-V1.2-Plus</th></tr>
+                          <tr><th colspan="2">Name</th><th>InternVL-Chat-V1-2</th><th>InternVL-Chat-V1-2-Plus</th></tr>
                           <tr><th rowspan="4">Model Size</th><td>Total</td><td colspan="2"><b>40.07B</b></td></tr>
                           <tr><td>ViT</td><td colspan="2">5.54B</td></tr>
                           <tr><td>MLP</td><td colspan="2">143.17M</td></tr>
@@ -130,7 +130,7 @@
                           <tr><th colspan="2">Resolution</th><td colspan="2">448 × 448</td></tr>
                             <tr><th rowspan="2">Stage−1</th><th>Training Data</th><td colspan="2">Trained on 39.3 million samples, including COYO, LAION, CC12M, CC3M, SBU, Wukong, GRIT, Objects365, OpenImages, and OCR-related datasets. In this stage, we first load the pre-trained weights of <a rel="nofollow" href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-0">InternViT-6B-448px-V1-0</a> and connect it to Nous-Hermes-2-Yi-34B. After pre-training, the extracted ViT is published as <a rel="nofollow" href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-2">InternViT-6B-448px-V1-2</a>.</td></tr>
                           <tr><th>Trainable Module</th><td colspan="2">ViT + MLP</td></tr>
-                            <tr><th rowspan="2">Stage−2</th><th>Training Data</th><td>Open-sourced 1.2M visual instruction tuning samples.</td><td>A comprehensive collection of open-source datasets, along with their Chinese translation versions, totaling approximately 12M samples.</td></tr>
+                            <tr><th rowspan="2">Stage−2</th><th>Training Data</th><td>Open-sourced 1.2M visual instruction tuning samples. </td><td>A comprehensive collection of open-source datasets, along with their Chinese translation versions, totaling approximately 12M samples.</td></tr>
                           <tr><th>Trainable Module</th><td colspan="2">ViT + MLP + LLM</td></tr>
                         </table>
 
@@ -170,7 +170,7 @@
                                     <td>1</td>
                                     <td>384</td>
                                     <td>0.05</td>
-                                    <td>Link</td>
+                                    <td>-</td>
                                     <td><a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-2">ViT</a> / <a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-2/blob/main/mlp_projector/hermes_2_yi_34b.pth">MLP</a></td>
                                 </tr>
                                 <tr>
@@ -183,7 +183,7 @@
                                     <td>1</td>
                                     <td>2048</td>
                                     <td>0.05</td>
-                                    <td><a href="https://github.com/OpenGVLab/InternVL/blob/main/internvl_chat/shell/hermes2_yi34b/internvl_chat_v1_2_hermes2_yi34b_448_res_finetune.sszh">Link</a></td>
+                                    <td><a href="https://github.com/OpenGVLab/InternVL/blob/main/internvl_chat/shell/hermes2_yi34b/internvl_chat_v1_2_hermes2_yi34b_448_res_finetune.sh">Link</a></td>
                                     <td><a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-2">MLLM</a></td>
                                 </tr>
                             </tbody>
@@ -334,7 +334,7 @@
                                     <td>67.1</td>
                                 </tr>
                                 <tr  style="background-color: rgb(255,248,227);">
-                                    <td>InternVL−Chat−V1.2</td>
+                                    <td>InternVL−Chat−V1-2</td>
                                     <td>448x448</td>
                                     <td>51.6</td>
                                     <td>46.2</td>
@@ -355,13 +355,13 @@
 
                         <ul>
                             <li>MMBench results are collected from the <a href="https://mmbench.opencompass.org.cn/leaderboard">leaderboard</a>.</li>
-                            <li>In most benchmarks, InternVL-Chat-V1.2 achieved better performance than LLaVA-NeXT-34B.</li>
+                            <li>In most benchmarks, InternVL-Chat-V1-2 achieved better performance than LLaVA-NeXT-34B.</li>
                             <li>Update (2024-04-21): We have fixed a bug in the evaluation code of TextVQA, and the result has been corrected to 72.5.</li>
                         </ul>
 
-                        <h2>InternVL-Chat-V1.2-Plus</h2>
+                        <h2>InternVL-Chat-V1-2-Plus</h2>
 
-                        <p><a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-2-Plus">InternVL-Chat-V1.2-Plus</a> uses the same model architecture as InternVL-Chat-V1.2, but the difference lies in the SFT dataset. InternVL-Chat-V1.2 only utilizes an SFT dataset with 1.2M samples, while our plus version employs an SFT dataset with 12M samples.</p>
+                        <p><a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-2-Plus">InternVL-Chat-V1-2-Plus</a> uses the same model architecture as InternVL-Chat-V1-2, but the difference lies in the SFT dataset. InternVL-Chat-V1-2 only utilizes an SFT dataset with 1.2M samples, while our plus version employs an SFT dataset with 12M samples.</p>
 
 
                         <h3>Performance</h3>
@@ -509,7 +509,7 @@
                                     <td>67.1†</td>
                                 </tr>
                                 <tr>
-                                    <td>InternVL−Chat−V1.2</td>
+                                    <td>InternVL−Chat−V1-2</td>
                                     <td>448x448</td>
                                     <td>51.6</td>
                                     <td>46.2</td>
@@ -526,7 +526,7 @@
                                     <td>64.0†</td>
                                 </tr>
                                 <tr style="background-color: rgb(255,248,227);">
-                                    <td>InternVL−Chat−V1.2−Plus</td>
+                                    <td>InternVL−Chat−V1-2−Plus</td>
                                     <td>448x448</td>
                                     <td>50.3</td>
                                     <td>45.6</td>

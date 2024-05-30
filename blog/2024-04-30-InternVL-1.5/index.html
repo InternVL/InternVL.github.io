@@ -62,14 +62,14 @@
 
                         <tr>
                         <td rowspan="2">Vision Large Language Model</td>
-                        <td>InternVL−Chat−V1.5-Int8</td>
+                        <td>InternVL−Chat−V1-5-Int8</td>
                         <td>2024.04.28</td>
                         <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-5-Int8" rel="nofollow">HF link</a></td>
                         <td>The INT8 version of InternVL-Chat-V1-5</td>
                         </tr>
 
                         <tr>
-                        <td>InternVL−Chat−V1.5</td>
+                        <td>InternVL−Chat−V1-5</td>
                         <td>2024.04.18</td>
                         <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL-Chat-V1-5" rel="nofollow">HF link</a></td>
                         <td>support 4K image; super strong OCR; Approaching the performance of GPT-4V and Gemini Pro on various benchmarks like MMMU, DocVQA, ChartQA, MathVista, etc. (🔥new)</td>
@@ -77,7 +77,7 @@
 
                         <tr>
                          <td>Vision Foundation Model</td>
-                            <td>InternViT−6B−448px−V1.5</td>
+                            <td>InternViT−6B−448px−V1-5</td>
                         <td>2024.04.20</td>
                         <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-5" rel="nofollow">HF link</a></td>
                         <td>support dynamic resolution, super strong OCR (🔥new)</td>
@@ -95,7 +95,7 @@
                     </p>
 
                     <ol>
-                        <li><b>Strong Vision Encoder:</b> we explored a continuous learning strategy for the large-scale vision foundation model---InternViT-6B, boosting its visual understanding capabilities, and making it can be transferred and reused in different LLMs. </li>
+                        <li><b>Strong Vision Encoder:</b> we explored a continuous learning strategy for the large-scale vision foundation model——InternViT-6B, boosting its visual understanding capabilities, and making it can be transferred and reused in different LLMs. </li>
                     <li><b>Dynamic High-Resolution:</b> we divide images into tiles ranging from 1 to 40 of 448 × 448 pixels according to the aspect ratio and resolution of the input images, which supports up to 4K resolution input.</li>
                     <li><b>High-Quality Bilingual Dataset:</b> we carefully collected a high-quality bilingual dataset that covers common scenes, document images, and annotated them with English and Chinese question-answer pairs, significantly enhancing performance in OCR- and Chinese-related tasks.</li>
                     </ol>
@@ -113,7 +113,7 @@
                     <h3 id="model-card">Model Card</h3>
 
                         <table  style="text-align: center;">
-                          <tr><th colspan="2">Name</th><th>InternVL-Chat-V1.5</th><th>InternVL-Chat-V1.5-Plus</th></tr>
+                          <tr><th colspan="2">Name</th><th>InternVL-Chat-V1-5</th><th>InternVL-Chat-V1-5-Plus</th></tr>
                           <tr><th rowspan="4">Model Size</th><td>Total</td><td><b>25.51B</b></td><td><b>40.07B</b></td></tr>
                           <tr><td>ViT</td><td>5.54B</td><td>5.54B</td></tr>
                           <tr><td>MLP</td><td>116.43M</td><td>143.17M</td></tr>

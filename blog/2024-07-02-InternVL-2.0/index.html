@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>InternVL-2</title>
+    <link rel="icon" href="https://github.com/OpenGVLab/InternVL/assets/47669167/7037290e-f474-4d11-b90f-1d8316087bf8">
+    <meta name="description" content="...">
+    <link rel="stylesheet" href="/blog/assets/main.css">
+</head>
+
+<body>
+    <header class="site-header" role="banner">
+        <div class="wrapper">
+            <a class="site-title" rel="author" href="/">InternVL</a>
+            <nav class="site-nav">
+                <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                <label for="nav-trigger">
+                    <span class="menu-icon">
+                        <svg viewBox="0 0 18 15" width="18px" height="15px">
+                            <path
+                                d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z" />
+                        </svg>
+                    </span>
+                </label>
+                <div class="trigger"></div>
+            </nav>
+        </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+        <style>
+            @media (max-width: 768px) {
+                img.responsive {
+                    width: 100% !important;
+                }
+            }
+        </style>
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+                <header class="post-header">
+                    <h1 class="post-title p-name" itemprop="name headline">InternVL-2: Better than the Best—Expanding
+                        Performance Boundaries of Open-Source Multimodal Models with the Progressive Scaling Strategy
+                    </h1>
+                    <p class="post-meta">
+                        <time class="dt-published" datetime="2024-04-30" itemprop="datePublished">2024/07/04</time>
+                        •
+                        <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+                            <span class="p-author h-card" itemprop="name">OpenGVLab Team</span>
+                        </span>
+                    </p>
+                </header>
+                <p><a rel="nofollow" href="../">[🆕 Go Back]</a> <a rel="nofollow"
+                        href="https://arxiv.org/abs/2312.14238">[📜 InternVL 1.0 Paper]</a> <a rel="nofollow"
+                        href="https://arxiv.org/abs/2404.16821">[📜 InternVL 1.5 Report]</a> <a rel="nofollow"
+                        href="https://internvl.intern-ai.org.cn">[🗨️ Chat Demo]</a> <a rel="nofollow"
+                        href="https://huggingface.co/spaces/OpenGVLab/InternVL">[🤗 HF Demo]</a>
+                    <!-- <a rel="nofollow"
+                        href="https://modelscope.cn/models/OpenGVLab/Mini-InternVL-Chat-4B-V1-5/summary">[<img
+                            src="images/modelscope_logo.png" width="20px" style="max-width: 100%;"> ModelScope]</a> -->
+                    <a rel="nofollow"
+                        href="https://github.com/OpenGVLab/InternVL?tab=readme-ov-file#quick-start-with-huggingface">[🚀
+                        Quick Start]</a> <a rel="nofollow" href="https://rapidapi.com/adushar1320/api/internvl-chat">[🌐
+                        API]</a>
+                    <a rel="nofollow" href="https://zhuanlan.zhihu.com/p/695823005">[📖 中文解读]</a>
+                </p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Model</th>
+                            <th>Date</th>
+                            <th>Download</th>
+                            <!-- <th>Note</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td rowspan="7">Multimodal Large Language Models</td>
+                            <td>InternVL-2-2B</td>
+                            <td>2024.07.04</td>
+                            <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL2-2B" rel="nofollow">HF link</a>
+                            </td>
+                            <!-- <td>xxx</td> -->
+                        </tr>
+                        <tr>
+                            <td>InternVL-2-4B</td>
+                            <td>2024.07.04</td>
+                            <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL2-4B" rel="nofollow">HF link</a>
+                            </td>
+                            <!-- <td>xxx</td> -->
+                        </tr>
+                        <tr>
+                            <td>InternVL-2-8B</td>
+                            <td>2024.07.04</td>
+                            <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL2-8B" rel="nofollow">HF link</a>
+                            </td>
+                            <!-- <td>xxx</td> -->
+                        </tr>
+                        <tr>
+                            <td>InternVL-2-26B</td>
+                            <td>2024.07.04</td>
+                            <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL2-26B" rel="nofollow">HF link</a>
+                            </td>
+                            <!-- <td>xxx</td> -->
+                        </tr>
+                        <tr>
+                            <td>InternVL-2-40B</td>
+                            <td>2024.07.04</td>
+                            <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL2-40B" rel="nofollow">HF link</a>
+                            </td>
+                            <!-- <td>xxx</td> -->
+                        </tr>
+                        <tr>
+                            <td>InternVL-2-108B</td>
+                            <td>Coming soon</a>
+                                <!-- <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL2-108B" rel="nofollow">HF link</a> -->
+                            <td>Coming soon</a>
+                            </td>
+                            <!-- <td>xxx</td> -->
+                        </tr>
+                        <tr>
+                            <td>InternVL-2-Pro</td>
+                            <td>Coming soon</a>
+                            <td>Coming soon</a>
+                            </td>
+                            <!-- <td>xxx</td> -->
+                        </tr>
+
+                        <tr>
+                            <td rowspan="2">Vision Foundation Model</td>
+                            <td>
+                                <nobr>InternViT-300M-448px</nobr>
+                            </td>
+                            <td>2024.05.25</td>
+                            <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternViT-300M-448px" rel="nofollow">HF
+                                    link</a>
+                        </tr>
+                        <tr>
+                            <td>
+                                <nobr>InternViT-6B-448px-V1-5</nobr>
+                            </td>
+                            <td>2024.04.20</td>
+                            <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V1-5" rel="nofollow">HF
+                                    link</a>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <div class="post-content e-content" itemprop="articleBody">
+                    <center>
+                        <p><img class="responsive" width="70%" alt="image" src="images/overview.png"></p>
+                    </center>
+
+
+                    <p>
+                        We introduce InternVL-2, currently the most powerful open-source Multimodal Large Language
+                        Model (MLLM). The InternVL-2 family includes models ranging from a 2B model, suitable for edge
+                        devices, to a 108B model, which is significantly more powerful. With larger-scale language
+                        models, InternVL-2-Pro demonstrates outstanding multimodal understanding capabilities,
+                        matching the performance of commercial closed-source models across various benchmarks.
+                    </p>
+                    <p>InternVL-2 family is built upon the following designs:
+                    </p>
+                    <ol>
+                        <li><b>Progressive with larger language models</b>: We introduce a progressive alignment
+                            training strategy, resulting in the first vision foundation model aligned
+                            with large language models. By employing the progressive training strategy where the model
+                            scales from small to large while the data refines from coarse to fine, we have completed
+                            the training of large models at a relatively low cost. This approach has demonstrated
+                            excellent performance with limited resources.
+                        </li>
+                        <li><b>Multimodal input</b>: With one set of parameters, our model supports multiple modalities
+                            of input, including text, images, video, audio, and 3D point clouds. </li>
+                        <li><b>Multitask output</b>: Our model supports various output formats, such as images, bounding
+                            boxes, and masks, demonstrating extensive versatility. By connecting the MLLM with multiple
+                            downstream task decoders, InternVL-2 can be generalized to hundreds of vision-language
+                            tasks while achieving performance comparable to expert models.</li>
+                    </ol>
+
+                    <h3 id="model-card">Model Card</h3>
+
+                    <table style="text-align: center;">
+                        <tr>
+                            <th colspan="2">Name</th>
+                            <th>InternVL-2-2B</th>
+                            <th>InternVL-2-4B</th>
+                            <th>InternVL-2-8B</th>
+                            <th>InternVL-2-26B</th>
+                            <th>InternVL-2-40B</th>
+                            <th>InternVL-2-108B</th>
+                        </tr>
+                        <tr>
+                            <th rowspan="4">Model Size</th>
+                            <!-- <th colspan="2">Model Size</th> -->
+                            <td>Total</td>
+                            <td><b>2.21B</b></td>
+                            <td><b>4.15B</b></td>
+                            <td><b>8.08B</b></td>
+                            <td><b>25.51B</b></td>
+                            <td><b>40.07B</b></td>
+                            <td><b>108.70B</b></td>
+                        </tr>
+                        <tr>
+                            <td>ViT</td>
+                            <td>304.01M</td>
+                            <td>304.01M</td>
+                            <td>304.01M</td>
+                            <td>304.01M</td>
+                            <td>5.54B</td>
+                            <td>5.54B</td>
+                        </tr>
+                        <tr>
+                            <td>MLP</td>
+                            <td>12.60M</td>
+                            <td>22.03M</td>
+                            <td>33.57M</td>
+                            <td>116.43M</td>
+                            <td>143.17M</td>
+                            <td>172.01M</td>
+                        </tr>
+                        <tr>
+                            <td>LLM</td>
+                            <td>2.21B</td>
+                            <td>3.82B</td>
+                            <td>7.74B</td>
+                            <td>19.86B</td>
+                            <td>34.39B</td>
+                            <td>102.99B</td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Resolution</th>
+                            <td colspan="7">dynamic resolution, max to 12 tiles of 448 × 448 in training, max to 40
+                                tiles in testing (4K resolution).</td>
+                        </tr>
+                        <tr>
+                            <th rowspan="2">
+                                <nobr>Stage-1</nobr>
+                            </th>
+                            <th>Training Data</th>
+                            <!-- <td colspan="7" style="text-align: left;">xxx</td> -->
+                            <td colspan="7" style="text-align: left;">
+                                We entend the pre-training dataset used in InternVL 1.5
+                                with data collected from diverse sources.
+                                These datasets span multiple tasks, including captioning, visual question answering,
+                                detection, grounding, and OCR.
+                                The OCR datasets were constructed using PaddleOCR to perform OCR on Chinese images from
+                                Wukong and on English images from LaionCOCO, and were manually verified.
+                                Besides, we also crawled and manually parsed the exam data from
+                                <a href="https://uworld.com/" rel="nofollow">uworld</a>,
+                                <a href="https://www.kaptest.com/act" rel="nofollow">kaptest</a>,
+                                <a href="https://testbank.zip/" rel="nofollow">testbank</a>,
+                                <a href="https://www.aqa.org.uk/" rel="nofollow">aga</a>,
+                                and
+                                <a href="https://satsuite.collegeboard.org/sat" rel="nofollow">sat</a>.
+                                The interleaved data from
+                                <a href="https://github.com/OpenGVLab/OmniCorpus" rel="nofollow">OmniCorpus</a>
+                                was also utilized.
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Trainable Module</th>
+                            <td colspan="7">ViT + MLP</td>
+                            <!-- <td colspan="1">MLP</td> -->
+                        </tr>
+                        <tr>
+                            <th rowspan="2">
+                                <nobr>Stage-2</nobr>
+                            </th>
+                            <th>Training Data</th>
+                            <td colspan="7" style="text-align: left;">
+                                We constructed the training data based on the 5M high-quality bilingual dataset used in
+                                InternVL 1.5. Specifically, we included video data such as EgoTaskQA, Mementos, STAR,
+                                NTU RGB+D, videochat2it, and LSMDC_QA, as well as medical data such as
+                                Medical-Diff-VQA, Pathology_VQA, PMC-CaseReport, PMC-VQA, Slake, and VQA_RAD.
+                                We also included SROIE, FUNSD, and POIE to further enhance the model's ability to
+                                recognize handwritten fonts.
+                                Additionally, we excluded all data from ShareGPT4V and replace it with data from
+                                <a href="https://huggingface.co/datasets/OpenGVLab/ShareGPT-4o">ShareGPT-4o</a>.
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Trainable Module</th>
+                            <td colspan="7">ViT + MLP + LLM</td>
+                        </tr>
+                    </table>
+
+
+                    <h3 id="performance">Performance</h3>
+                    <p>
+                        InternVL-2 demonstrates powerful capabilities in handling complex multimodal data, excelling
+                        in tasks such as mathematics, scientific charts, general charts, documents, infographics, and
+                        OCR. For instance, InternVL-2 achieves an accuracy of 66.9% on the MathVista benchmark,
+                        significantly surpassing other closed-source commercial models and open-source models. Moreover,
+                        InternVL-2 achieves state-of-the-art performance across a wide range of benchmarks, including
+                        the general chart benchmark ChartQA, the document benchmark DocVQA, the infographic benchmark
+                        InfographicVQA, and the general visual question answering benchmark MMBench (v1.1).
+                        Notably, there are two evaluation settings in the AI2D benchmark. In the first setting, we
+                        replace the content within the rectangles in the images with the letters of the options. In the
+                        second setting, we replace the content within the rectangles with both the letters of the
+                        options and the value of the options. Our model achieves a performance of 87.3 in the first
+                        setting and 96.0 in the second setting.
+                    </p>
+                    <p>* Proprietary Model</p>
+                    <!-- 
+                    <center>
+                        <p><img class="responsive" width="90%" alt="image" src="images/img.png"></p>
+                        <p><img class="responsive" width="90%" alt="image" src="images/img_2.png"></p>
+                    </center> -->
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>name</th>
+                                <th>MMMU</th>
+                                <th>MathVista</th>
+                                <th>AI2D</th>
+                                <th>ChartQA</th>
+                                <th>DocVQA</th>
+                                <th>InfoVQA</th>
+                                <th>OCRBench</th>
+                                <th>MMB v1.1</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>GPT-4V*<br>(20240409)</td>
+                                <td>63.1</td>
+                                <td>58.1</td>
+                                <td>89.4</td>
+                                <td>78.1</td>
+                                <td>87.2</td>
+                                <td>unknown</td>
+                                <td>656</td>
+                                <td>79.8</td>
+                            </tr>
+                            <tr>
+                                <td>GPT-4o*<br>(20240513)</td>
+                                <td>69.1</td>
+                                <td>63.8</td>
+                                <td>94.2</td>
+                                <td>85.7</td>
+                                <td>92.8</td>
+                                <td>unknown</td>
+                                <td>736</td>
+                                <td>82.2</td>
+                            </tr>
+                            <tr>
+                                <td>Gemini Pro 1.5*</td>
+                                <td>58.5</td>
+                                <td>52.1</td>
+                                <td>80.3</td>
+                                <td>81.3</td>
+                                <td>86.5</td>
+                                <td>72.7</td>
+                                <td>754</td>
+                                <td>73.9</td>
+                            </tr>
+                            <tr>
+                                <td>Claude-3 Opus*</td>
+                                <td>59.4</td>
+                                <td>50.5</td>
+                                <td>88.1</td>
+                                <td>80.8</td>
+                                <td>89.3</td>
+                                <td>unknown</td>
+                                <td>694</td>
+                                <td>59.1</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Cambrian-1</td>
+                                <td>49.7</td>
+                                <td>53.2</td>
+                                <td>79.7</td>
+                                <td>75.6</td>
+                                <td>75.5</td>
+                                <td>unknown</td>
+                                <td>600</td>
+                                <td>unknown</td>
+
+                            </tr>
+
+                            <tr>
+                                <td>LLaVA-NeXT Qwen1.5</td>
+                                <td>50.1</td>
+                                <td>49.0</td>
+                                <td>80.4</td>
+                                <td>79.7</td>
+                                <td>85.7</td>
+                                <td>unknown</td>
+                                <td>unknown</td>
+                                <td>unknown</td>
+                            </tr>
+                            <tr style="background-color: rgb(255,248,227);">
+                                <td>
+                                    <nobr>InternVL-2-Pro</nobr>
+                                </td>
+                                <td>62.0</td>
+                                <td>66.3</td>
+                                <td>87.3 / 96.0</td>
+                                <td>87.1</td>
+                                <td>95.1</td>
+                                <td>83.3</td>
+                                <td>837</td>
+                                <td>86.4</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <a class="u-url" href="/blog/2024-05-20-InternVL-1-5-vs-GPT-4V" hidden></a>
+
+                    <p>
+                        In addition to the VQA benchmarks mentioned above, we also evaluate our InternVL-2-Pro in
+                        <a href="https://mm-niah.github.io/" rel="nofollow">the MM-NIAH benchamrk</a>, which is a
+                        comprehensive benchmark designed for long multimodal documents understanding.
+                        As shown in the figure below, our model exhibits comparable performance to Gemini on
+                        comprehending long multimodal documents. Improving performance on the counting task and other
+                        tasks involving image needles will be left for future work.
+                    </p>
+
+                    <center>
+                        <img class="responsive" alt="image/png" width="75%" src="images/results_on_mm_niah.png">
+                    </center>
+
+                    <h3 class="title">Examples</h3>
+                    <center>
+                        <p>
+                            <img class="responsive" alt="image/png" width="40%" src="images/example2.png">
+                            <img class="responsive" alt="image/png" width="40%" src="images/example3.png">
+                        </p>
+                        <p>
+                            <img class="responsive" alt="image/png" width="40%" src="images/example1.png">
+                            <img class="responsive" alt="image/png" width="40%" src="images/example4.png">
+                        </p>
+
+                    </center>
+                    <h3 id="Usage"></h3>
+                    <h2 class="title">Citation</h2>
+
+
+                    <pre><code>
+  @article{chen2023internvl,
+      title={InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks},
+      author={Chen, Zhe and Wu, Jiannan and Wang, Wenhai and Su, Weijie and Chen, Guo and Xing, Sen and Zhong, Muyan and Zhang, Qinglong and Zhu, Xizhou and Lu, Lewei and Li, Bin and Luo, Ping and Lu, Tong and Qiao, Yu and Dai, Jifeng},
+      journal={arXiv preprint arXiv:2312.14238},
+      year={2023}
+  }
+  @article{chen2024far,
+    title={How Far Are We to GPT-4V? Closing the Gap to Commercial Multimodal Models with Open-Source Suites},
+    author={Chen, Zhe and Wang, Weiyun and Tian, Hao and Ye, Shenglong and Gao, Zhangwei and Cui, Erfei and Tong, Wenwen and Hu, Kongzhi and Luo, Jiapeng and Ma, Zheng and others},
+    journal={arXiv preprint arXiv:2404.16821},
+    year={2024}
+  }
+  </code></pre>
+                    <br>
+                    <h4 class="title"><a href="../">🔙 Go Back</a></h4>
+                </div>
+
+
+            </article>
+        </div>
+    </main>
+    <footer class="site-footer h-card">
+        <data class="u-url" href="/blog/"></data>
+        <div class="wrapper">
+            <div class="footer-col-wrapper">
+                <div class="footer-col footer-col-1">
+                    <ul class="contact-list">
+                    </ul>
+                </div>
+                <div class="footer-col footer-col-2">
+                    <ul class="social-media-list"></ul>
+                </div>
+                <div class="footer-col footer-col-3">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

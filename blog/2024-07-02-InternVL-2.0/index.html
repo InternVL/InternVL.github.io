@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>InternVL-2</title>
+    <title>InternVL2</title>
     <link rel="icon" href="https://github.com/OpenGVLab/InternVL/assets/47669167/7037290e-f474-4d11-b90f-1d8316087bf8">
     <meta name="description" content="...">
     <link rel="stylesheet" href="/blog/assets/main.css">
@@ -40,7 +40,7 @@
         <div class="wrapper">
             <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
                 <header class="post-header">
-                    <h1 class="post-title p-name" itemprop="name headline">InternVL-2: Better than the Best—Expanding
+                    <h1 class="post-title p-name" itemprop="name headline">InternVL2: Better than the Best—Expanding
                         Performance Boundaries of Open-Source Multimodal Models with the Progressive Scaling Strategy
                     </h1>
                     <p class="post-meta">
@@ -61,8 +61,8 @@
                             src="images/modelscope_logo.png" width="20px" style="max-width: 100%;"> ModelScope]</a> -->
                     <a rel="nofollow"
                         href="https://github.com/OpenGVLab/InternVL?tab=readme-ov-file#quick-start-with-huggingface">[🚀
-                        Quick Start]</a> <a rel="nofollow" href="https://rapidapi.com/adushar1320/api/internvl-chat">[🌐
-                        API]</a>
+                        Quick Start]</a> <a rel="nofollow"
+                        href="https://github.com/OpenGVLab/InternVL/blob/main/document/How_to_use_InternVL_API.md">[🌐API]</a>
                     <a rel="nofollow" href="https://zhuanlan.zhihu.com/p/695823005">[📖 中文解读]</a>
                 </p>
 
@@ -80,42 +80,42 @@
 
                         <tr>
                             <td rowspan="7">Multimodal Large Language Models</td>
-                            <td>InternVL-2-2B</td>
+                            <td>InternVL2-2B</td>
                             <td>2024.07.04</td>
                             <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL2-2B" rel="nofollow">HF link</a>
                             </td>
                             <!-- <td>xxx</td> -->
                         </tr>
                         <tr>
-                            <td>InternVL-2-4B</td>
+                            <td>InternVL2-4B</td>
                             <td>2024.07.04</td>
                             <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL2-4B" rel="nofollow">HF link</a>
                             </td>
                             <!-- <td>xxx</td> -->
                         </tr>
                         <tr>
-                            <td>InternVL-2-8B</td>
+                            <td>InternVL2-8B</td>
                             <td>2024.07.04</td>
                             <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL2-8B" rel="nofollow">HF link</a>
                             </td>
                             <!-- <td>xxx</td> -->
                         </tr>
                         <tr>
-                            <td>InternVL-2-26B</td>
+                            <td>InternVL2-26B</td>
                             <td>2024.07.04</td>
                             <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL2-26B" rel="nofollow">HF link</a>
                             </td>
                             <!-- <td>xxx</td> -->
                         </tr>
                         <tr>
-                            <td>InternVL-2-40B</td>
+                            <td>InternVL2-40B</td>
                             <td>2024.07.04</td>
                             <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL2-40B" rel="nofollow">HF link</a>
                             </td>
                             <!-- <td>xxx</td> -->
                         </tr>
                         <tr>
-                            <td>InternVL-2-108B</td>
+                            <td>InternVL2-108B</td>
                             <td>Coming soon</a>
                                 <!-- <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternVL2-108B" rel="nofollow">HF link</a> -->
                             <td>Coming soon</a>
@@ -123,7 +123,7 @@
                             <!-- <td>xxx</td> -->
                         </tr>
                         <tr>
-                            <td>InternVL-2-Pro</td>
+                            <td>InternVL2-Pro</td>
                             <td>Coming soon</a>
                             <td>Coming soon</a>
                             </td>
@@ -158,13 +158,13 @@
 
 
                     <p>
-                        We introduce InternVL-2, currently the most powerful open-source Multimodal Large Language
-                        Model (MLLM). The InternVL-2 family includes models ranging from a 2B model, suitable for edge
+                        We introduce InternVL2, currently the most powerful open-source Multimodal Large Language
+                        Model (MLLM). The InternVL2 family includes models ranging from a 2B model, suitable for edge
                         devices, to a 108B model, which is significantly more powerful. With larger-scale language
-                        models, InternVL-2-Pro demonstrates outstanding multimodal understanding capabilities,
+                        models, InternVL2-Pro demonstrates outstanding multimodal understanding capabilities,
                         matching the performance of commercial closed-source models across various benchmarks.
                     </p>
-                    <p>InternVL-2 family is built upon the following designs:
+                    <p>InternVL2 family is built upon the following designs:
                     </p>
                     <ol>
                         <li><b>Progressive with larger language models</b>: We introduce a progressive alignment
@@ -178,7 +178,7 @@
                             of input, including text, images, video, audio, and 3D point clouds. </li>
                         <li><b>Multitask output</b>: Our model supports various output formats, such as images, bounding
                             boxes, and masks, demonstrating extensive versatility. By connecting the MLLM with multiple
-                            downstream task decoders, InternVL-2 can be generalized to hundreds of vision-language
+                            downstream task decoders, InternVL2 can be generalized to hundreds of vision-language
                             tasks while achieving performance comparable to expert models.</li>
                     </ol>
 
@@ -187,12 +187,12 @@
                     <table style="text-align: center;">
                         <tr>
                             <th colspan="2">Name</th>
-                            <th>InternVL-2-2B</th>
-                            <th>InternVL-2-4B</th>
-                            <th>InternVL-2-8B</th>
-                            <th>InternVL-2-26B</th>
-                            <th>InternVL-2-40B</th>
-                            <th>InternVL-2-108B</th>
+                            <th>InternVL2-2B</th>
+                            <th>InternVL2-4B</th>
+                            <th>InternVL2-8B</th>
+                            <th>InternVL2-26B</th>
+                            <th>InternVL2-40B</th>
+                            <th>InternVL2-108B</th>
                         </tr>
                         <tr>
                             <th rowspan="4">Model Size</th>
@@ -292,11 +292,11 @@
 
                     <h3 id="performance">Performance</h3>
                     <p>
-                        InternVL-2 demonstrates powerful capabilities in handling complex multimodal data, excelling
+                        InternVL2 demonstrates powerful capabilities in handling complex multimodal data, excelling
                         in tasks such as mathematics, scientific charts, general charts, documents, infographics, and
-                        OCR. For instance, InternVL-2 achieves an accuracy of 66.9% on the MathVista benchmark,
+                        OCR. For instance, InternVL2 achieves an accuracy of 66.9% on the MathVista benchmark,
                         significantly surpassing other closed-source commercial models and open-source models. Moreover,
-                        InternVL-2 achieves state-of-the-art performance across a wide range of benchmarks, including
+                        InternVL2 achieves state-of-the-art performance across a wide range of benchmarks, including
                         the general chart benchmark ChartQA, the document benchmark DocVQA, the infographic benchmark
                         InfographicVQA, and the general visual question answering benchmark MMBench (v1.1).
                         Notably, there are two evaluation settings in the AI2D benchmark. In the first setting, we
@@ -371,17 +371,6 @@
                                 <td>59.1</td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
                                 <td>Cambrian-1</td>
                                 <td>49.7</td>
                                 <td>53.2</td>
@@ -407,7 +396,104 @@
                             </tr>
                             <tr style="background-color: rgb(255,248,227);">
                                 <td>
-                                    <nobr>InternVL-2-Pro</nobr>
+                                    <nobr>InternVL2-Pro</nobr>
+                                </td>
+                                <td>62.0</td>
+                                <td>66.3</td>
+                                <td>87.3 / 96.0</td>
+                                <td>87.1</td>
+                                <td>95.1</td>
+                                <td>83.3</td>
+                                <td>837</td>
+                                <td>86.4</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>name</th>
+                                <th>MMMU</th>
+                                <th>MathVista</th>
+                                <th>AI2D</th>
+                                <th>ChartQA</th>
+                                <th>DocVQA</th>
+                                <th>InfoVQA</th>
+                                <th>OCRBench</th>
+                                <th>MMB v1.1</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>InternVL2-2B</td>
+                                <td>34.3</td>
+                                <td>46.3</td>
+                                <td>74.1</td>
+                                <td>76.2</td>
+                                <td>86.9</td>
+                                <td>58.9</td>
+                                <td>784</td>
+                                <td>TBD</td>
+                            </tr>
+                            <tr>
+                                <td>InternVL2-4B</td>
+                                <td>47.0</td>
+                                <td>58.6</td>
+                                <td>78.9</td>
+                                <td>81.5</td>
+                                <td>89.2</td>
+                                <td>67.0</td>
+                                <td>788</td>
+                                <td>TBD</td>
+                            </tr>
+                            <tr>
+                                <td>InternVL2-8B</td>
+                                <td>49.3</td>
+                                <td>58.3</td>
+                                <td>83.8</td>
+                                <td>83.3</td>
+                                <td>91.6</td>
+                                <td>74.8</td>
+                                <td>794</td>
+                                <td>TBD</td>
+                            </tr>
+                            <tr>
+                                <td>InternVL2-26B</td>
+                                <td>48.3</td>
+                                <td>59.4</td>
+                                <td>84.5</td>
+                                <td>84.9</td>
+                                <td>92.9</td>
+                                <td>75.9</td>
+                                <td>825</td>
+                                <td>TBD</td>
+                            </tr>
+                            <tr>
+                                <td>InternVL2-40B</td>
+                                <td>TBD</td>
+                                <td>TBD</td>
+                                <td>TBD</td>
+                                <td>TBD</td>
+                                <td>TBD</td>
+                                <td>TBD</td>
+                                <td>TBD</td>
+                                <td>TBD</td>
+                            </tr>
+                            <tr>
+                                <td>InternVL2-108B</td>
+                                <td>56.9</td>
+                                <td>67.4</td>
+                                <td>86.5</td>
+                                <td>86.0</td>
+                                <td>93.2</td>
+                                <td>78.5</td>
+                                <td>811</td>
+                                <td>84.0</td>
+                            </tr>
+                            <tr style="background-color: rgb(255,248,227);">
+                                <td>
+                                    <nobr>InternVL2-Pro</nobr>
                                 </td>
                                 <td>62.0</td>
                                 <td>66.3</td>
@@ -424,10 +510,11 @@
                     <a class="u-url" href="/blog/2024-05-20-InternVL-1-5-vs-GPT-4V" hidden></a>
 
                     <p>
-                        In addition to the VQA benchmarks mentioned above, we also evaluate our InternVL-2-Pro in
+                        In addition to the VQA benchmarks mentioned above, we also evaluate our InternVL2-Pro in
                         <a href="https://mm-niah.github.io/" rel="nofollow">the MM-NIAH benchamrk</a>, which is a
                         comprehensive benchmark designed for long multimodal documents understanding.
-                        As shown in the figure below, our model exhibits comparable performance to Gemini on
+                        As shown in the figure below, our model with Retrieval Augmented Generation(RAG) exhibits
+                        comparable performance to Gemini on
                         comprehending long multimodal documents. Improving performance on the counting task and other
                         tasks involving image needles will be left for future work.
                     </p>

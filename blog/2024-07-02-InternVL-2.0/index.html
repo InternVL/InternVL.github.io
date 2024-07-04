@@ -9,6 +9,28 @@
     <link rel="icon" href="https://github.com/OpenGVLab/InternVL/assets/47669167/7037290e-f474-4d11-b90f-1d8316087bf8">
     <meta name="description" content="...">
     <link rel="stylesheet" href="/blog/assets/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/css/bulma.min.css">
+    <link rel="stylesheet" href="/static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="/static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="/static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/leaderboard.css">
+
+    <!-- <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bulma.min.css" rel="stylesheet">
+  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script> -->
+    <script type="text/javascript" src="static/js/sort-table.js" defer></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="/static/js/fontawesome.all.min.js"></script>
+    <script src="/static/js/bulma-carousel.min.js"></script>
+    <script src="/static/js/bulma-slider.min.js"></script>
+    <script src="/static/js/explorer-index.js"></script>
+    <script src="/static/js/question_card.js"></script>
+
+    <script src="/static/js/leaderboard_testmini.js"></script>
 </head>
 
 <body>
@@ -524,7 +546,7 @@
                     </center>
 
                     <h3 class="title">Examples</h3>
-                    <center>
+                    <!-- <center>
                         <p>
                             <img class="responsive" alt="image/png" width="40%" src="images/example2.png">
                             <img class="responsive" alt="image/png" width="40%" src="images/example3.png">
@@ -534,7 +556,31 @@
                             <img class="responsive" alt="image/png" width="40%" src="images/example4.png">
                         </p>
 
-                    </center>
+                    </center> -->
+
+                    <div id="results-carousel" class="carousel results-carousel">
+                        <div class="box m-5">
+                            <div class="content has-text-centered">
+                                <img src="images/example2.png" alt="" width="55%" />
+                            </div>
+                        </div>
+                        <div class="box m-5">
+                            <div class="content has-text-centered">
+                                <img src="images/example3.png" alt="" width="55%" />
+                            </div>
+                        </div>
+                        <div class="box m-5">
+                            <div class="content has-text-centered">
+                                <img src="images/example1.png" alt="" width="75%" />
+                            </div>
+                        </div>
+                        <div class="box m-5">
+                            <div class="content has-text-centered">
+                                <img src="images/example4.png" alt="" width="75%" />
+                            </div>
+                        </div>
+                    </div>
+
                     <h3 id="Usage"></h3>
                     <h2 class="title">Citation</h2>
 

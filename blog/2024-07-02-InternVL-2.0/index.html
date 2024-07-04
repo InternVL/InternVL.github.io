@@ -170,7 +170,7 @@
 
                 <div class="post-content e-content" itemprop="articleBody">
                     <center>
-                        <p><img class="responsive" width="70%" alt="image" src="images/overview.png"></p>
+                        <p><img class="responsive" width="75%" alt="image" src="images/overview.png"></p>
                     </center>
 
 
@@ -185,18 +185,19 @@
                     </p>
                     <ol>
                         <li><b>Progressive with larger language models</b>: We introduce a progressive alignment
-                            training strategy, resulting in the first vision foundation model aligned
+                            training strategy, resulting in the first vision foundation model natively aligned
                             with large language models. By employing the progressive training strategy where the model
                             scales from small to large while the data refines from coarse to fine, we have completed
                             the training of large models at a relatively low cost. This approach has demonstrated
                             excellent performance with limited resources.
                         </li>
                         <li><b>Multimodal input</b>: With one set of parameters, our model supports multiple modalities
-                            of input, including text, images, video, audio, and 3D point clouds. </li>
-                        <li><b>Multitask output</b>: Our model supports various output formats, such as images, bounding
-                            boxes, and masks, demonstrating extensive versatility. By connecting the MLLM with multiple
-                            downstream task decoders, InternVL2 can be generalized to hundreds of vision-language
-                            tasks while achieving performance comparable to expert models.</li>
+                            of input, including text, images, video, and medical data. </li>
+                        <li><b>Multitask output</b>: Powered by <a href="https://github.com/OpenGVLab/VisionLLM">VisionLLMv2</a>,
+                            our model supports various output formats, such as images, bounding boxes, and masks,
+                            demonstrating extensive versatility. By connecting the MLLM with multiple downstream task
+                            decoders, InternVL2 can be generalized to hundreds of vision-language tasks while achieving
+                            performance comparable to expert models.</li>
                     </ol>
 
                     <h3 id="model-card">Model Card</h3>
@@ -292,11 +293,11 @@
                             <td colspan="7" style="text-align: left;">
                                 We constructed the training data based on the 5M high-quality bilingual dataset used in
                                 InternVL 1.5. Specifically, we included video data such as EgoTaskQA, Mementos, STAR,
-                                NTU RGB+D, videochat2it, and LSMDC_QA, as well as medical data such as
-                                Medical-Diff-VQA, Pathology_VQA, PMC-CaseReport, PMC-VQA, Slake, and VQA_RAD.
+                                NTU RGB+D, VideoChat2IT, and LSMDC-QA, as well as medical data such as
+                                Medical-Diff-VQA, Pathology-VQA, PMC-CaseReport, PMC-VQA, Slake, and VQA-RAD.
                                 We also included SROIE, FUNSD, and POIE to further enhance the model's ability to
                                 recognize handwritten fonts.
-                                Additionally, we excluded all data from ShareGPT4V and replace it with data from
+                                Additionally, we excluded all data from ShareGPT-4V and replace it with data from
                                 <a href="https://huggingface.co/datasets/OpenGVLab/ShareGPT-4o">ShareGPT-4o</a>.
                             </td>
                         </tr>
@@ -311,11 +312,13 @@
                     <p>
                         InternVL2 demonstrates powerful capabilities in handling complex multimodal data, excelling
                         in tasks such as mathematics, scientific charts, general charts, documents, infographics, and
-                        OCR. For instance, InternVL2 achieves an accuracy of 66.9% on the MathVista benchmark,
+                        OCR. For instance, InternVL2 achieves an accuracy of 66.3% on the MathVista benchmark,
                         significantly surpassing other closed-source commercial models and open-source models. Moreover,
                         InternVL2 achieves state-of-the-art performance across a wide range of benchmarks, including
                         the general chart benchmark ChartQA, the document benchmark DocVQA, the infographic benchmark
-                        InfographicVQA, and the general visual question answering benchmark MMBench (v1.1).
+                        InfographicVQA, and the general visual question answering benchmark MMBench.
+                    </p>
+                    <p>
                         Notably, there are two evaluation settings in the AI2D benchmark. In the first setting, we
                         replace the content within the rectangles in the images with the letters of the options. In the
                         second setting, we replace the content within the rectangles with both the letters of the
@@ -332,14 +335,15 @@
                         <thead>
                             <tr>
                                 <th>name</th>
-                                <th>MMMU</th>
-                                <th>MathVista</th>
-                                <th>AI2D</th>
-                                <th>ChartQA</th>
-                                <th>DocVQA</th>
-                                <th>InfoVQA</th>
+                                <th>MMMU<sub>val</sub></th>
+                                <th>MathVista<sub>testmini</sub></th>
+                                <th>AI2D<sub>test</sub></th>
+                                <th>ChartQA<sub>test</sub></th>
+                                <th>DocVQA<sub>test</sub></th>
+                                <th>InfoVQA<sub>test</sub></th>
                                 <th>OCRBench</th>
-                                <th>MMB v1.1</th>
+                                <th>MMB-EN<sub>test</sub></th>
+                                <th>MMB-CN<sub>test</sub></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -351,8 +355,9 @@
                                 <td>78.1</td>
                                 <td>87.2</td>
                                 <td>unknown</td>
-                                <td>656</td>
-                                <td>79.8</td>
+                                <td>678</td>
+                                <td>81.0</td>
+                                <td>80.2</td>
                             </tr>
                             <tr>
                                 <td>GPT-4o*<br>(20240513)</td>
@@ -363,18 +368,20 @@
                                 <td>92.8</td>
                                 <td>unknown</td>
                                 <td>736</td>
-                                <td>82.2</td>
+                                <td>83.4</td>
+                                <td>82.1</td>
                             </tr>
                             <tr>
                                 <td>Gemini Pro 1.5*</td>
                                 <td>58.5</td>
-                                <td>52.1</td>
+                                <td>57.7</td>
                                 <td>80.3</td>
                                 <td>81.3</td>
                                 <td>86.5</td>
                                 <td>72.7</td>
                                 <td>754</td>
                                 <td>73.9</td>
+                                <td>73.8</td>
                             </tr>
                             <tr>
                                 <td>Claude-3 Opus*</td>
@@ -385,7 +392,8 @@
                                 <td>89.3</td>
                                 <td>unknown</td>
                                 <td>694</td>
-                                <td>59.1</td>
+                                <td>-</td>
+                                <td>-</td>
                             </tr>
                             <tr>
                                 <td>Cambrian-1</td>
@@ -396,8 +404,8 @@
                                 <td>75.5</td>
                                 <td>unknown</td>
                                 <td>600</td>
+                                <td>81.4</td>
                                 <td>unknown</td>
-
                             </tr>
 
                             <tr>
@@ -409,6 +417,7 @@
                                 <td>85.7</td>
                                 <td>unknown</td>
                                 <td>unknown</td>
+                                <td>80.5</td>
                                 <td>unknown</td>
                             </tr>
                             <tr style="background-color: rgb(255,248,227);">
@@ -422,7 +431,8 @@
                                 <td>95.1</td>
                                 <td>83.3</td>
                                 <td>837</td>
-                                <td>86.4</td>
+                                <td>87.8</td>
+                                <td>87.2</td>
                             </tr>
                         </tbody>
                     </table>
@@ -431,14 +441,15 @@
                         <thead>
                             <tr>
                                 <th>name</th>
-                                <th>MMMU</th>
-                                <th>MathVista</th>
-                                <th>AI2D</th>
-                                <th>ChartQA</th>
-                                <th>DocVQA</th>
-                                <th>InfoVQA</th>
+                                <th>MMMU<sub>val</sub></th>
+                                <th>MathVista<sub>testmini</sub></th>
+                                <th>AI2D<sub>test</sub></th>
+                                <th>ChartQA<sub>test</sub></th>
+                                <th>DocVQA<sub>test</sub></th>
+                                <th>InfoVQA<sub>test</sub></th>
                                 <th>OCRBench</th>
-                                <th>MMB v1.1</th>
+                                <th>MMB-EN<sub>test</sub></th>
+                                <th>MMB-CN<sub>test</sub></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -451,7 +462,8 @@
                                 <td>86.9</td>
                                 <td>58.9</td>
                                 <td>784</td>
-                                <td>TBD</td>
+                                <td>73.2</td>
+                                <td>70.9</td>
                             </tr>
                             <tr>
                                 <td>InternVL2-4B</td>
@@ -462,7 +474,8 @@
                                 <td>89.2</td>
                                 <td>67.0</td>
                                 <td>788</td>
-                                <td>TBD</td>
+                                <td>78.6</td>
+                                <td>73.9</td>
                             </tr>
                             <tr>
                                 <td>InternVL2-8B</td>
@@ -473,7 +486,8 @@
                                 <td>91.6</td>
                                 <td>74.8</td>
                                 <td>794</td>
-                                <td>TBD</td>
+                                <td>81.7</td>
+                                <td>81.2</td>
                             </tr>
                             <tr>
                                 <td>InternVL2-26B</td>
@@ -484,7 +498,8 @@
                                 <td>92.9</td>
                                 <td>75.9</td>
                                 <td>825</td>
-                                <td>TBD</td>
+                                <td>83.4</td>
+                                <td>82.0</td>
                             </tr>
                             <tr>
                                 <td>InternVL2-40B</td>
@@ -496,17 +511,19 @@
                                 <td>TBD</td>
                                 <td>TBD</td>
                                 <td>TBD</td>
+                                <td>TBD</td>
                             </tr>
                             <tr>
                                 <td>InternVL2-108B</td>
-                                <td>56.9</td>
+                                <td>56.6</td>
                                 <td>67.4</td>
                                 <td>86.5</td>
                                 <td>86.0</td>
                                 <td>93.2</td>
                                 <td>78.5</td>
                                 <td>811</td>
-                                <td>84.0</td>
+                                <td>85.4</td>
+                                <td>83.9</td>
                             </tr>
                             <tr style="background-color: rgb(255,248,227);">
                                 <td>
@@ -519,7 +536,8 @@
                                 <td>95.1</td>
                                 <td>83.3</td>
                                 <td>837</td>
-                                <td>86.4</td>
+                                <td>87.8</td>
+                                <td>87.2</td>
                             </tr>
                         </tbody>
                     </table>

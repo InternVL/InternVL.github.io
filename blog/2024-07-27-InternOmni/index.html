@@ -137,130 +137,127 @@
 
                         <table>
                             <thead>
-                              <tr>
-                                <th>Model</th>
-                                <th>Model size</th>
-                                <th>MMMU (val)</th>
-                                <th>MMB-en (test)</th>
-                                <th>MMB-CN (test)</th>
-                                <th>TextVQA (val)</th>
-                                <th>SEED (image)</th>
-                                <th>DocVQA (val)</th>
-                                <th>AI2D (test)</th>
-                                <th>ChartVQA (test)</th>
-                                <th>Infovqa (val)</th>
-                                <th>MMVet</th>
-                              </tr>
+                                <tr>
+                                    <th>name</th>
+                                    <th>MMMU<br>(val)</br></th>
+                                    <th>MathVista<br>(testmini)</br></th>
+                                    <th>AI2D<br>(test)</br></th>
+                                    <th>ChartQA<br>(test)</br></th>
+                                    <th>DocVQA<br>(test)</br></th>
+                                    <th>InfoVQA<br>(test)</br></th>
+                                    <th>OCRBench</th>
+                                    <th>MMB-EN<br>(test)</br></th>
+                                    <th>MMB-CN<br>(test)</br></th>
+                                </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>Qwen-VL-Chat</td>
-                                <td>9.6B</td>
-                                <td>37</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>60.7</td>
-                                <td>64.8</td>
-                                <td>-</td>
-                                <td>63</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>47.3</td>
-                              </tr>
-                              <tr>
-                                <td>LLaVA-1.5-7B</td>
-                                <td>7.2B</td>
-                                <td>33.7</td>
-                                <td>62.3</td>
-                                <td>56</td>
-                                <td>45.5</td>
-                                <td>66.4</td>
-                                <td>-</td>
-                                <td>55.9</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>32.2</td>
-                              </tr>
-                              <tr>
-                                <td>InternLM-XComposer</td>
-                                <td>8B</td>
-                                <td>35.6</td>
-                                <td>6.4</td>
-                                <td>45.5</td>
-                                <td>38.5</td>
-                                <td>66.1</td>
-                                <td>-</td>
-                                <td>56.9</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>35.2</td>
-                              </tr>
-                              <tr>
-                                <td>LLaVA-1.5-13B</td>
-                                <td>13.4B</td>
-                                <td>37</td>
-                                <td>65.8</td>
-                                <td>62.1</td>
-                                <td>48.9</td>
-                                <td>68.2</td>
-                                <td>-</td>
-                                <td>61.1</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>35.6</td>
-                              </tr>
-                              <tr>
-                                <td>Cambrian-8B</td>
-                                <td>8B</td>
-                                <td>41.8</td>
-                                <td>71.6</td>
-                                <td>64.9</td>
-                                <td>72.6</td>
-                                <td>73.3</td>
-                                <td>-</td>
-                                <td>74.6</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>48</td>
-                              </tr>
-                              <tr style="background-color: rgb(255,248,227);">
-                                <td><nobr>InternOmni</nobr></td>
-                                <td>8.73B</td>
-                                <td>48.4</td>
-                                <td>76.6</td>
-                                <td>76.9</td>
-                                <td>69.1</td>
-                                <td>71.1</td>
-                                <td>85.3</td>
-                                <td>83.3</td>
-                                <td>74.4</td>
-                                <td>66.4</td>
-                                <td>62.3</td>
-                              </tr>
+                                <tr>
+                                    <td>GPT-4V*<br>(20240409)</td>
+                                    <td>63.1 / 61.7</td>
+                                    <td>58.1</td>
+                                    <td>89.4</td>
+                                    <td>78.1</td>
+                                    <td>87.2</td>
+                                    <td>-</td>
+                                    <td>678</td>
+                                    <td>81.0</td>
+                                    <td>80.2</td>
+                                </tr>
+                                <tr>
+                                    <td>Gemini Pro 1.5*</td>
+                                    <td>58.5 / 60.6</td>
+                                    <td>57.7</td>
+                                    <td>80.3</td>
+                                    <td>81.3</td>
+                                    <td>86.5</td>
+                                    <td>72.7</td>
+                                    <td>754</td>
+                                    <td>73.9</td>
+                                    <td>73.8</td>
+                                </tr>
+                                <tr>
+                                    <td>Claude3.5-Sonnet*</td>
+                                    <td>68.3 / 65.9</td>
+                                    <td>67.7</td>
+                                    <td>94.7</td>
+                                    <td>90.8</td>
+                                    <td>95.2</td>
+                                    <td>-</td>
+                                    <td>788</td>
+                                    <td>79.7</td>
+                                    <td>80.7</td>
+                                </tr>
+                                <tr>
+                                    <td>GPT-4o*<br>(20240513)</td>
+                                    <td>69.1 / 69.2</td>
+                                    <td>63.8</td>
+                                    <td>94.2</td>
+                                    <td>85.7</td>
+                                    <td>92.8</td>
+                                    <td>-</td>
+                                    <td>736</td>
+                                    <td>83.4</td>
+                                    <td>82.1</td>
+                                </tr>
+                                <tr>
+                                    <td>Cambrian-1</td>
+                                    <td>49.7 / 50.4</td>
+                                    <td>53.2</td>
+                                    <td>79.7</td>
+                                    <td>75.6</td>
+                                    <td>75.5</td>
+                                    <td>-</td>
+                                    <td>600</td>
+                                    <td>81.4</td>
+                                    <td>-</td>
+                                </tr>
+    
+                                <tr>
+                                    <td>LLaVA-NeXT Qwen1.5</td>
+                                    <td>50.1</td>
+                                    <td>49.0</td>
+                                    <td>80.4</td>
+                                    <td>79.7</td>
+                                    <td>85.7</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>80.5</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr style="background-color: rgb(255,248,227);">
+                                    <td>
+                                        <nobr>InternVL2-Pro</nobr>
+                                    </td>
+                                    <td>58.9 / 62.0</td>
+                                    <td>66.3</td>
+                                    <td>87.3 / 96.0</td>
+                                    <td>87.1</td>
+                                    <td>95.1</td>
+                                    <td>83.3</td>
+                                    <td>837</td>
+                                    <td>87.8</td>
+                                    <td>87.2</td>
+                                </tr>
+                                <tr style="background-color: rgb(255,248,227);">
+                                    <td>
+                                        <nobr>InternOmni</nobr>
+                                    </td>
+                                    <td>49.3 / 51.2</td>
+                                    <td>58.3</td>
+                                    <td>83.8</td>
+                                    <td>83.3</td>
+                                    <td>91.6</td>
+                                    <td>74.8</td>
+                                    <td>794</td>
+                                    <td>81.7</td>
+                                    <td>81.2</td>
+                                </tr>
                             </tbody>
-                          </table>
+                        </table>
 
                         <h3>Benchmark</h3>
 
-                        <p>Existing audio benchmarks mainly focus on the audio itself, with relatively simple questions and images. To better evaluate the model's ability to handle complex audio-image pair problems, especially those involving tables and mathematical knowledge, I transcribed the text parts of some existing complex image-text VQA datasets and converted them into audio files. From these, I selected the more challenging data from the original image-text questions, creating a 15k audio-image question-answer dataset. The benchmark will be open-sourced soon.The format of the benchmark is as follows:</p>
-
-                        <pre style="white-space: pre-wrap; word-break: break-word;">
-                            <code style="display: block; white-space: pre-wrap; word-break: break-word;">
-                                {"image": "data/docvqa/val/documents/pybv0228_81.png", "question": "docvqa_val_audio_0.wav", "question_id": 49153, "answer": ["0.28"]}
-                                {"image": "data/docvqa/val/documents/nkbl0226_1.png", "question": "docvqa_val_audio_1.wav", "question_id": 24580, "answer": ["university of california", "University of California", "university of california, san diego"]}
-                                {"image": "data/docvqa/val/documents/snbx0223_22.png", "question": "docvqa_val_audio_2.wav", "question_id": 57349, "answer": ["itc limited", "ITC Limited"]}
-                                {"image": "data/docvqa/val/documents/nkbl0226_1.png", "question": "docvqa_val_audio_3.wav", "question_id": 24581, "answer": ["san diego", "San Diego"]}
-                                {"image": "data/docvqa/val/documents/nkbl0226_1.png", "question": "docvqa_val_audio_4.wav", "question_id": 24582, "answer": ["Paul"]}
-                                {"image": "data/docvqa/val/documents/qqvf0227_1.png", "question": "docvqa_val_audio_5.wav", "question_id": 39079, "answer": ["1128 SIXTEENTH ST., N. W., WASHINGTON, D. C. 20036", "1128 sixteenth st., N. W., washington, D. C. 20036"]}
-                                {"image": "data/docvqa/val/documents/snbx0223_22.png", "question": "docvqa_val_audio_6.wav", "question_id": 57357, "answer": ["aashirvaad", "Aashirvaad"]}
-                                {"image": "data/docvqa/val/documents/zxfk0226_13.png", "question": "docvqa_val_audio_7.wav", "question_id": 24426, "answer": ["The Robert A. Welch Foundation"]}
-                                {"image": "data/docvqa/val/documents/txpp0227_10.png", "question": "docvqa_val_audio_8.wav", "question_id": 49168, "answer": ["11:14 to 11:39 a.m.", "11.14 to 11.39 a.m."]}
-                                {"image": "data/docvqa/val/documents/zxfk0226_13.png", "question": "docvqa_val_audio_9.wav", "question_id": 24423, "answer": ["$975.00", "975.00"]}
-                                {"image": "data/docvqa/val/documents/txpp0227_10.png", "question": "docvqa_val_audio_10.wav", "question_id": 49172, "answer": ["TRRF Vice President", "lee a. waller"]}
-                                {"image": "data/docvqa/val/documents/snbx0223_22.png", "question": "docvqa_val_audio_11.wav", "question_id": 57364, "answer": ["dark fantasy", "Dark fantasy"]}
-                                {"image": "data/docvqa/val/documents/snbx0223_22.png", "question": "docvqa_val_audio_12.wav", "question_id": 57366, "answer": ["wills lifestyle", "Wills Lifestyle"]}
-                            </code>
-                            </pre>
+                        <p>Existing audio benchmarks mainly focus on the audio itself, with relatively simple questions and images. To better evaluate the model's ability to handle complex audio-image pair problems, especially those involving tables and mathematical knowledge, I transcribed the text parts of some existing complex image-text VQA datasets and converted them into audio files. From these, I selected the more challenging data from the original image-text questions, creating a 15k audio-image question-answer dataset. The benchmark will be open-sourced soon.</p>
                         
                         <h3>Data</h3>
                         <table>

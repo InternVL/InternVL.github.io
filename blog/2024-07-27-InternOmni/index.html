@@ -112,7 +112,7 @@
                             <li><strong>High-Quality Audio-Image Dataset:</strong> We carefully collected a high-quality audio-image dataset that covers common scenes and document images. This dataset is used for audio question-answering training on images, improving the model's performance in audio question-answering tasks.</li>
                         </ol>
                         <div style="text-align: center;">
-                            <img src="./images/structure.png" alt="Model structure" style="width:100%; max-width:800px;">
+                            <img src="./images/structure.jpg" alt="Model structure" style="width:100%; max-width:800px;">
                         </div>
 
                         <h3 id="model-card">Model Card</h3>
@@ -223,20 +223,6 @@
                                 <td>-</td>
                                 <td>48</td>
                               </tr>
-                              <tr>
-                                <td>InternVL2-8B</td>
-                                <td>8B</td>
-                                <td>51.2</td>
-                                <td>81.7</td>
-                                <td>81.2</td>
-                                <td>77.4</td>
-                                <td>76.2</td>
-                                <td>90.8</td>
-                                <td>83.6</td>
-                                <td>83.8</td>
-                                <td>72.6</td>
-                                <td>60</td>
-                              </tr>
                               <tr style="background-color: rgb(255,248,227);">
                                 <td><nobr>InternOmni</nobr></td>
                                 <td>8.73B</td>
@@ -259,18 +245,52 @@
                         <p>Existing audio benchmarks mainly focus on the audio itself, with relatively simple questions and images. To better evaluate the model's ability to handle complex audio-image pair problems, especially those involving tables and mathematical knowledge, I transcribed the text parts of some existing complex image-text VQA datasets and converted them into audio files. From these, I selected the more challenging data from the original image-text questions, creating a 15k audio-image question-answer dataset. The benchmark will be open-sourced soon.The format of the benchmark is as follows:</p>
 
                         <pre style="white-space: pre-wrap; word-break: break-word;">
-                            <code style="display: block; white-space: pre-wrap; word-break: break-word; max-width: 100%;">
-                                {"image": "data/images/fa9ffd5aca1e4e51.jpg", "question": "audio_1.wav", "question_id": 1, "category": "ChartVQA"}
-                                {"image": "data/images/shsiishslla54ssc.jpg", "question": "audio_2.wav", "question_id": 2, "category": "TextVQA"}
-                                {"image": "data/images/shiqsiqhisnnkscns.jpg", "question": "audio_3.wav", "question_id": 3, "category": "OCRVQA"}
-                                {"image": "data/images/fjqsxdjjodowdddwd.jpg", "question": "audio_4.wav", "question_id": 4, "category": "MATHVQA"}
-                                {"image": "data/images/cncnoqdhgbooqjsjj.jpg", "question": "audio_5.wav", "question_id": 5, "category": "ChartVQA"}
-                                {"image": "data/images/ssq4fyj66jj5hhg5g.jpg", "question": "audio_6.wav", "question_id": 6, "category": "OCRVQA"}
-                                {"image": "data/images/ffjsdoggh5hghf6hf.jpg", "question": "audio_7.wav", "question_id": 7, "category": "MATHVQA"}
-                                {"image": "data/images/fjdogjbnddggwofhf.jpg", "question": "audio_8.wav", "question_id": 8, "category": "TextVQA"}
+                            <code style="display: block; white-space: pre-wrap; word-break: break-word;">
+                                {"image": "data/docvqa/val/documents/pybv0228_81.png", "question": "docvqa_val_audio_0.wav", "question_id": 49153, "answer": ["0.28"]}
+                                {"image": "data/docvqa/val/documents/nkbl0226_1.png", "question": "docvqa_val_audio_1.wav", "question_id": 24580, "answer": ["university of california", "University of California", "university of california, san diego"]}
+                                {"image": "data/docvqa/val/documents/snbx0223_22.png", "question": "docvqa_val_audio_2.wav", "question_id": 57349, "answer": ["itc limited", "ITC Limited"]}
+                                {"image": "data/docvqa/val/documents/nkbl0226_1.png", "question": "docvqa_val_audio_3.wav", "question_id": 24581, "answer": ["san diego", "San Diego"]}
+                                {"image": "data/docvqa/val/documents/nkbl0226_1.png", "question": "docvqa_val_audio_4.wav", "question_id": 24582, "answer": ["Paul"]}
+                                {"image": "data/docvqa/val/documents/qqvf0227_1.png", "question": "docvqa_val_audio_5.wav", "question_id": 39079, "answer": ["1128 SIXTEENTH ST., N. W., WASHINGTON, D. C. 20036", "1128 sixteenth st., N. W., washington, D. C. 20036"]}
+                                {"image": "data/docvqa/val/documents/snbx0223_22.png", "question": "docvqa_val_audio_6.wav", "question_id": 57357, "answer": ["aashirvaad", "Aashirvaad"]}
+                                {"image": "data/docvqa/val/documents/zxfk0226_13.png", "question": "docvqa_val_audio_7.wav", "question_id": 24426, "answer": ["The Robert A. Welch Foundation"]}
+                                {"image": "data/docvqa/val/documents/txpp0227_10.png", "question": "docvqa_val_audio_8.wav", "question_id": 49168, "answer": ["11:14 to 11:39 a.m.", "11.14 to 11.39 a.m."]}
+                                {"image": "data/docvqa/val/documents/zxfk0226_13.png", "question": "docvqa_val_audio_9.wav", "question_id": 24423, "answer": ["$975.00", "975.00"]}
+                                {"image": "data/docvqa/val/documents/txpp0227_10.png", "question": "docvqa_val_audio_10.wav", "question_id": 49172, "answer": ["TRRF Vice President", "lee a. waller"]}
+                                {"image": "data/docvqa/val/documents/snbx0223_22.png", "question": "docvqa_val_audio_11.wav", "question_id": 57364, "answer": ["dark fantasy", "Dark fantasy"]}
+                                {"image": "data/docvqa/val/documents/snbx0223_22.png", "question": "docvqa_val_audio_12.wav", "question_id": 57366, "answer": ["wills lifestyle", "Wills Lifestyle"]}
                             </code>
                             </pre>
-                            
+                        
+                        <h3>Data</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Size</th>
+                                    <th>Download</th>
+                                    <th>Note</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Pretrain Data</td>
+                                    <td>26M</td>
+                                    <td>🤗 <a href="https://huggingface.co/datasets/OpenGVLab/ShareGPT-4o" rel="nofollow">HF link</a></td>
+                                </tr>
+                                <tr>
+                                    <td>STF Data</td>
+                                    <td>1.9M</td>
+                                    <td>🤗 <a href="https://huggingface.co/datasets/OpenGVLab/ShareGPT-4o" rel="nofollow">HF link</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Benchmark</td>
+                                    <td>15k</td>
+                                    <td>🤗 <a href="https://huggingface.co/datasets/OpenGVLab/ShareGPT-4o" rel="nofollow">HF link</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
 
                         <h3>Examples</h3>
                         <div class="slider-container">

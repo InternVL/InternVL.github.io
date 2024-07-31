@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+        <title>InternOmni： Extending InternVL with Audio Modality</title>
+        <meta name="generator" content="Jekyll v3.9.4"/>
+        <meta property="og:title" content="InternVL Omni"/>
+        <meta name="author" content="cuierfei"/>
+        <meta property="og:locale" content="en_US"/>
+        <meta property="og:site_name" content="InternOmni"/>
+        <meta property="og:type" content="article"/>
+        <meta property="article:published_time" content="2024-01-30T12:33:38-06:00"/>
+        <meta name="twitter:card" content="summary"/>
+        <meta property="twitter:title" content="InternOmni"/>
+        <!-- End Jekyll SEO tag -->
+        <link rel="icon" href="https://github-production-user-asset-6210df.s3.amazonaws.com/47669167/330728723-7037290e-f474-4d11-b90f-1d8316087bf8.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240529%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240529T072300Z&X-Amz-Expires=300&X-Amz-Signature=d12b9e5c3c49a082747f5da55529a4f1247cd17b4329fafc1cb6d1c0678efa77&X-Amz-SignedHeaders=host&actor_id=23737120&key_id=0&repo_id=721995615">
+        <link rel="stylesheet" href="/blog/assets/main.css">
+        <link type="application/atom+xml" rel="alternate" href="https://llava-vl.github.io/blog/feed.xml" title="LLaVA"/>
+    </head>
+    <body>
+        <header class="site-header" role="banner">
+            <div class="wrapper">
+                <a class="site-title" rel="author" href="/blog/">InternVL</a>
+                <nav class="site-nav">
+                    <input type="checkbox" id="nav-trigger" class="nav-trigger"/>
+                    <label for="nav-trigger">
+                        <span class="menu-icon">
+                            <svg viewBox="0 0 18 15" width="18px" height="15px">
+                                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+                            </svg>
+                        </span>
+                    </label>
+                    <div class="trigger"></div>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content" aria-label="Content">
+            <style>
+                @media (max-width: 768px) {
+                        img.responsive {
+                        width: 100% !important;
+                    }
+                }
+            </style>
+            <div class="wrapper">
+                <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+                    <header class="post-header">
+                        <h1 class="post-title p-name" itemprop="name headline">InternOmni： Extending InternVL with Audio Modality</h1>
+                        <p class="post-meta">
+                            <time class="dt-published" datetime="2024-01-30T12:33:38-06:00" itemprop="datePublished">2024/07/29
+      </time>
+                            •
+                            <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+                                <span class="p-author h-card" itemprop="name">OpenGVLab
+                                </span>
+                            </span>
+                        </p>
+                    </header>
+
+                    <p><a rel="nofollow" href="../">[🆕 Go Back]</a>  <a rel="nofollow" href="https://arxiv.org/abs/2312.14238">[📜 InternVL 1.0 Paper]</a>  <a rel="nofollow" href="https://arxiv.org/abs/2404.16821">[📜 InternVL 1.5 Report]</a>  <a rel="nofollow" href="https://internvl.opengvlab.com/">[🗨️ Chat Demo]</a>  <a rel="nofollow" href="https://huggingface.co/spaces/OpenGVLab/InternVL">[🤗 HF Demo]</a>  <a rel="nofollow" href="https://modelscope.cn/models/OpenGVLab/Mini-InternVL-Chat-4B-V1-5/summary">[<img src="images/modelscope_logo.png" width="20px" style="max-width: 100%;"> ModelScope]</a>  <a rel="nofollow" href="https://github.com/OpenGVLab/InternVL?tab=readme-ov-file#quick-start-with-huggingface">[🚀 Quick Start]</a> <a rel="nofollow" href="https://zhuanlan.zhihu.com/p/675877376">[📖 中文解读]</a></p>
+
+
+                    <div class="post-content e-content" itemprop="articleBody">
+                        <!-- 插入Markdown转换后的HTML内容 -->
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Model</th>
+                                    <th>Date</th>
+                                    <th>Download</th>
+                                    <th>Note</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Multimodal Large Language Models</td>
+                                    <td>InternOmni</td>
+                                    <td>2024.07.25</td>
+                                    <td>Todo</td>
+                                    <td>Extending InternVL's Modalities to Audio with Good Performance</td>
+                                </tr>
+                                <tr>
+                                    <td>Vision Foundation Model</td>
+                                    <td>InternViT-300M-448px</td>
+                                    <td>2024.05.25</td>
+                                    <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternViT-300M-448px" rel="nofollow">HF link</a></td>
+                                    <td>Distilled small vision foundation model with 300M parameters.</td>
+                                </tr>
+                                <tr>
+                                    <td>Audio Foundation Model</td>
+                                    <td>Whisper-large-v3</td>
+                                    <td>2024.07.25</td>
+                                    <td>🤗 <a href="https://huggingface.co/OpenGVLab/InternViT-300M-448px" rel="nofollow">HF link</a></td>
+                                    <td>Pre-trained model for ASR and speech translation</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h2>InternOmni</h2>
+
+                        <h3>Method</h3>
+
+                        <p>We introduce InternOmni, an upcoming open-source multimodal large language model that adds audio input to the existing InternVL series. The goal is to enhance the modality of the InternVL series models and move further toward general artificial intelligence while providing users with a better experience. We employ the following designs:</p>
+                        <ol>
+                            <li><strong>Strong Vision Encoder:</strong> Building on the previously applied vision model InternViT-6B, we utilized distillation to create a lightweight vision foundation model, InternViT-300M. This enhances visual understanding while reducing the model size.</li>
+                            <li><strong>Efficient Audio Encoder:</strong> We adopted OpenAI's open-source Whisper-large-v3 model, which has been trained on a large amount of audio data and has strong capabilities in speech recognition and translation.</li>
+                            <li><strong>High-Quality Audio-Image Dataset:</strong> We carefully collected a high-quality audio-image dataset that covers common scenes and document images. This dataset is used for audio question-answering training on images, improving the model's performance in audio question-answering tasks.</li>
+                        </ol>
+                        <img src="./images/structure.png" alt="Model structure " style="width:100%; max-width:600px;">
+
+                        <h3 id="model-card">Model Card</h3>
+
+                        <table style="text-align: center;">
+                          <tr><th colspan="2">Name</th><th>InternOmni</th></tr>
+                          <tr><th rowspan="2">Model Size</th><td>Total</td><td><b>8.73B</b></td></tr>
+                          <tr><td>LLM</td><td>7.74B</td></tr>
+                          <tr><th colspan="2">Resolution</th><td>448 × 448</td></tr>
+                            <tr><th rowspan="3"><nobr>Stage-1</nobr></th><th>Training Data</th><td>To ensure the proper alignment of audio data, we train on approximately 26 million data points, including datasets like GigaSpeech, CommonVoice, Libriheavy, and WENETSPEECH. The format used is: audio+text => text. At this stage, we freeze the ViT and its MLP, only keeping the audio-related components active.</td></tr>
+                          <tr><th>Trainable Module</th><td>MLP_audio</td></tr>
+                          <tr><th>Trainable Cost</th><td>64 GPUs, 4k steps, approximately 30 hours.</td></tr>
+                            <tr><th rowspan="3">Stage-2</th><th>Training Data</th><td>We train on approximately 1.9 million open-source image-text instruction datasets, replacing the original text with audio. These datasets include TextVQA, GQA, OKVQA, ALLAVA, and others. The format used is audio+image => text. At this stage, we freeze both the ViT and Whisper encoders, only keeping the MLP layers used for alignment activ </td></tr>
+                          <tr><th>Trainable Module</th><td>MLP_audio</td></tr>
+                          <tr><th>Trainable Cost</th><td>32 GPUs, 3k steps, approximately 15 hours.</td></tr>
+                        </table>
+
+                        <h3>Performance</h3>
+
+                        <p>InternVL Omni did not use VL data for training in both the alignment and SFT stages; instead, it was trained entirely with audio data. However, it retained InternVL's powerful capabilities in handling complex image-text data, excelling in tasks such as scientific charts, general charts, documents, infographics, and OCR.</p>
+
+
+                        <table>
+                            <thead>
+                              <tr>
+                                <th>Model</th>
+                                <th>Model size</th>
+                                <th>MMMU (val)</th>
+                                <th>MMB-en (test)</th>
+                                <th>MMB-CN (test)</th>
+                                <th>TextVQA (val)</th>
+                                <th>SEED (image)</th>
+                                <th>DocVQA (val)</th>
+                                <th>AI2D (test)</th>
+                                <th>ChartVQA (test)</th>
+                                <th>Infovqa (val)</th>
+                                <th>MMVet</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Qwen-VL-Chat</td>
+                                <td>9.6B</td>
+                                <td>37</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>60.7</td>
+                                <td>64.8</td>
+                                <td>-</td>
+                                <td>63</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>47.3</td>
+                              </tr>
+                              <tr>
+                                <td>LLaVA-1.5-7B</td>
+                                <td>7.2B</td>
+                                <td>33.7</td>
+                                <td>62.3</td>
+                                <td>56</td>
+                                <td>45.5</td>
+                                <td>66.4</td>
+                                <td>-</td>
+                                <td>55.9</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>32.2</td>
+                              </tr>
+                              <tr>
+                                <td>InternLM-XComposer</td>
+                                <td>8B</td>
+                                <td>35.6</td>
+                                <td>6.4</td>
+                                <td>45.5</td>
+                                <td>38.5</td>
+                                <td>66.1</td>
+                                <td>-</td>
+                                <td>56.9</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>35.2</td>
+                              </tr>
+                              <tr>
+                                <td>LLaVA-1.5-13B</td>
+                                <td>13.4B</td>
+                                <td>37</td>
+                                <td>65.8</td>
+                                <td>62.1</td>
+                                <td>48.9</td>
+                                <td>68.2</td>
+                                <td>-</td>
+                                <td>61.1</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>35.6</td>
+                              </tr>
+                              <tr>
+                                <td>Cambrian-8B</td>
+                                <td>8B</td>
+                                <td>41.8</td>
+                                <td>71.6</td>
+                                <td>64.9</td>
+                                <td>72.6</td>
+                                <td>73.3</td>
+                                <td>-</td>
+                                <td>74.6</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>48</td>
+                              </tr>
+                              <tr>
+                                <td>InternVL2-8B</td>
+                                <td>8B</td>
+                                <td>51.2</td>
+                                <td>81.7</td>
+                                <td>81.2</td>
+                                <td>77.4</td>
+                                <td>76.2</td>
+                                <td>90.8</td>
+                                <td>83.6</td>
+                                <td>83.8</td>
+                                <td>72.6</td>
+                                <td>60</td>
+                              </tr>
+                              <tr style="background-color: rgb(255,248,227);">
+                                <td><nobr>InternOmni</nobr></td>
+                                <td>8.73B</td>
+                                <td>48.44</td>
+                                <td>76.57</td>
+                                <td>76.85</td>
+                                <td>69.1</td>
+                                <td>71.07</td>
+                                <td>85.27</td>
+                                <td>83.32</td>
+                                <td>74.44</td>
+                                <td>66.37</td>
+                                <td>62.3</td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                        <h3>Benchmark</h3>
+
+                        <p>Existing audio benchmarks mainly focus on the audio itself, with relatively simple questions and images. To better evaluate the model's ability to handle complex audio-image pair problems, especially those involving tables and mathematical knowledge, I transcribed the text parts of some existing complex image-text VQA datasets and converted them into audio files. From these, I selected the more challenging data from the original image-text questions, creating a 15k audio-image question-answer dataset. The benchmark will be open-sourced soon.The format of the benchmark is as follows:</p>
+
+                        <pre><code>{
+                            "image": "data/images/fa9ffd5aca1e4e51.jpg", 
+                            "question": "audio_1.wav", 
+                            "question_id": 1, 
+                            "category": "ChartVQA"
+                        }</code></pre>
+
+                        <h3>examples</h3>
+                        <div class="slider">
+                            <div class="slider-inner">
+                                <div class="slide">
+                                    <div class="slide-content">
+                                        <h3>Input:</h3>
+                                        <p>[音频文本] Is it possible to make a left turn from this lane?</p>
+                                        <audio controls>
+                                            <source src="./audios/00045.wav" type="audio/wav">
+                                            您的浏览器不支持音频元素。
+                                        </audio>
+                                        <img src="./images/00045.jpg" alt="Input Image">
+                                        <h3>InternOmni:</h3>
+                                        <p>No, the lane you're currently in seems to be a straight-only lane. However, there is a left turn signal at the next intersection, indicating that you can make a left turn from your current position.</p>
+                                    </div>
+                                </div>
+                                <div class="slide">
+                                    <div class="slide-content">
+                                        <h3>Input:</h3>
+                                        <p>[音频文本] 写一个寓言故事</p>
+                                        <audio controls>
+                                            <source src="./audios/00082.mp3" type="audio/mp3">
+                                            您的浏览器不支持音频元素。
+                                        </audio>
+                                        <img src="./images/00082.png" alt="Input Image">
+                                        <h3>InternOmni:</h3>
+                                        <p>从前，有一个年轻人叫李云。他非常勤奋好学，但是总是没有机会展示自己的才华和能力。有一天，他听说附近的山上有一只神奇的鸡，只要能够得到它的羽毛，就能获得成功和财富。于是，他决定去寻找这只神奇的鸡。\n在山脚下，李云遇到了一只真正的公鸡。它站在一块岩石上，似乎正在休息或者观察周围的环境。李云试图接近那只公鸡，但每次当他靠近时，公鸡都会发出一声响亮的啼叫并飞走。尽管如此，李云并没有放弃他的目标。他一直跟着公鸡爬山，直到他们到达山顶。那里有另一块大石头和一棵树。当李云走到那块石头的旁边时，他看到了一只小鸟坐在上面。这只鸟看起来像是一只鹦鹉，因为它有着鲜艳的黄色、绿色和蓝色羽毛。然而，这并不是传说中的神奇之鸟——而是另一只普通的鸟类。失望之余，李云意识到自己已经走了很远的路程，但他仍然继续攀登着这座山峰。最终，他在山的另一边找到了一座悬崖峭壁上的洞穴。在那里，他发现了一个神秘的宝箱。这个箱子被锁住了，并且钥匙就在附近的树上挂着。一旦打开盒子，里面装满了金币和珠宝！李云感到非常高兴，因为他终于实现了自己的梦想。他把所有的钱都带回家，然后开始了新的生活。从那天起，他就成为了当地最富有的人之一，而他也明白到：只有不断努力，才有可能获得成功。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="nav-buttons">
+                                <button class="nav-button" onclick="slideLeft()">&#10094;</button>
+                                <button class="nav-button" onclick="slideRight()">&#10095;</button>
+                            </div>
+                        </div>
+                        <script>
+                            let currentIndex = 0;
+                        
+                            function slideLeft() {
+                                if (currentIndex > 0) {
+                                    currentIndex--;
+                                    document.querySelector('.slider-inner').style.transform = `translateX(-${currentIndex * 100}%)`;
+                                }
+                            }
+                        
+                            function slideRight() {
+                                if (currentIndex < document.querySelectorAll('.slide').length - 1) {
+                                    currentIndex++;
+                                    document.querySelector('.slider-inner').style.transform = `translateX(-${currentIndex * 100}%)`;
+                                }
+                            }
+                        </script>
+                        
+
+
+
+                        <h3 class="title">Citation</h3>
+<pre><code>
+  @article{chen2023internvl,
+      title={InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks},
+      author={Chen, Zhe and Wu, Jiannan and Wang, Wenhai and Su, Weijie and Chen, Guo and Xing, Sen and Zhong, Muyan and Zhang, Qinglong and Zhu, Xizhou and Lu, Lewei and Li, Bin and Luo, Ping and Lu, Tong and Qiao, Yu and Dai, Jifeng},
+      journal={arXiv preprint arXiv:2312.14238},
+      year={2023}
+  }
+  @article{chen2024far,
+    title={How Far Are We to GPT-4V? Closing the Gap to Commercial Multimodal Models with Open-Source Suites},
+    author={Chen, Zhe and Wang, Weiyun and Tian, Hao and Ye, Shenglong and Gao, Zhangwei and Cui, Erfei and Tong, Wenwen and Hu, Kongzhi and Luo, Jiapeng and Ma, Zheng and others},
+    journal={arXiv preprint arXiv:2404.16821},
+    year={2024}
+  }
+  </code></pre>
+                        <br><h4 class="title"><a href="../">🔙 Go Back</a></h4>
+</div>
+
+
+                </article>
+            </div>
+        </main>
+        <footer class="site-footer h-card">
+        <!--   <data class="u-url" href="https://internvl.github.io/blog/">InternVL</data>--> 
+            <p class="footer-colophon">
+            </p>
+        </footer>
+    </body>
+</html>

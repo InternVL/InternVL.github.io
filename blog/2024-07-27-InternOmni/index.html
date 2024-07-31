@@ -5,9 +5,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Begin Jekyll SEO tag v2.8.0 -->
-        <title>InternOmni： Extending InternVL with Audio Modality</title>
+        <title>InternOmni:Extending InternVL with Audio Modality</title>
         <meta name="generator" content="Jekyll v3.9.4"/>
-        <meta property="og:title" content="InternVL Omni"/>
+        <meta property="og:title" content="InternOmni"/>
         <meta name="author" content="cuierfei"/>
         <meta property="og:locale" content="en_US"/>
         <meta property="og:site_name" content="InternOmni"/>
@@ -50,7 +50,7 @@
                     <header class="post-header">
                         <h1 class="post-title p-name" itemprop="name headline">InternOmni： Extending InternVL with Audio Modality</h1>
                         <p class="post-meta">
-                            <time class="dt-published" datetime="2024-01-30T12:33:38-06:00" itemprop="datePublished">2024/07/29
+                            <time class="dt-published" datetime="2024-01-30T12:33:38-06:00" itemprop="datePublished">2024/07/31
       </time>
                             •
                             <span itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -111,7 +111,9 @@
                             <li><strong>Efficient Audio Encoder:</strong> We adopted OpenAI's open-source Whisper-large-v3 model, which has been trained on a large amount of audio data and has strong capabilities in speech recognition and translation.</li>
                             <li><strong>High-Quality Audio-Image Dataset:</strong> We carefully collected a high-quality audio-image dataset that covers common scenes and document images. This dataset is used for audio question-answering training on images, improving the model's performance in audio question-answering tasks.</li>
                         </ol>
-                        <img src="./images/structure.png" alt="Model structure " style="width:100%; max-width:600px;">
+                        <div style="text-align: center;">
+                            <img src="./images/structure.png" alt="Model structure" style="width:100%; max-width:800px;">
+                        </div>
 
                         <h3 id="model-card">Model Card</h3>
 
@@ -238,15 +240,15 @@
                               <tr style="background-color: rgb(255,248,227);">
                                 <td><nobr>InternOmni</nobr></td>
                                 <td>8.73B</td>
-                                <td>48.44</td>
-                                <td>76.57</td>
-                                <td>76.85</td>
+                                <td>48.4</td>
+                                <td>76.6</td>
+                                <td>76.9</td>
                                 <td>69.1</td>
-                                <td>71.07</td>
-                                <td>85.27</td>
-                                <td>83.32</td>
-                                <td>74.44</td>
-                                <td>66.37</td>
+                                <td>71.1</td>
+                                <td>85.3</td>
+                                <td>83.3</td>
+                                <td>74.4</td>
+                                <td>66.4</td>
                                 <td>62.3</td>
                               </tr>
                             </tbody>
@@ -256,49 +258,63 @@
 
                         <p>Existing audio benchmarks mainly focus on the audio itself, with relatively simple questions and images. To better evaluate the model's ability to handle complex audio-image pair problems, especially those involving tables and mathematical knowledge, I transcribed the text parts of some existing complex image-text VQA datasets and converted them into audio files. From these, I selected the more challenging data from the original image-text questions, creating a 15k audio-image question-answer dataset. The benchmark will be open-sourced soon.The format of the benchmark is as follows:</p>
 
-                        <pre><code>{
-                            "image": "data/images/fa9ffd5aca1e4e51.jpg", 
-                            "question": "audio_1.wav", 
-                            "question_id": 1, 
-                            "category": "ChartVQA"
-                        }</code></pre>
+                        <pre><code>
+                            {"image": "data/images/fa9ffd5aca1e4e51.jpg", "question": "audio_1.wav", "question_id": 1, "category": "ChartVQA"}
+                            {"image": "data/images/shsiishslla54ssc.jpg", "question": "audio_2.wav", "question_id": 2, "category": "TextVQA"}
+                            {"image": "data/images/shiqsiqhisnnkscns.jpg", "question": "audio_3.wav", "question_id": 3, "category": "OCRVQA"}
+                            {"image": "data/images/fjqsxdjjodowdddwd.jpg", "question": "audio_4.wav", "question_id": 4, "category": "MATHVQA"}
+                            {"image": "data/images/cncnoqdhgbooqjsjj.jpg", "question": "audio_5.wav", "question_id": 5, "category": "ChartVQA"}
+                            {"image": "data/images/ssq4fyj66jj5hhg5g.jpg", "question": "audio_6.wav", "question_id": 6, "category": "OCRVQA"}
+                            {"image": "data/images/ffjsdoggh5hghf6hf.jpg", "question": "audio_7.wav", "question_id": 7, "category": "MATHVQA"}
+                            {"image": "data/images/fjdogjbnddggwofhf.jpg", "question": "audio_8.wav", "question_id": 8, "category": "TextVQA"}
+                        </code></pre>
 
-                        <h3>examples</h3>
-                        <div class="slider">
-                            <div class="slider-inner">
-                                <div class="slide">
-                                    <div class="slide-content">
-                                        <h3>Input:</h3>
-                                        <p>[音频文本] Is it possible to make a left turn from this lane?</p>
-                                        <audio controls>
-                                            <source src="./audios/00045.wav" type="audio/wav">
-                                            您的浏览器不支持音频元素。
-                                        </audio>
-                                        <img src="./images/00045.jpg" alt="Input Image">
-                                        <h3>InternOmni:</h3>
-                                        <p>No, the lane you're currently in seems to be a straight-only lane. However, there is a left turn signal at the next intersection, indicating that you can make a left turn from your current position.</p>
+                        <h3>Examples</h3>
+                        <div class="slider-container">
+                            <div class="slider">
+                                <div class="slider-inner">
+                                    <div class="slide">
+                                        <div class="slide-content">
+                                            <h3>Input:</h3>
+                                            <div class="input-box">
+                                                <p>[音频文本] Is it possible to make a left turn from this lane?</p>
+                                                <audio controls>
+                                                    <source src="./audios/00045.wav" type="audio/wav">
+                                                    您的浏览器不支持音频元素。
+                                                </audio>
+                                                <img src="./images/00045.jpg" alt="Input Image" style="max-width:100%; height:auto; margin-top:10px;">
+                                            </div>
+                                            <h3>InternOmni:</h3>
+                                            <div class="output-box">
+                                                <p>No, the lane you're currently in seems to be a straight-only lane. However, there is a left turn signal at the next intersection, indicating that you can make a left turn from your current position.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slide">
+                                        <div class="slide-content">
+                                            <h3>Input:</h3>
+                                            <div class="input-box">
+                                                <p>[音频文本] 写一个寓言故事</p>
+                                                <audio controls>
+                                                    <source src="./audios/00082.mp3" type="audio/mp3">
+                                                    您的浏览器不支持音频元素。
+                                                </audio>
+                                                <img src="./images/00082.png" alt="Input Image" style="max-width:100%; height:auto; margin-top:10px;">
+                                            </div>
+                                            <h3>InternOmni:</h3>
+                                            <div class="output-box">
+                                                <p>从前，有一个年轻人叫李云。他非常勤奋好学，但是总是没有机会展示自己的才华和能力。有一天，他听说附近的山上有一只神奇的鸡，只要能够得到它的羽毛，就能获得成功和财富。于是，他决定去寻找这只神奇的鸡。...</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="slide">
-                                    <div class="slide-content">
-                                        <h3>Input:</h3>
-                                        <p>[音频文本] 写一个寓言故事</p>
-                                        <audio controls>
-                                            <source src="./audios/00082.mp3" type="audio/mp3">
-                                            您的浏览器不支持音频元素。
-                                        </audio>
-                                        <img src="./images/00082.png" alt="Input Image">
-                                        <h3>InternOmni:</h3>
-                                        <p>从前，有一个年轻人叫李云。他非常勤奋好学，但是总是没有机会展示自己的才华和能力。有一天，他听说附近的山上有一只神奇的鸡，只要能够得到它的羽毛，就能获得成功和财富。于是，他决定去寻找这只神奇的鸡。\n在山脚下，李云遇到了一只真正的公鸡。它站在一块岩石上，似乎正在休息或者观察周围的环境。李云试图接近那只公鸡，但每次当他靠近时，公鸡都会发出一声响亮的啼叫并飞走。尽管如此，李云并没有放弃他的目标。他一直跟着公鸡爬山，直到他们到达山顶。那里有另一块大石头和一棵树。当李云走到那块石头的旁边时，他看到了一只小鸟坐在上面。这只鸟看起来像是一只鹦鹉，因为它有着鲜艳的黄色、绿色和蓝色羽毛。然而，这并不是传说中的神奇之鸟——而是另一只普通的鸟类。失望之余，李云意识到自己已经走了很远的路程，但他仍然继续攀登着这座山峰。最终，他在山的另一边找到了一座悬崖峭壁上的洞穴。在那里，他发现了一个神秘的宝箱。这个箱子被锁住了，并且钥匙就在附近的树上挂着。一旦打开盒子，里面装满了金币和珠宝！李云感到非常高兴，因为他终于实现了自己的梦想。他把所有的钱都带回家，然后开始了新的生活。从那天起，他就成为了当地最富有的人之一，而他也明白到：只有不断努力，才有可能获得成功。</p>
-                                    </div>
+                                <div class="nav-buttons">
+                                    <button class="nav-button" onclick="slideLeft()">&#10094;</button>
+                                    <button class="nav-button" onclick="slideRight()">&#10095;</button>
                                 </div>
-                            </div>
-                        
-                            <div class="nav-buttons">
-                                <button class="nav-button" onclick="slideLeft()">&#10094;</button>
-                                <button class="nav-button" onclick="slideRight()">&#10095;</button>
                             </div>
                         </div>
+                        
                         <script>
                             let currentIndex = 0;
                         
@@ -316,6 +332,77 @@
                                 }
                             }
                         </script>
+                        
+                        <style>
+                            .slider-container {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                margin-top: 20px;
+                            }
+                        
+                            .slider {
+                                width: 100%;
+                                max-width: 800px;
+                                overflow: hidden;
+                                position: relative;
+                                border: 1px solid #ddd;
+                                border-radius: 8px;
+                                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+                                background-color: #f9f9f9;
+                            }
+                        
+                            .slider-inner {
+                                display: flex;
+                                transition: transform 0.5s ease;
+                            }
+                        
+                            .slide {
+                                min-width: 100%;
+                                box-sizing: border-box;
+                                padding: 20px;
+                            }
+                        
+                            .slide-content {
+                                max-width: 800px;
+                                margin: 0 auto;
+                            }
+                        
+                            .input-box, .output-box {
+                                background-color: #ffffff;
+                                border-radius: 8px;
+                                padding: 15px;
+                                box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+                                margin-bottom: 15px;
+                            }
+                        
+                            .input-box p, .output-box p {
+                                margin: 0;
+                            }
+                        
+                            .nav-buttons {
+                                position: absolute;
+                                top: 50%;
+                                transform: translateY(-50%);
+                                width: 100%;
+                                display: flex;
+                                justify-content: space-between;
+                            }
+                        
+                            .nav-button {
+                                background: rgba(0, 0, 0, 0.5);
+                                color: white;
+                                border: none;
+                                padding: 10px;
+                                cursor: pointer;
+                                border-radius: 50%;
+                                outline: none;
+                            }
+                        
+                            .nav-button:focus {
+                                outline: none;
+                            }
+                        </style>
                         
 
 

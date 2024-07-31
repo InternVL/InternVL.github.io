@@ -48,7 +48,7 @@
             <div class="wrapper">
                 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
                     <header class="post-header">
-                        <h1 class="post-title p-name" itemprop="name headline">InternOmni： Extending InternVL with Audio Modality</h1>
+                        <h1 class="post-title p-name" itemprop="name headline">InternOmni:Extending InternVL with Audio Modality</h1>
                         <p class="post-meta">
                             <time class="dt-published" datetime="2024-01-30T12:33:38-06:00" itemprop="datePublished">2024/07/31
       </time>
@@ -60,7 +60,7 @@
                         </p>
                     </header>
 
-                    <p><a rel="nofollow" href="../">[🆕 Go Back]</a>  <a rel="nofollow" href="https://arxiv.org/abs/2312.14238">[📜 InternVL 1.0 Paper]</a>  <a rel="nofollow" href="https://arxiv.org/abs/2404.16821">[📜 InternVL 1.5 Report]</a>  <a rel="nofollow" href="https://internvl.opengvlab.com/">[🗨️ Chat Demo]</a>  <a rel="nofollow" href="https://huggingface.co/spaces/OpenGVLab/InternVL">[🤗 HF Demo]</a>  <a rel="nofollow" href="https://modelscope.cn/models/OpenGVLab/Mini-InternVL-Chat-4B-V1-5/summary">[<img src="images/modelscope_logo.png" width="20px" style="max-width: 100%;"> ModelScope]</a>  <a rel="nofollow" href="https://github.com/OpenGVLab/InternVL?tab=readme-ov-file#quick-start-with-huggingface">[🚀 Quick Start]</a> <a rel="nofollow" href="https://zhuanlan.zhihu.com/p/675877376">[📖 中文解读]</a></p>
+                    <p><a rel="nofollow" href="../">[🆕 Go Back]</a>  <a rel="nofollow" href="https://arxiv.org/abs/2312.14238">[📜 InternVL 1.0 Paper]</a>  <a rel="nofollow" href="https://arxiv.org/abs/2404.16821">[📜 InternVL 1.5 Report]</a>  <a rel="nofollow" href="https://internvl.opengvlab.com/">[🗨️ Chat Demo]</a>  <a rel="nofollow" href="https://huggingface.co/spaces/OpenGVLab/InternVL">[🤗 HF Demo]</a>  <a rel="nofollow" href="https://modelscope.cn/models/OpenGVLab/Mini-InternVL-Chat-4B-V1-5/summary">[<img src="../2024-02-21-InternVL-1.2/images/modelscope_logo.png" width="20px" style="max-width: 100%;"> ModelScope]</a>  <a rel="nofollow" href="https://github.com/OpenGVLab/InternVL?tab=readme-ov-file#quick-start-with-huggingface">[🚀 Quick Start]</a> <a rel="nofollow" href="https://zhuanlan.zhihu.com/p/675877376">[📖 中文解读]</a></p>
 
 
                     <div class="post-content e-content" itemprop="articleBody">
@@ -258,16 +258,19 @@
 
                         <p>Existing audio benchmarks mainly focus on the audio itself, with relatively simple questions and images. To better evaluate the model's ability to handle complex audio-image pair problems, especially those involving tables and mathematical knowledge, I transcribed the text parts of some existing complex image-text VQA datasets and converted them into audio files. From these, I selected the more challenging data from the original image-text questions, creating a 15k audio-image question-answer dataset. The benchmark will be open-sourced soon.The format of the benchmark is as follows:</p>
 
-                        <pre><code>
-                            {"image": "data/images/fa9ffd5aca1e4e51.jpg", "question": "audio_1.wav", "question_id": 1, "category": "ChartVQA"}
-                            {"image": "data/images/shsiishslla54ssc.jpg", "question": "audio_2.wav", "question_id": 2, "category": "TextVQA"}
-                            {"image": "data/images/shiqsiqhisnnkscns.jpg", "question": "audio_3.wav", "question_id": 3, "category": "OCRVQA"}
-                            {"image": "data/images/fjqsxdjjodowdddwd.jpg", "question": "audio_4.wav", "question_id": 4, "category": "MATHVQA"}
-                            {"image": "data/images/cncnoqdhgbooqjsjj.jpg", "question": "audio_5.wav", "question_id": 5, "category": "ChartVQA"}
-                            {"image": "data/images/ssq4fyj66jj5hhg5g.jpg", "question": "audio_6.wav", "question_id": 6, "category": "OCRVQA"}
-                            {"image": "data/images/ffjsdoggh5hghf6hf.jpg", "question": "audio_7.wav", "question_id": 7, "category": "MATHVQA"}
-                            {"image": "data/images/fjdogjbnddggwofhf.jpg", "question": "audio_8.wav", "question_id": 8, "category": "TextVQA"}
-                        </code></pre>
+                        <pre style="white-space: pre-wrap; word-break: break-word;">
+                            <code style="display: block; white-space: pre-wrap; word-break: break-word; max-width: 100%;">
+                                {"image": "data/images/fa9ffd5aca1e4e51.jpg", "question": "audio_1.wav", "question_id": 1, "category": "ChartVQA"}
+                                {"image": "data/images/shsiishslla54ssc.jpg", "question": "audio_2.wav", "question_id": 2, "category": "TextVQA"}
+                                {"image": "data/images/shiqsiqhisnnkscns.jpg", "question": "audio_3.wav", "question_id": 3, "category": "OCRVQA"}
+                                {"image": "data/images/fjqsxdjjodowdddwd.jpg", "question": "audio_4.wav", "question_id": 4, "category": "MATHVQA"}
+                                {"image": "data/images/cncnoqdhgbooqjsjj.jpg", "question": "audio_5.wav", "question_id": 5, "category": "ChartVQA"}
+                                {"image": "data/images/ssq4fyj66jj5hhg5g.jpg", "question": "audio_6.wav", "question_id": 6, "category": "OCRVQA"}
+                                {"image": "data/images/ffjsdoggh5hghf6hf.jpg", "question": "audio_7.wav", "question_id": 7, "category": "MATHVQA"}
+                                {"image": "data/images/fjdogjbnddggwofhf.jpg", "question": "audio_8.wav", "question_id": 8, "category": "TextVQA"}
+                            </code>
+                            </pre>
+                            
 
                         <h3>Examples</h3>
                         <div class="slider-container">
@@ -277,12 +280,16 @@
                                         <div class="slide-content">
                                             <h3>Input:</h3>
                                             <div class="input-box">
-                                                <p>[音频文本] Is it possible to make a left turn from this lane?</p>
-                                                <audio controls>
-                                                    <source src="./audios/00045.wav" type="audio/wav">
-                                                    您的浏览器不支持音频元素。
-                                                </audio>
-                                                <img src="./images/00045.jpg" alt="Input Image" style="max-width:100%; height:auto; margin-top:10px;">
+                                                <p style="text-align: center;">[音频文本] Is it possible to make a left turn from this lane?</p>
+                                                <div style="text-align: center;">
+                                                    <audio controls>
+                                                        <source src="./audios/00045.wav" type="audio/wav">
+                                                        您的浏览器不支持音频元素。
+                                                    </audio>
+                                                </div>
+                                                <div style="text-align: center;">
+                                                    <img src="./images/00045.jpg" alt="Input Image" style="max-width:300px; height:auto; margin-top:10px;">
+                                                </div>
                                             </div>
                                             <h3>InternOmni:</h3>
                                             <div class="output-box">
@@ -294,12 +301,16 @@
                                         <div class="slide-content">
                                             <h3>Input:</h3>
                                             <div class="input-box">
-                                                <p>[音频文本] 写一个寓言故事</p>
-                                                <audio controls>
-                                                    <source src="./audios/00082.mp3" type="audio/mp3">
-                                                    您的浏览器不支持音频元素。
-                                                </audio>
-                                                <img src="./images/00082.png" alt="Input Image" style="max-width:100%; height:auto; margin-top:10px;">
+                                                <p style="text-align: center;">[音频文本] 写一个寓言故事</p>
+                                                <div style="text-align: center;">
+                                                    <audio controls>
+                                                        <source src="./audios/00082.mp3" type="audio/mp3">
+                                                        您的浏览器不支持音频元素。
+                                                    </audio>
+                                                </div>
+                                                <div style="text-align: center;">
+                                                    <img src="./images/00082.png" alt="Input Image" style="max-width:300px; height:auto; margin-top:10px;">
+                                                </div>
                                             </div>
                                             <h3>InternOmni:</h3>
                                             <div class="output-box">
@@ -403,6 +414,7 @@
                                 outline: none;
                             }
                         </style>
+                        
                         
 
 

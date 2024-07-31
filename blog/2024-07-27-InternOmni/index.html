@@ -48,7 +48,7 @@
             <div class="wrapper">
                 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
                     <header class="post-header">
-                        <h1 class="post-title p-name" itemprop="name headline">InternOmni:Extending InternVL with Audio Modality</h1>
+                        <h1 class="post-title p-name" itemprop="name headline">InternOmni: Extending InternVL with Audio Modality</h1>
                         <p class="post-meta">
                             <time class="dt-published" datetime="2024-01-30T12:33:38-06:00" itemprop="datePublished">2024/07/31
       </time>
@@ -112,7 +112,7 @@
                             <li><strong>High-Quality Audio-Image Dataset:</strong> We carefully collected a high-quality audio-image dataset that covers common scenes and document images. This dataset is used for audio question-answering training on images, improving the model's performance in audio question-answering tasks.</li>
                         </ol>
                         <div style="text-align: center;">
-                            <img src="./images/structure.jpg" alt="Model structure" style="width:100%; max-width:800px;">
+                            <img src="./images/structure_1.jpg" alt="Model structure" style="width:100%; max-width:800px;">
                         </div>
 
                         <h3 id="model-card">Model Card</h3>
@@ -238,6 +238,18 @@
                                     <td>87.8</td>
                                     <td>87.2</td>
                                 </tr>
+                                <tr>
+                                    <td>InternVL2-8B</td>
+                                    <td>49.3 / 51.2</td>
+                                    <td>58.3</td>
+                                    <td>83.8</td>
+                                    <td>83.3</td>
+                                    <td>91.6</td>
+                                    <td>74.8</td>
+                                    <td>794</td>
+                                    <td>81.7</td>
+                                    <td>81.2</td>
+                                </tr>
                                 <tr style="background-color: rgb(255,248,227);">
                                     <td>
                                         <nobr>InternOmni</nobr>
@@ -255,6 +267,30 @@
                             </tbody>
                         </table>
 
+                        <ul>
+                            <li>We simultaneously use <a href="https://github.com/OpenGVLab/InternVL/tree/v2.0.0/internvl_chat/eval">InternVL</a> and <a href="https://github.com/open-compass/VLMEvalKit">VLMEvalKit</a> repositories for model evaluation. Specifically, the results reported for AI2D, ChartQA, DocVQA, InfoVQA, MMBench were tested using the InternVL repository. MathVista and OCRBench were evaluated using the VLMEvalKit.</li>
+                            <li>For MMMU, we report both the original scores (left side: evaluated using the InternVL codebase for InternVL series models, and sourced from technical reports or webpages for other models) and the VLMEvalKit scores (right side: collected from the <a href="https://rank.opencompass.org.cn/leaderboard-multimodal/?m=REALTIME">OpenCompass leaderboard</a>).</li>
+                          <li>Please note that evaluating the same model using different testing toolkits like InternVL and VLMEvalKit can result in slight differences, which is normal. Updates to code versions and variations in environment and hardware can also cause minor discrepancies in results.</li>
+                        </ul>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>name</th>
+                                    <th>DocVQA</th>
+                                    <th>AI2D</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>InternOmni</td>
+                                    <td>26M</td>
+                                    <td>🤗 <a href="https://huggingface.co/datasets/OpenGVLab/ShareGPT-4o" rel="nofollow">HF link</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
                         <h3>Benchmark</h3>
 
                         <p>Existing audio benchmarks mainly focus on the audio itself, with relatively simple questions and images. To better evaluate the model's ability to handle complex audio-image pair problems, especially those involving tables and mathematical knowledge, I transcribed the text parts of some existing complex image-text VQA datasets and converted them into audio files. From these, I selected the more challenging data from the original image-text questions, creating a 15k audio-image question-answer dataset. The benchmark will be open-sourced soon.</p>
@@ -266,7 +302,6 @@
                                     <th>Type</th>
                                     <th>Size</th>
                                     <th>Download</th>
-                                    <th>Note</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -331,7 +366,7 @@
                                             </div>
                                             <h3>InternOmni:</h3>
                                             <div class="output-box">
-                                                <p>从前，有一个年轻人叫李云。他非常勤奋好学，但是总是没有机会展示自己的才华和能力。有一天，他听说附近的山上有一只神奇的鸡，只要能够得到它的羽毛，就能获得成功和财富。于是，他决定去寻找这只神奇的鸡。...</p>
+                                                <p>从前，有一个年轻人叫李云。他非常勤奋好学，但是总是没有机会展示自己的才华和能力。有一天，他听说附近的山上有一只神奇的鸡，只要能够得到它的羽毛，就能获得成功和财富。于是，他决定去寻找这只神奇的鸡。\n在山脚下，李云遇到了一只真正的公鸡。它站在一块岩石上，似乎正在休息或者观察周围的环境。李云试图接近那只公鸡，但每次当他靠近时，公鸡都会发出一声响亮的啼叫并飞走。尽管如此，李云并没有放弃他的目标。他一直跟着公鸡爬山，直到他们到达山顶。那里有另一块大石头和一棵树。当李云走到那块石头的旁边时，他看到了一只小鸟坐在上面。这只鸟看起来像是一只鹦鹉，因为它有着鲜艳的黄色、绿色和蓝色羽毛。然而，这并不是传说中的神奇之鸟——而是另一只普通的鸟类。失望之余，李云意识到自己已经走了很远的路程，但他仍然继续攀登着这座山峰。最终，他在山的另一边找到了一座悬崖峭壁上的洞穴。在那里，他发现了一个神秘的宝箱。这个箱子被锁住了，并且钥匙就在附近的树上挂着。一旦打开盒子，里面装满了金币和珠宝！李云感到非常高兴，因为他终于实现了自己的梦想。他把所有的钱都带回家，然后开始了新的生活。从那天起，他就成为了当地最富有的人之一，而他也明白到：只有不断努力，才有可能获得成功。</p>
                                             </div>
                                         </div>
                                     </div>

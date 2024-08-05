@@ -60,7 +60,7 @@
                         </p>
                     </header>
 
-                    <p><a rel="nofollow" href="../">[🆕 Go Back]</a>  <a rel="nofollow" href="https://arxiv.org/abs/2312.14238">[📜 InternVL 1.0 Paper]</a>  <a rel="nofollow" href="https://arxiv.org/abs/2404.16821">[📜 InternVL 1.5 Report]</a>  <a rel="nofollow" href="https://internvl.opengvlab.com/">[🗨️ Chat Demo]</a>  <a rel="nofollow" href="https://huggingface.co/spaces/OpenGVLab/InternVL">[🤗 HF Demo]</a>  <a rel="nofollow" href="https://modelscope.cn/models/OpenGVLab/Mini-InternVL-Chat-4B-V1-5/summary">[<img src="../2024-02-21-InternVL-1.2/images/modelscope_logo.png" width="20px" style="max-width: 100%;"> ModelScope]</a>  <a rel="nofollow" href="https://github.com/OpenGVLab/InternVL?tab=readme-ov-file#quick-start-with-huggingface">[🚀 Quick Start]</a> <a rel="nofollow" href="https://zhuanlan.zhihu.com/p/675877376">[📖 中文解读]</a></p>
+                    <p><a rel="nofollow" href="../">[🆕 Go Back]</a>  <a rel="nofollow" href="https://arxiv.org/abs/2312.14238">[📜 InternVL 1.0 Paper]</a>  <a rel="nofollow" href="https://arxiv.org/abs/2404.16821">[📜 InternVL 1.5 Report]</a>  <a rel="nofollow" href="https://internvl.opengvlab.com/">[🗨️ Chat Demo]</a>  <a rel="nofollow" href="https://huggingface.co/spaces/OpenGVLab/InternVL">[🤗 HF Demo]</a>  <a rel="nofollow" href="https://modelscope.cn/models/OpenGVLab/Mini-InternVL-Chat-4B-V1-5/summary">[<img src="../2024-02-21-InternVL-1.2/images/modelscope_logo.png" width="20px" style="max-width: 100%;"> ModelScope]</a>  <a rel="nofollow" href="https://github.com/OpenGVLab/InternVL?tab=readme-ov-file#quick-start-with-huggingface">[🚀 Quick Start]</a> <a rel="nofollow" href="https://internvl.readthedocs.io/en/latest/">[📖 Document]</a></p>
 
 
                     <div class="post-content e-content" itemprop="articleBody">
@@ -105,27 +105,26 @@
 
                         <h3>Method</h3>
 
-                        <p>We introduce InternOmni, an upcoming open-source multimodal large language model that adds audio input to the existing InternVL series. The goal is to enhance the modality of the InternVL series models and move further toward general artificial intelligence while providing users with a better experience. We employ the following designs:</p>
+                        <p>We introduce InternOmni, an open-source multimodal large language model that adds audio input to the existing InternVL series. The goal is to enhance the modality of the InternVL series models and move further toward general artificial intelligence while providing users with a better experience. We employ the following designs:</p>
                         <ol>
                             <li><strong>Strong Vision Encoder:</strong> Building on the previously applied vision model InternViT-6B, we utilized distillation to create a lightweight vision foundation model, InternViT-300M. This enhances visual understanding while reducing the model size.</li>
                             <li><strong>Efficient Audio Encoder:</strong> We adopted OpenAI's open-source Whisper-large-v3 model, which has been trained on a large amount of audio data and has strong capabilities in speech recognition and translation.</li>
                             <li><strong>High-Quality Audio-Image Dataset:</strong> We carefully collected a high-quality audio-image dataset that covers common scenes and document images. This dataset is used for audio question-answering training on images, improving the model's performance in audio question-answering tasks.</li>
                         </ol>
                         <div style="text-align: center;">
-                            <img src="./images/structure_1.jpg" alt="Model structure" style="width:100%; max-width:800px;">
+                            <img src="./images/structure.png" alt="Model structure" style="width:100%; max-width:800px;">
                         </div>
 
                         <h3 id="model-card">Model Card</h3>
 
                         <table style="text-align: center;">
                           <tr><th colspan="2">Name</th><th>InternOmni</th></tr>
-                          <tr><th rowspan="2">Model Size</th><td>Total</td><td><b>8.73B</b></td></tr>
-                          <tr><td>LLM</td><td>7.74B</td></tr>
+
                           <tr><th colspan="2">Resolution</th><td>448 × 448</td></tr>
                             <tr><th rowspan="3"><nobr>Stage-1</nobr></th><th>Training Data</th><td>To ensure the proper alignment of audio data, we train on approximately 26 million data points, including datasets like GigaSpeech, CommonVoice, Libriheavy, and WENETSPEECH. The format used is: audio+text => text. At this stage, we freeze the ViT and its MLP, only keeping the audio-related components active.</td></tr>
                           <tr><th>Trainable Module</th><td>MLP_audio</td></tr>
                           <tr><th>Trainable Cost</th><td>64 GPUs, 4k steps, approximately 30 hours.</td></tr>
-                            <tr><th rowspan="3">Stage-2</th><th>Training Data</th><td>We train on approximately 1.9 million open-source image-text instruction datasets, replacing the original text with audio. These datasets include TextVQA, GQA, OKVQA, ALLAVA, and others. The format used is audio+image => text. At this stage, we freeze both the ViT and Whisper encoders, only keeping the MLP layers used for alignment activ </td></tr>
+                            <tr><th rowspan="3">Stage-2</th><th>Training Data</th><td>We train on approximately 1.9 million open-source image-text instruction datasets, replacing the original text with audio. These datasets include TextVQA, GQA, OKVQA, ALLAVA, and others. The format used is audio+image => text. At this stage, we freeze both the ViT and Whisper encoders, only keeping the MLP layers used for alignment active </td></tr>
                           <tr><th>Trainable Module</th><td>MLP_audio</td></tr>
                           <tr><th>Trainable Cost</th><td>32 GPUs, 3k steps, approximately 15 hours.</td></tr>
                         </table>
@@ -267,6 +266,25 @@
                             </tbody>
                         </table>
 
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>name</th>
+                                    <th>DocVQA_audio<br>(val)</th>
+                                    <th>Chartvqa_audio<br>(human)</th>
+                                    <th>Infovqa_audio<br>(val)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>InternOmni</td>
+                                    <td>74.00</td>
+                                    <td>47.52</td>
+                                    <td>54.41</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
                         <ul>
                             <li>We simultaneously use <a href="https://github.com/OpenGVLab/InternVL/tree/v2.0.0/internvl_chat/eval">InternVL</a> and <a href="https://github.com/open-compass/VLMEvalKit">VLMEvalKit</a> repositories for model evaluation. Specifically, the results reported for AI2D, ChartQA, DocVQA, InfoVQA, MMBench were tested using the InternVL repository. MathVista and OCRBench were evaluated using the VLMEvalKit.</li>
                             <li>For MMMU, we report both the original scores (left side: evaluated using the InternVL codebase for InternVL series models, and sourced from technical reports or webpages for other models) and the VLMEvalKit scores (right side: collected from the <a href="https://rank.opencompass.org.cn/leaderboard-multimodal/?m=REALTIME">OpenCompass leaderboard</a>).</li>
@@ -291,17 +309,17 @@
                                 <tr>
                                     <td>Pretrain Data</td>
                                     <td>26M</td>
-                                    <td>🤗 <a href="https://huggingface.co/datasets/OpenGVLab/ShareGPT-4o" rel="nofollow">HF link</a></td>
+                                    <td>🤗 <a href="https://huggingface.co/datasets/OpenGVLab/ShareGPT-4o/tree/main/audio_pretrain" rel="nofollow">HF link</a></td>
                                 </tr>
                                 <tr>
                                     <td>STF Data</td>
                                     <td>1.9M</td>
-                                    <td>🤗 <a href="https://huggingface.co/datasets/OpenGVLab/ShareGPT-4o" rel="nofollow">HF link</a></td>
+                                    <td>TBD</td>
                                 </tr>
                                 <tr>
                                     <td>Benchmark</td>
                                     <td>15k</td>
-                                    <td>🤗 <a href="https://huggingface.co/datasets/OpenGVLab/ShareGPT-4o" rel="nofollow">HF link</a></td>
+                                    <td>🤗 <a href="https://huggingface.co/datasets/OpenGVLab/ShareGPT-4o/tree/main/audio_benchmark" rel="nofollow">HF link</a></td>
                                 </tr>
                             </tbody>
                         </table>

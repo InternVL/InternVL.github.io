@@ -6,7 +6,7 @@
   <meta name="description" content="Dscribe the InternVL">
   <meta name="keywords" content="multimodal chatbot">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>InternVL</title>
+  <title>Mono-InternVL</title>
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
@@ -117,10 +117,10 @@
             <h1 class="title is-1 publication-title">Mono-InternVL: Pushing the Boundaries of Monolithic Multimodal Large Language Models with Endogenous Visual Pre-training</h1>
             <div class="is-size-5 publication-authors">
               <span class="author-block">
-                <a href="https://scholar.google.com/citations?hl=en&user=EyZqU9gAAAAJ" style="color:#f68946;font-weight:normal;">Gen Luo</a>,
-                <a href="https://scholar.google.com/citations?hl=en&user=2xTlvV0AAAAJ" style="color:#f68946;font-weight:normal;">Xue Yang</a>,
-                <a href="https://scholar.google.com/citations?hl=en&user=_LHpf9oAAAAJ" style="color:#f68946;font-weight:normal;">Wenhan Dou</a>,
-                <a href="https://scholar.google.com/citations?hl=en&user=W0zVf-oAAAAJ" style="color:#f68946;font-weight:normal;">Zhaokai Wang</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=EyZqU9gAAAAJ" style="color:#f68946;font-weight:normal;">Gen Luo*</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=2xTlvV0AAAAJ" style="color:#f68946;font-weight:normal;">Xue Yang*</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=_LHpf9oAAAAJ" style="color:#f68946;font-weight:normal;">Wenhan Dou*</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=W0zVf-oAAAAJ" style="color:#f68946;font-weight:normal;">Zhaokai Wang*</a>,
                 <a href="https://scholar.google.com/citations?hl=en&user=SH_-B_AAAAAJ" style="color:#f68946;font-weight:normal;">Jifeng Dai</a>,
                 <a href="https://scholar.google.com/citations?hl=en&user=gFtI-8QAAAAJ" style="color:#f68946;font-weight:normal;">Yu Qiao</a>,
                 <a href="https://scholar.google.com/citations?hl=en&user=02RXI00AAAAJ" style="color:#f68946;font-weight:normal;">Xizhou Zhu</a>
@@ -129,7 +129,7 @@
 
             <div class="is-size-5 publication-authors">
               <span class="author-block"><b style="color:#008AD7; font-weight:normal">▶ </b> OpenGVLab, Shanghai AI Laboratory</span>
-              <span class="author-block"><b style="color:#bb52ff; font-weight:normal">▶ </b> Tsinghua University</span> <br>
+              <span class="author-block"><b style="color:#bb52ff; font-weight:normal">▶ </b> Tsinghua University</span>
               <span class="author-block"><b style="color:#ff481c; font-weight:normal">▶ </b> Shanghai Jiao Tong University</span>
             </div>
 
@@ -169,10 +169,12 @@
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-               The rapid advancement of Large Language Models (LLMs) has led to an influx of efforts to extend their capabilities to multimodal tasks. Among them, growing attention have been focused on  monolithic Multimodal Large Language Models (MLLMs) that integrate visual encoding and language decoding into a single LLM. Despite the structural simplicity and deployment-friendliness,  training a monolithic MLLM with promising performance still remains challenging. In particular, the popular approaches adopt continuous pre-training to extend a pre-trained LLM to a monolithic MLLM, which suffers from catastrophic forgetting and leads to performance degeneration.  In this paper, we aim to overcome this limitation from the perspective of delta tuning. Specifically, our core idea is to embed   visual parameters into a pre-trained LLM, thereby incrementally learning visual  knowledge from massive data via delta tuning, i.e., freezing the LLM when optimizing the visual parameters. Based on this principle, we present Mono-InternVL,  a novel monolithic MLLM  that  seamlessly integrates a set of  visual experts via  a multimodal mixture-of-experts structure.  Moreover, we propose an innovative pre-training strategy to maximize the visual capability of Mono-InternVL, namely Endogenous Visual Pre-training (EViP).  In particular, EViP is designed as a progressive learning process for  visual experts,   which aims to  fully exploit the visual knowledge  from noisy data to high-quality data. To validate our approach, we conduct extensive experiments on 16 benchmarks.  Experimental results not only  validate the superior performance of Mono-InternVL compared to the state-of-the-art MLLM on 6 multimodal benchmarks, e.g., +113 points over InternVL-1.5 on OCRBench, but also confirm its better deployment efficiency, with first token latency reduced by up to 67%.
+               The rapid advancement of Large Language Models (LLMs) has led to an influx of efforts to extend their capabilities to multimodal tasks. Among them, growing attention has been focused on  monolithic Multimodal Large Language Models (MLLMs) that integrate visual encoding and language decoding into a single LLM. Despite the structural simplicity and deployment-friendliness,  training a monolithic MLLM with promising performance still remains challenging. In particular, the popular approaches adopt continuous pre-training to extend a pre-trained LLM to a monolithic MLLM, which suffers from catastrophic forgetting and leads to performance degeneration.  In this paper, we aim to overcome this limitation from the perspective of delta tuning. Specifically, our core idea is to embed   visual parameters into a pre-trained LLM, thereby incrementally learning visual  knowledge from massive data via delta tuning, i.e., freezing the LLM when optimizing the visual parameters. Based on this principle, we present Mono-InternVL,  a novel monolithic MLLM  that  seamlessly integrates a set of  visual experts via  a multimodal mixture-of-experts structure.  Moreover, we propose an innovative pre-training strategy to maximize the visual capability of Mono-InternVL, namely Endogenous Visual Pre-training (EViP).  In particular, EViP is designed as a progressive learning process for  visual experts,   which aims to  fully exploit the visual knowledge  from noisy data to high-quality data. To validate our approach, we conduct extensive experiments on 16 benchmarks.  Experimental results not only  validate the superior performance of Mono-InternVL compared to the state-of-the-art MLLM on 6 multimodal benchmarks, e.g., +113 points over InternVL-1.5 on OCRBench, but also confirm its better deployment efficiency, with first token latency reduced by up to 67%.
            </p>
-
-          <img id="mono_internvl" width="100%" src="images/mono_internvl.png">
+          
+          <div style="text-align: center;">
+            <img id="mono_internvl" width="90%" src="images/mono_internvl.png">
+          </div>
 
           </div>
         </div>
@@ -201,7 +203,7 @@
 
           <ul type="1">
             <li><b>(1) Visual and textual embeddings</b>. <span style="font-size: 95%;">Compared to modular MLLMs,  Mono-InternVL directly patchifies images to input visual sequences using a lightweight module.
-          However, as the GPU computation is fully utilized, the speed difference becomes negligible;  </span></li>
+          However, as the GPU computation is fully utilized, the speed difference becomes negligible.  </span></li>
             <li><b>(2) Multimodal mixture-of-experts structure</b>. <span style="font-size: 95%;">The key principle of Mono-InternVL is to embed visual experts into a pre-trained LLM. In this case, Mono-InternVL can not only facilitate  the visual pre-training with the pre-trained LLM knowledge, but also significantly mitigates the catastrophic forgetting issue during pre-training.   </span></li>
             <br>
           </ul>
@@ -209,7 +211,7 @@
       </div>
       <centering>
         <div style="text-align: center;">
-          <img id="pipeline" width="100%" src="images/mono_internvl_pipeline.png">
+          <img id="pipeline" width="90%" src="images/mono_internvl_pipeline.png">
         </div>
       </centering>
     </div>
@@ -237,7 +239,7 @@
 
           <ul type="1">
             <li><b>Concept learning</b>. <span style="font-size: 95%;">
-              Concept learning aims to encourage the model to learn fundamental visual concepts, such as object categories or basic shapes.  Therefore, we first pre-train Mono-InternVL with  about 922 million noisy samples, which are sampled from Laion-2B and Coyo-700M.   In this sub-stage, Mono-InternVL employs a simple prompt to perform generative learning, i.e., ''provide a one-sentence caption for the image''. Meanwhile, we constrain the maximum   number of image patches of the  visual tokenizer to 1,280  for training efficiency. To ensure that the foundational language capabilities are preserved while enabling visual specialization, the entire LLM is kept frozen during concept learning, and only  the patch embedding and visual experts  are optimized.</span></li>
+              Concept learning aims to encourage the model to learn fundamental visual concepts, such as object categories or basic shapes.  Therefore, we first pre-train Mono-InternVL with  about 922 million noisy samples, which are sampled from Laion-2B and Coyo-700M.   In this sub-stage, Mono-InternVL employs a simple prompt to perform generative learning, i.e., "provide a one-sentence caption for the image". Meanwhile, we constrain the maximum   number of image patches of the  visual tokenizer to 1,280  for training efficiency. To ensure that the foundational language capabilities are preserved while enabling visual specialization, the entire LLM is kept frozen during concept learning, and only  the patch embedding and visual experts  are optimized.</span></li>
             <li><b>Semantic learning</b>. <span style="font-size: 95%;"> After concept learning, Mono-InternVL is able to understand  basic concepts in the image, but organizing this information to produce reasonable descriptions remains challenging. To achieve a higher-level visual understanding,  we utilize the pre-trained InternVL-8B to produce  short captions for 258 million images. Compared to the original noisy captions,  synthetic captions typically depict complex visual knowledge, such as relationship and world knowledge, etc., while containing less noisy information unrelated to the image, e.g., time of shooting, and the photographer. In this sub-stage, we adopt the same optimization strategy as concept learning, except that the maximum number of image patches is increased to 1,792. </span></li>
             <li><b>Alignment learning</b>. <span style="font-size: 95%;">To meet the visual requirements of downstream tasks, we further perform alignment learning on Mono-InternVL. Our alignment data is sampled from the pre-training data of InternVL-1.5, including 143 million  samples of image captioning, detection and optical character recognition (OCR).  In particular, captioning data, detection data and OCR data account for about 53.9%, 5.2% and 40.9% of the total, respectively.  In this sub-stage, we utilize the task-specific prompts from InternVL-1.5 for the generative learning, and increase the maximum number of image patches to 3,328. Compared to previous sub-stages, the multi-head attention layers are additionally optimized  to achieve better vision-language alignment. </span></li>
           </ul>
@@ -246,7 +248,7 @@
       </div>
       <centering>
         <div style="text-align: center;">
-          <img id="evip" width="100%" src="images/mono_internvl_evip.png">
+          <img id="evip" width="90%" src="images/mono_internvl_evip.png">
 
         </div>
       </centering>
@@ -267,24 +269,26 @@
     <div class="columns is-centered">
       <centering>
       <div style="text-align: center;">
-        <img id="benchmark1" width="100%" src="images/mono_internvl_benchmark1.png">
+        <img id="benchmark1" width="60%" src="images/mono_internvl_benchmark1.png">
       </div>
       </centering>
-    </div>
+    </div> 
+    <br>
     <div class="columns is-centered">
       <centering>
       <div style="text-align: center;">
-        <img id="benchmark2" width="100%" src="images/mono_internvl_benchmark2.png">
+        <img id="benchmark2" width="60%" src="images/mono_internvl_benchmark2.png">
       </div>
       </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="benchmark3" width="100%" src="images/mono_internvl_benchmark3.png">
-      </div>
-      </centering>
-    </div>
+    </div> 
+    <!-- <br> -->
+    <!-- <div class="columns is-centered"> -->
+      <!-- <centering> -->
+      <!-- <div style="text-align: center;"> -->
+        <!-- <img id="benchmark3" width="60%" src="images/mono_internvl_benchmark3.png"> -->
+      <!-- </div> -->
+      <!-- </centering> -->
+    <!-- </div> -->
   </div>
   </section>
 
@@ -300,7 +304,39 @@
   <div class="columns is-centered">
     <centering>
     <div style="text-align: center;">
-      <img id="caption1" width="100%" src="images/mono_internvl_caption1.png">
+      <img id="caption1" width="60%" src="images/mono_internvl_caption1.png">
+    </div>
+    </centering>
+  </div>
+  <!-- <br> -->
+  <div class="columns is-centered">
+    <centering>
+    <div style="text-align: center;">
+      <img id="caption2" width="60%" src="images/mono_internvl_caption2.png">
+    </div>
+    </centering>
+  </div>
+  <!-- <br> -->
+  <div class="columns is-centered">
+    <centering>
+    <div style="text-align: center;">
+      <img id="vg" width="60%" src="images/mono_internvl_vg.png">
+    </div>
+    </centering>
+  </div>
+  <!-- <br> -->
+  <div class="columns is-centered">
+    <centering>
+    <div style="text-align: center;">
+      <img id="vqa" width="60%" src="images/mono_internvl_vqa.png">
+    </div>
+    </centering>
+  </div>
+  <!-- <br> -->
+  <div class="columns is-centered">
+    <centering>
+    <div style="text-align: center;">
+      <img id="ocr" width="60%" src="images/mono_internvl_ocr.png">
     </div>
     </centering>
   </div>
@@ -308,55 +344,23 @@
   <div class="columns is-centered">
     <centering>
     <div style="text-align: center;">
-      <img id="caption2" width="100%" src="images/mono_internvl_caption2.png">
+      <img id="code" width="60%" src="images/mono_internvl_code.png">
     </div>
     </centering>
   </div>
-  <br>
+  <!-- <br> -->
   <div class="columns is-centered">
     <centering>
     <div style="text-align: center;">
-      <img id="vg" width="100%" src="images/mono_internvl_vg.png">
+      <img id="doc" width="60%" src="images/mono_internvl_doc.png">
     </div>
     </centering>
   </div>
-  <br>
+  <!-- <br> -->
   <div class="columns is-centered">
     <centering>
     <div style="text-align: center;">
-      <img id="vqa" width="100%" src="images/mono_internvl_vqa.png">
-    </div>
-    </centering>
-  </div>
-  <br>
-  <div class="columns is-centered">
-    <centering>
-    <div style="text-align: center;">
-      <img id="ocr" width="100%" src="images/mono_internvl_ocr.png">
-    </div>
-    </centering>
-  </div>
-  <br>
-  <div class="columns is-centered">
-    <centering>
-    <div style="text-align: center;">
-      <img id="code" width="100%" src="images/mono_internvl_code.png">
-    </div>
-    </centering>
-  </div>
-  <br>
-  <div class="columns is-centered">
-    <centering>
-    <div style="text-align: center;">
-      <img id="doc" width="100%" src="images/mono_internvl_doc.png">
-    </div>
-    </centering>
-  </div>
-  <br>
-  <div class="columns is-centered">
-    <centering>
-    <div style="text-align: center;">
-      <img id="math" width="100%" src="images/mono_internvl_math.png">
+      <img id="math" width="60%" src="images/mono_internvl_math.png">
     </div>
     </centering>
   </div>
@@ -367,7 +371,7 @@
     <div class="container is-max-desktop content">
       <h2 class="title">Citation</h2>
       <pre><code>
-  @article{monointernvl,
+  @article{mono_internvl,
     title={Mono-InternVL: Pushing the Boundaries of Monolithic Multimodal Large Language Models with Endogenous Visual Pre-training},
     author={Luo, Gen and Yang, Xue and Dou, Wenhan and Dai, Jifeng and Qiao, Yu and Xizhou, Zhu},
     journal={arXiv preprint arXiv:xxxx.xxxxx},
@@ -399,7 +403,7 @@
       <p>
         This website is adapted from <a
         href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-        Commons Attribution-ShareAlike 4.0 International License</a>.  We thank the LLaMA team for giving us access to their models, and open-source projects, including Alpaca and Vicuna.
+        Commons Attribution-ShareAlike 4.0 International License</a>.
       </p>
     </div>
   </section>

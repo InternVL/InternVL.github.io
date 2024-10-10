@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Dscribe the InternVL">
+  <meta name="keywords" content="multimodal chatbot">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>InternVL</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="../../static/css/index.css">
+  <link rel="icon" href="https://github-production-user-asset-6210df.s3.amazonaws.com/47669167/330728723-7037290e-f474-4d11-b90f-1d8316087bf8.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240529%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240529T072300Z&X-Amz-Expires=300&X-Amz-Signature=d12b9e5c3c49a082747f5da55529a4f1247cd17b4329fafc1cb6d1c0678efa77&X-Amz-SignedHeaders=host&actor_id=23737120&key_id=0&repo_id=721995615">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+  <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.35.2/gradio.js"></script>
+</head>
+
+<style>
+  .expandable-card .card-text-container {
+    max-height: 200px;
+    overflow-y: hidden;
+    position: relative;
+  }
+
+  .expandable-card.expanded .card-text-container {
+    max-height: none;
+  }
+
+  .expand-btn {
+    position: relative;
+    display: none;
+    background-color: rgba(255, 255, 255, 0.8);
+    /* margin-top: -20px; */
+    /* justify-content: center; */
+    color: #510c75;
+    border-color: transparent;
+  }
+
+  .expand-btn:hover {
+    background-color: rgba(200, 200, 200, 0.8);
+    text-decoration: none;
+    border-color: transparent;
+    color: #510c75;
+  }
+
+  .expand-btn:focus {
+    outline: none;
+    text-decoration: none;
+  }
+
+  .expandable-card:not(.expanded) .card-text-container:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 1));
+  }
+
+  .expandable-card:not(.expanded) .expand-btn {
+    margin-top: -40px;
+  }
+
+  .card-body {
+    padding-bottom: 5px;
+  }
+
+  .vertical-flex-layout {
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .figure-img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .adjustable-font-size {
+    font-size: calc(0.5rem + 2vw);
+  }
+
+  .chat-history {
+    flex-grow: 1;
+    overflow-y: auto;
+    /* overflow-x: hidden; */
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+
+  #gradio pre {
+    background-color: transparent;
+  }
+</style>
+
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Mono-InternVL: Pushing the Boundaries of Monolithic Multimodal Large Language Models with Endogenous Visual Pre-training</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?hl=en&user=EyZqU9gAAAAJ" style="color:#f68946;font-weight:normal;">Gen Luo</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=2xTlvV0AAAAJ" style="color:#f68946;font-weight:normal;">Xue Yang</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=_LHpf9oAAAAJ" style="color:#f68946;font-weight:normal;">Wenhan Dou</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=W0zVf-oAAAAJ" style="color:#f68946;font-weight:normal;">Zhaokai Wang</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=SH_-B_AAAAAJ" style="color:#f68946;font-weight:normal;">Jifeng Dai</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=gFtI-8QAAAAJ" style="color:#f68946;font-weight:normal;">Yu Qiao</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=02RXI00AAAAJ" style="color:#f68946;font-weight:normal;">Xizhou Zhu</a>
+              </span>
+
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><b style="color:#008AD7; font-weight:normal">▶ </b> OpenGVLab, Shanghai AI Laboratory</span>
+              <span class="author-block"><b style="color:#bb52ff; font-weight:normal">▶ </b> Tsinghua University</span> <br>
+              <span class="author-block"><b style="color:#ff481c; font-weight:normal">▶ </b> Shanghai Jiao Tong University</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/xxxx.xxxxx" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon" style="color:#ffffff">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span style="color:#ffffff">arXiv</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://huggingface.co/OpenGVLab/Mono-InternVL-2B" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon" style="color:#ffffff">
+                      <i class="fas fa-download"></i>
+                    </span>
+                    <span style="color:#ffffff">Code & Model</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section"  style="background-color:#ffffffff">
+    <div class="container is-max-desktop">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-six-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+               The rapid advancement of Large Language Models (LLMs) has led to an influx of efforts to extend their capabilities to multimodal tasks. Among them, growing attention have been focused on  monolithic Multimodal Large Language Models (MLLMs) that integrate visual encoding and language decoding into a single LLM. Despite the structural simplicity and deployment-friendliness,  training a monolithic MLLM with promising performance still remains challenging. In particular, the popular approaches adopt continuous pre-training to extend a pre-trained LLM to a monolithic MLLM, which suffers from catastrophic forgetting and leads to performance degeneration.  In this paper, we aim to overcome this limitation from the perspective of delta tuning. Specifically, our core idea is to embed   visual parameters into a pre-trained LLM, thereby incrementally learning visual  knowledge from massive data via delta tuning, i.e., freezing the LLM when optimizing the visual parameters. Based on this principle, we present Mono-InternVL,  a novel monolithic MLLM  that  seamlessly integrates a set of  visual experts via  a multimodal mixture-of-experts structure.  Moreover, we propose an innovative pre-training strategy to maximize the visual capability of Mono-InternVL, namely Endogenous Visual Pre-training (EViP).  In particular, EViP is designed as a progressive learning process for  visual experts,   which aims to  fully exploit the visual knowledge  from noisy data to high-quality data. To validate our approach, we conduct extensive experiments on 16 benchmarks.  Experimental results not only  validate the superior performance of Mono-InternVL compared to the state-of-the-art MLLM on 6 multimodal benchmarks, e.g., +113 points over InternVL-1.5 on OCRBench, but also confirm its better deployment efficiency, with first token latency reduced by up to 67%.
+           </p>
+
+          <img id="mono_internvl" width="100%" src="images/mono_internvl.png">
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+<section class="section"  style="background-color:#efeff081">
+  <!-- Results. -->
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3">The Monolithic Architecture</h2>
+
+    </div>
+  </div>
+  <!-- </div> -->
+  <!--/ Results. -->
+<div class="container is-max-desktop">
+
+  <div class="columns is-centered">
+    <div class="column is-full-width">
+      <div class="content has-text-justified">
+        <p>
+          Mono-InternVL consists of tokenizers and a multimodal mixture-of-experts structure.
+
+          <ul type="1">
+            <li><b>(1) Visual and textual embeddings</b>. <span style="font-size: 95%;">Compared to modular MLLMs,  Mono-InternVL directly patchifies images to input visual sequences using a lightweight module.
+          However, as the GPU computation is fully utilized, the speed difference becomes negligible;  </span></li>
+            <li><b>(2) Multimodal mixture-of-experts structure</b>. <span style="font-size: 95%;">The key principle of Mono-InternVL is to embed visual experts into a pre-trained LLM. In this case, Mono-InternVL can not only facilitate  the visual pre-training with the pre-trained LLM knowledge, but also significantly mitigates the catastrophic forgetting issue during pre-training.   </span></li>
+            <br>
+          </ul>
+        </p>
+      </div>
+      <centering>
+        <div style="text-align: center;">
+          <img id="pipeline" width="100%" src="images/mono_internvl_pipeline.png">
+        </div>
+      </centering>
+    </div>
+  </div>
+</div>
+
+</section>
+
+
+<section class="section" >
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3">Endogenous Visual Pre-training</h2>
+    </div>
+  </div>
+  <div class="container is-max-desktop">
+
+  <div class="columns is-centered">
+    <div class="column is-full-width">
+      <div class="content has-text-justified">
+        <p>
+          Endogenous Visual Pre-training (EViP) aims to maximize the benefits of Mono-InternVL from visual experts through pre-training on massive noisy and synthetic data.  Unlike existing methods, we formulate EViP from the perspective of delta tuning, in which most of the LLM parameters are frozen to preserve its pre-trained knowledge. EViP is designed as a progressive learning process and consists of three sub-stages, namely concept learning, semantic learning and alignment learning.  For different sub-stages, we use carefully partitioned data to achieve coarse-to-fine visual learning. 
+          <br>
+          <br>
+
+          <ul type="1">
+            <li><b>Concept learning</b>. <span style="font-size: 95%;">
+              Concept learning aims to encourage the model to learn fundamental visual concepts, such as object categories or basic shapes.  Therefore, we first pre-train Mono-InternVL with  about 922 million noisy samples, which are sampled from Laion-2B and Coyo-700M.   In this sub-stage, Mono-InternVL employs a simple prompt to perform generative learning, i.e., ''provide a one-sentence caption for the image''. Meanwhile, we constrain the maximum   number of image patches of the  visual tokenizer to 1,280  for training efficiency. To ensure that the foundational language capabilities are preserved while enabling visual specialization, the entire LLM is kept frozen during concept learning, and only  the patch embedding and visual experts  are optimized.</span></li>
+            <li><b>Semantic learning</b>. <span style="font-size: 95%;"> After concept learning, Mono-InternVL is able to understand  basic concepts in the image, but organizing this information to produce reasonable descriptions remains challenging. To achieve a higher-level visual understanding,  we utilize the pre-trained InternVL-8B to produce  short captions for 258 million images. Compared to the original noisy captions,  synthetic captions typically depict complex visual knowledge, such as relationship and world knowledge, etc., while containing less noisy information unrelated to the image, e.g., time of shooting, and the photographer. In this sub-stage, we adopt the same optimization strategy as concept learning, except that the maximum number of image patches is increased to 1,792. </span></li>
+            <li><b>Alignment learning</b>. <span style="font-size: 95%;">To meet the visual requirements of downstream tasks, we further perform alignment learning on Mono-InternVL. Our alignment data is sampled from the pre-training data of InternVL-1.5, including 143 million  samples of image captioning, detection and optical character recognition (OCR).  In particular, captioning data, detection data and OCR data account for about 53.9%, 5.2% and 40.9% of the total, respectively.  In this sub-stage, we utilize the task-specific prompts from InternVL-1.5 for the generative learning, and increase the maximum number of image patches to 3,328. Compared to previous sub-stages, the multi-head attention layers are additionally optimized  to achieve better vision-language alignment. </span></li>
+          </ul>
+        <br>
+        </p>
+      </div>
+      <centering>
+        <div style="text-align: center;">
+          <img id="evip" width="100%" src="images/mono_internvl_evip.png">
+
+        </div>
+      </centering>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section"   style="background-color:#efeff081">
+  <!-- Results. -->
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3">Performance</h2>
+    </div>
+  </div>
+
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="benchmark1" width="100%" src="images/mono_internvl_benchmark1.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="benchmark2" width="100%" src="images/mono_internvl_benchmark2.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="benchmark3" width="100%" src="images/mono_internvl_benchmark3.png">
+      </div>
+      </centering>
+    </div>
+  </div>
+  </section>
+
+  <section class="section" style="background-color:#efeff081">
+  <!-- Results. -->
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3">Examples</h2>
+    </div>
+  </div>
+
+<div class="container is-max-desktop">
+  <div class="columns is-centered">
+    <centering>
+    <div style="text-align: center;">
+      <img id="caption1" width="100%" src="images/mono_internvl_caption1.png">
+    </div>
+    </centering>
+  </div>
+  <br>
+  <div class="columns is-centered">
+    <centering>
+    <div style="text-align: center;">
+      <img id="caption2" width="100%" src="images/mono_internvl_caption2.png">
+    </div>
+    </centering>
+  </div>
+  <br>
+  <div class="columns is-centered">
+    <centering>
+    <div style="text-align: center;">
+      <img id="vg" width="100%" src="images/mono_internvl_vg.png">
+    </div>
+    </centering>
+  </div>
+  <br>
+  <div class="columns is-centered">
+    <centering>
+    <div style="text-align: center;">
+      <img id="vqa" width="100%" src="images/mono_internvl_vqa.png">
+    </div>
+    </centering>
+  </div>
+  <br>
+  <div class="columns is-centered">
+    <centering>
+    <div style="text-align: center;">
+      <img id="ocr" width="100%" src="images/mono_internvl_ocr.png">
+    </div>
+    </centering>
+  </div>
+  <br>
+  <div class="columns is-centered">
+    <centering>
+    <div style="text-align: center;">
+      <img id="code" width="100%" src="images/mono_internvl_code.png">
+    </div>
+    </centering>
+  </div>
+  <br>
+  <div class="columns is-centered">
+    <centering>
+    <div style="text-align: center;">
+      <img id="doc" width="100%" src="images/mono_internvl_doc.png">
+    </div>
+    </centering>
+  </div>
+  <br>
+  <div class="columns is-centered">
+    <centering>
+    <div style="text-align: center;">
+      <img id="math" width="100%" src="images/mono_internvl_math.png">
+    </div>
+    </centering>
+  </div>
+</div>
+</section>
+
+  <section class="section" id="BibTeX"  style="background-color:#ffffffff">
+    <div class="container is-max-desktop content">
+      <h2 class="title">Citation</h2>
+      <pre><code>
+  @article{monointernvl,
+    title={Mono-InternVL: Pushing the Boundaries of Monolithic Multimodal Large Language Models with Endogenous Visual Pre-training},
+    author={Luo, Gen and Yang, Xue and Dou, Wenhan and Dai, Jifeng and Qiao, Yu and Xizhou, Zhu},
+    journal={arXiv preprint arXiv:xxxx.xxxxx},
+    year={2024}
+  }
+
+  @article{chen2024far,
+    title={How Far Are We to GPT-4V? Closing the Gap to Commercial Multimodal Models with Open-Source Suites},
+    author={Chen, Zhe and Wang, Weiyun and Tian, Hao and Ye, Shenglong and Gao, Zhangwei and Cui, Erfei and Tong, Wenwen and Hu, Kongzhi and Luo, Jiapeng and Ma, Zheng and others},
+    journal={arXiv preprint arXiv:2404.16821},
+    year={2024}
+  }
+
+  @inproceedings{chen2024internvl,
+    title={Internvl: Scaling up vision foundation models and aligning for generic visual-linguistic tasks},
+    author={Chen, Zhe and Wu, Jiannan and Wang, Wenhai and Su, Weijie and Chen, Guo and Xing, Sen and Zhong, Muyan and Zhang, Qinglong and Zhu, Xizhou and Lu, Lewei and others},
+    booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+    pages={24185--24198},
+    year={2024}
+  }
+  </code></pre>
+    </div>
+  </section>
+
+
+  <section class="section" id="Acknowledgement">
+    <div class="container is-max-desktop content">
+      <h2 class="title">Acknowledgement</h2>
+      <p>
+        This website is adapted from <a
+        href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+        Commons Attribution-ShareAlike 4.0 International License</a>.  We thank the LLaMA team for giving us access to their models, and open-source projects, including Alpaca and Vicuna.
+      </p>
+    </div>
+  </section>
+
+  <script>
+    // Handle message showing
+    function createChatRow(sender, text, imageSrc) {
+      var article = document.createElement("article");
+      article.className = "media"
+
+      var figure = document.createElement("figure");
+      figure.className = "media-left";
+
+      var span = document.createElement("span");
+      span.className = "icon is-large";
+
+      var icon = document.createElement("i");
+      icon.className = "fas fas fa-2x" + (sender === "User" ? " fa-user " : sender === "InternVL" ? " fa-robot" : "");
+
+      var media = document.createElement("div");
+      media.className = "media-content";
+
+      var content = document.createElement("div");
+      content.className = "content";
+
+      var para = document.createElement("p");
+
+      // wrap text in pre tag to preserve whitespace and line breaks
+      var pre_text = document.createElement("pre");
+      pre_text.style = "background-color: white; font-size: 18px; font-family: Arial; padding: 0; margin: 0; white-space: pre-wrap; word-wrap: break-word;";
+      var paraText = document.createTextNode(text);
+      pre_text.appendChild(paraText);
+
+      var strong = document.createElement("strong");
+      strong.innerHTML = sender;
+      var br = document.createElement("br");
+
+      para.appendChild(strong);
+      para.appendChild(br);
+      para.appendChild(pre_text);
+
+      // Add image if imageSrc is provided
+      if (imageSrc) {
+        var img = document.createElement("img");
+        img.src = imageSrc;
+        img.style = "max-width: 100%; max-height: 300px;"; // Adjust the style as needed
+        para.appendChild(img);
+      }
+
+      content.appendChild(para);
+      media.appendChild(content);
+      span.appendChild(icon);
+      figure.appendChild(span);
+      if (sender !== "Description") {
+        article.appendChild(figure);
+      };
+      article.appendChild(media);
+      return article;
+    }
+
+    function addMessageToChatHistory(sender, message, imageSrc) {
+      const chatHistory = document.querySelector('.chat-history');
+      const chatRow = createChatRow(sender, message, imageSrc);
+      chatHistory.appendChild(chatRow);
+      chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+
+    function clearChatHistory() {
+      const chatHistory = document.querySelector('.chat-history');
+      chatHistory.innerHTML = "";
+    }
+
+    // 
+    const conversations = [
+      {
+        "description": "OCR",
+        "turns": [
+          // ["Description", "Please read the description and answer the question."],
+          ["User", "", "/static/images/case_1.png"],
+          ["User", "Tell me the information about the image​"],
+          ["InternVL 1.5",
+          "The image shows a signboard with Chinese text, indicating a business establishment. The signboard reads:\n" +
+          "\"河大西门第一家\" which translates to \"The first shop at the west gate of the river.\"\n" +
+          "\"正宗 老字号 五香味\" which means \"Genuine, old brand, five-spice flavor.\"\n" +
+          "\"曹记焖烤鸡腿\" which translates to \"Cao's roasted and baked chicken legs.\"\n" +
+          "\"营业时间 16:30-22:30\" indicating the business hours from 4:30 PM to 10:30 PM.\n" +
+          "\"7点之后 在门口 路灯下出夜市地摊\" which suggests that after 7 PM, the shop operates in the doorway under the streetlights as a night market stall.\n" +
+          "The signboard also includes a logo that appears to be a stylized rooster, which might be the brand or shop's emblem. The overall style of the signboard is quite traditional and straightforward, commonly seen in Chinese street markets or small businesses."
+          ]
+        ]
+      },
+      {
+        "description": "OCR+understand",
+        "turns": [
+          ["User", "", "/static/images/case_2.jpg"],
+          ["User", "What movement is in the picture? What jersey size player is attacking?​"],
+          ["InternVL 1.5", "The image shows a basketball game in progress. A player wearing a black jersey with the number 1 is in the act of shooting the basketball, while a player in a red jersey with the number 9 is attempting to block the shot. The player in the black jersey is executing a jump shot, and the player in the red jersey is trying to contest the shot by reaching up with his right arm. The movement captured is the dynamic action of a defensive player trying to block the shot while the offensive player attempts to score.​"]
+        ]
+      },
+      {
+        "description": "duck",
+        "turns": [
+          ["User", "", "/static/images/case_3.png"],
+          ["User", "Tell me a person who had made a similar pose to the cute duck."],
+          ["InternVL 1.5", "The pose of the cute duck is reminiscent of a karate stance, which is often associated with martial artists. One famous person who made a similar pose is Bruce Lee, a martial artist and actor known for his contributions to martial arts and film.​"]
+        ]
+      },
+      {
+        "description": "phy",
+        "turns": [
+          ["User", "", "/static/images/case_4.PNG"],
+          ["User", ": If the pH outside the cell decreases, would you expect the amount of amino acids transported into the cell to increase or decrease?"],
+          ["InternVL 1.5", "Based on the image, if the pH outside the cell decreases, we would expect the amount of amino acids transported into the cell to increase. This is because the diagram shows a gradient of amino acids moving from an area of lower concentration (outside the cell) to an area of higher concentration (inside the cell), which is a typical representation of active transport. Active transport is a process that moves substances against their concentration gradient, often using energy, and it is typically more efficient at higher concentrations of the substance being transported. Therefore, a decrease in pH outside the cell would likely increase the concentration gradient, leading to an increase in the transport of amino acids into the cell.​"]
+        ]
+      },
+    ];
+
+    // The current image index
+    let currentIndex = 0;
+
+    // The function to update the displayed chat history
+    function update_dialog_demo() {
+      // Clear the chat history
+      clearChatHistory();
+
+      for (let i = 0; i < conversations[currentIndex].turns.length; i++) {
+        if (conversations[currentIndex].turns[i].length == 2) {
+          addMessageToChatHistory(conversations[currentIndex].turns[i][0], conversations[currentIndex].turns[i][1]);
+        }
+        else {
+          addMessageToChatHistory(conversations[currentIndex].turns[i][0], conversations[currentIndex].turns[i][1], conversations[currentIndex].turns[i][2]);
+        }
+      }
+
+      // scroll to the top of the chat history
+      document.querySelector('.chat-history').scrollTop = 0;
+    }
+
+    // Initialize the displayed image
+    update_dialog_demo();
+
+    // Event listeners for the buttons
+    document.getElementById('prev-question').addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + conversations.length) % conversations.length;
+      update_dialog_demo();
+    });
+
+    document.getElementById('next-question').addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % conversations.length;
+      update_dialog_demo();
+    });
+
+
+  </script>
+
+</body>
+
+</html>

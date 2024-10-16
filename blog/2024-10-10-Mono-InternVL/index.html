@@ -231,21 +231,30 @@
 
   <div class="columns is-centered">
     <div class="column is-full-width">
-      <div class="content has-text-justified">
-        <p>
-          Endogenous Visual Pre-training (EViP) aims to maximize the benefits of Mono-InternVL from visual experts through pre-training on massive noisy and synthetic data.  Unlike existing methods, we formulate EViP from the perspective of delta tuning, in which most of the LLM parameters are frozen to preserve its pre-trained knowledge. EViP is designed as a progressive learning process and consists of three sub-stages, namely concept learning, semantic learning and alignment learning.  For different sub-stages, we use carefully partitioned data to achieve coarse-to-fine visual learning. 
-          <br>
-          <br>
 
-          <ul type="1">
-            <li><b>Concept learning</b>. <span style="font-size: 95%;">
-              Concept learning aims to encourage the model to learn fundamental visual concepts, such as object categories or basic shapes.  Therefore, we first pre-train Mono-InternVL with  about 922 million noisy samples, which are sampled from Laion-2B and Coyo-700M.   In this sub-stage, Mono-InternVL employs a simple prompt to perform generative learning, i.e., "provide a one-sentence caption for the image". Meanwhile, we constrain the maximum   number of image patches of the  visual tokenizer to 1,280  for training efficiency. To ensure that the foundational language capabilities are preserved while enabling visual specialization, the entire LLM is kept frozen during concept learning, and only  the patch embedding and visual experts  are optimized.</span></li>
-            <li><b>Semantic learning</b>. <span style="font-size: 95%;"> After concept learning, Mono-InternVL is able to understand  basic concepts in the image, but organizing this information to produce reasonable descriptions remains challenging. To achieve a higher-level visual understanding,  we utilize the pre-trained InternVL-8B to produce  short captions for 258 million images. Compared to the original noisy captions,  synthetic captions typically depict complex visual knowledge, such as relationship and world knowledge, etc., while containing less noisy information unrelated to the image, e.g., time of shooting, and the photographer. In this sub-stage, we adopt the same optimization strategy as concept learning, except that the maximum number of image patches is increased to 1,792. </span></li>
-            <li><b>Alignment learning</b>. <span style="font-size: 95%;">To meet the visual requirements of downstream tasks, we further perform alignment learning on Mono-InternVL. Our alignment data is sampled from the pre-training data of InternVL-1.5, including 143 million  samples of image captioning, detection and optical character recognition (OCR).  In particular, captioning data, detection data and OCR data account for about 53.9%, 5.2% and 40.9% of the total, respectively.  In this sub-stage, we utilize the task-specific prompts from InternVL-1.5 for the generative learning, and increase the maximum number of image patches to 3,328. Compared to previous sub-stages, the multi-head attention layers are additionally optimized  to achieve better vision-language alignment. </span></li>
-          </ul>
-        <br>
+
+      <div class="content has-text-justified">
+        <!-- <p> -->
+          <!-- Endogenous Visual Pre-training (EViP) aims to maximize the benefits of Mono-InternVL from visual experts through pre-training on massive noisy and synthetic data.  Unlike existing methods, we formulate EViP from the perspective of delta tuning, in which most of the LLM parameters are frozen to preserve its pre-trained knowledge. EViP is designed as a progressive learning process and consists of three sub-stages, namely concept learning, semantic learning and alignment learning.  For different sub-stages, we use carefully partitioned data to achieve coarse-to-fine visual learning.  -->
+          <!-- <br> -->
+          <!-- <br> -->
+<!--  -->
+          <!-- <ul type="1"> -->
+            <!-- <li><b>Concept learning</b>. <span style="font-size: 95%;"> -->
+              <!-- Concept learning aims to encourage the model to learn fundamental visual concepts, such as object categories or basic shapes.  Therefore, we first pre-train Mono-InternVL with  about 922 million noisy samples, which are sampled from Laion-2B and Coyo-700M.   In this sub-stage, Mono-InternVL employs a simple prompt to perform generative learning, i.e., "provide a one-sentence caption for the image". Meanwhile, we constrain the maximum   number of image patches of the  visual tokenizer to 1,280  for training efficiency. To ensure that the foundational language capabilities are preserved while enabling visual specialization, the entire LLM is kept frozen during concept learning, and only  the patch embedding and visual experts  are optimized.</span></li> -->
+            <!-- <li><b>Semantic learning</b>. <span style="font-size: 95%;"> After concept learning, Mono-InternVL is able to understand  basic concepts in the image, but organizing this information to produce reasonable descriptions remains challenging. To achieve a higher-level visual understanding,  we utilize the pre-trained InternVL-8B to produce  short captions for 258 million images. Compared to the original noisy captions,  synthetic captions typically depict complex visual knowledge, such as relationship and world knowledge, etc., while containing less noisy information unrelated to the image, e.g., time of shooting, and the photographer. In this sub-stage, we adopt the same optimization strategy as concept learning, except that the maximum number of image patches is increased to 1,792. </span></li> -->
+            <!-- <li><b>Alignment learning</b>. <span style="font-size: 95%;">To meet the visual requirements of downstream tasks, we further perform alignment learning on Mono-InternVL. Our alignment data is sampled from the pre-training data of InternVL-1.5, including 143 million  samples of image captioning, detection and optical character recognition (OCR).  In particular, captioning data, detection data and OCR data account for about 53.9%, 5.2% and 40.9% of the total, respectively.  In this sub-stage, we utilize the task-specific prompts from InternVL-1.5 for the generative learning, and increase the maximum number of image patches to 3,328. Compared to previous sub-stages, the multi-head attention layers are additionally optimized  to achieve better vision-language alignment. </span></li> -->
+          <!-- </ul> -->
+        <!-- <br> -->
+        <!-- </p> -->
+
+        <p>
+        Based on the monolithic architecture, we present an innovative visual pre-training method called Endogenous Visual Pre-training (EViP). Specifically, EViP is formulated as a progressive learning process of three stages: 1) concept learning to grasp basic visual concepts, 2) semantic learning to capture high-level semantics, e.g., world knowledge, and 3) alignment learning to align knowledge with downstream tasks. Benefiting from the architecture and the pre-training strategy, the visual scalability of Mono-InternVL is fully unleashed, where the downstream performance consistently improves as the scale of the pre-training data increases. After visual pre-training, Mono-InternVL accommodates complex multimodal tasks via supervised instruction tuning.
         </p>
       </div>
+
+
+
       <centering>
         <div style="text-align: center;">
           <img id="evip" width="90%" src="images/mono_internvl_evip.png">

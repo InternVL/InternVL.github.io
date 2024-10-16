@@ -202,9 +202,8 @@
           Mono-InternVL consists of tokenizers and a multimodal mixture-of-experts structure.
 
           <ul type="1">
-            <li><b>(1) Visual and textual embeddings</b>. <span style="font-size: 95%;">Compared to modular MLLMs,  Mono-InternVL directly patchifies images to input visual sequences using a lightweight module.
-          However, as the GPU computation is fully utilized, the speed difference becomes negligible.  </span></li>
-            <li><b>(2) Multimodal mixture-of-experts structure</b>. <span style="font-size: 95%;">The key principle of Mono-InternVL is to embed visual experts into a pre-trained LLM. In this case, Mono-InternVL can not only facilitate  the visual pre-training with the pre-trained LLM knowledge, but also significantly mitigates the catastrophic forgetting issue during pre-training.   </span></li>
+            <li><b>(1) Visual and textual embeddings</b>. <span style="font-size: 95%;">Compared to modular MLLMs,  Mono-InternVL directly patchifies images to input visual sequences using a lightweight module. </span></li>
+            <li><b>(2) Multimodal mixture-of-experts structure</b>. <span style="font-size: 95%;">The key principle of Mono-InternVL is to embed visual experts into a pre-trained LLM, thereby facilitating visual pre-training using the pre-trained LLM’s knowledge and significantly mitigating the issue of catastrophic forgetting.   </span></li>
             <br>
           </ul>
         </p>

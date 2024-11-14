@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Dscribe the InternVL">
+  <meta name="keywords" content="multimodal chatbot">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>InternVL2-MPO</title>
+  <!-- <link rel="icon" href="https://internvl.opengvlab.com/logo.jpg"> -->
+  <link rel="icon" href="https://github.com/OpenGVLab/InternVL/assets/47669167/7037290e-f474-4d11-b90f-1d8316087bf8">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="../../static/css/index.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+  <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.35.2/gradio.js"></script>
+
+  <link rel="stylesheet" href="/blog/assets/main.css">
+
+  <link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1582902_u0zm91pv15i.css">
+  <style type="text/css">
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #carousel {
+      margin: auto;
+      width: 100%;
+      /* 使用相对宽度 */
+      /* max-width: 600px; */
+      /* 设置最大宽度 */
+      position: relative;
+      overflow: hidden;
+      height: auto;
+    }
+
+    #carousel>ul {
+      display: flex;
+      position: relative;
+      transition: left 0.5s ease;
+      /* 添加过渡效果 */
+      left: 0;
+      /* 初始位置 */
+    }
+
+    #carousel>ul,
+    #carousel>ul>li {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      width: 100%;
+      /* 使每个li宽度相对于#carousel */
+      /* n张图就是n*100%，下面js代码里会动态设置 */
+    }
+
+    #carousel img {
+      width: 100%;
+      /* 使图片宽度相对于li的宽度 */
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 30px;
+      cursor: pointer;
+      color: #fff;
+      /* 箭头颜色 */
+      background: rgba(0, 0, 0, 0.5);
+      /* 箭头背景 */
+      border-radius: 50%;
+      padding: 10px;
+      z-index: 1000;
+      /* 确保箭头在最上层 */
+    }
+
+    .left-arrow {
+      left: 2%;
+    }
+
+    .right-arrow {
+      right: 2%;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.js"></script>
+
+</head>
+
+<style>
+  .expandable-card .card-text-container {
+    max-height: 200px;
+    overflow-y: hidden;
+    position: relative;
+  }
+
+  .expandable-card.expanded .card-text-container {
+    max-height: none;
+  }
+
+  .expand-btn {
+    position: relative;
+    display: none;
+    background-color: rgba(255, 255, 255, 0.8);
+    /* margin-top: -20px; */
+    /* justify-content: center; */
+    color: #510c75;
+    border-color: transparent;
+  }
+
+  .expand-btn:hover {
+    background-color: rgba(200, 200, 200, 0.8);
+    text-decoration: none;
+    border-color: transparent;
+    color: #510c75;
+  }
+
+  .expand-btn:focus {
+    outline: none;
+    text-decoration: none;
+  }
+
+  .expandable-card:not(.expanded) .card-text-container:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 1));
+  }
+
+  .expandable-card:not(.expanded) .expand-btn {
+    margin-top: -40px;
+  }
+
+  .card-body {
+    padding-bottom: 5px;
+  }
+
+  .vertical-flex-layout {
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .figure-img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .adjustable-font-size {
+    font-size: calc(0.5rem + 2vw);
+  }
+
+  .chat-history {
+    flex-grow: 1;
+    overflow-y: auto;
+    /* overflow-x: hidden; */
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+
+  #gradio pre {
+    background-color: transparent;
+  }
+</style>
+
+<body>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">
+              Enhancing the Reasoning Ability of Multimodal
+              <nobr>
+                Large Language Models via Mixed Preference Optimization
+              </nobr>
+            </h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Weiyun Wang<sup style="color:#ffac33;">2</sup><sup>,</sup><sup
+                  style="color:#6fbf73;">1</sup>,</span>
+              <span class="author-block">Zhe Chen<sup style="color:#9b51e0;">3</sup><sup>,</sup><sup
+                  style="color:#6fbf73;">1</sup>,</span>
+              <span class="author-block">Wenhai Wang<sup style="color:#007bff;">4</sup><sup>,</sup><sup
+                  style="color:#6fbf73;">1</sup>,</span>
+              <span class="author-block">Yue Cao<sup style="color:#9b51e0;">3</sup><sup>,</sup><sup
+                  style="color:#6fbf73;">1</sup>,</span>
+              <span class="author-block">Yangzhou Liu<sup style="color:#9b51e0;">3</sup><sup>,</sup><sup
+                  style="color:#6fbf73;">1</sup>,</span>
+              <br>
+              <span class="author-block">Zhangwei Gao<sup style="color:#6fbf73;">1</sup>,</span>
+              <span class="author-block">Jinguo Zhu<sup style="color:#6fbf73;">1</sup>,</span>
+              <span class="author-block">Xizhou Zhu<sup style="color:#ed4b82;">5</sup><sup>,</sup><sup
+                  style="color:#6fbf73;">1</sup>,</span>
+              <span class="author-block">Lewei Lu<sup style="color:#1b1be0;">6</sup>,</span>
+              <span class="author-block">Yu Qiao<sup style="color:#6fbf73;">1</sup>,</span>
+              <span class="author-block">Jifeng Dai<sup style="color:#ed4b82;">5</sup><sup>,</sup><sup
+                  style="color:#6fbf73;">1</sup>,</span>
+            </div>
+
+            <br>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup style="color:#6fbf73;">1</sup>OpenGVLab, Shanghai AI
+                Laboratory,</span>
+              <span class="author-block"><sup style="color:#ffac33;">2</sup>Fudan University,</span>
+              <span class="author-block"><sup style="color:#9b51e0;">3</sup>Nanjing University,</span>
+              <br>
+              <span class="author-block"><sup style="color:#007bff;">4</sup>The Chinese University of Hong
+                Kong,</span>
+              <span class="author-block"><sup style="color:#ed4b82;">5</sup>Tsinghua University,</span>
+              <span class="author-block"><sup style="color:#1b1be0;">6</sup>SenseTime Research,</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2411.xxxxx" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="https://github.com/OpenGVLab/InternVL/tree/main/internvl_chat/shell/internvl2.0_mpo"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+                <!-- Dataset Link. -->
+                <span class="link-block">
+                  <a href="https://huggingface.co/datasets/OpenGVLab/MMPR"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span>🤗 Dataset</span>
+                  </a>
+                </span>
+                <!-- Model Link. -->
+                <span class="link-block">
+                  <a href="https://huggingface.co/OpenGVLab/InternVL2-8B-MPO"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span>🤗 Model</span>
+                  </a>
+                </span>
+                <!-- Document Link. -->
+                <span class="link-block">
+                  <a href="https://internvl.readthedocs.io/en/latest/internvl2.0/preference_optimization.html"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span>📖 Document</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background-color:#ffffffff">
+    <div class="container is-max-desktop">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-six-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Existing open-source multimodal large language models (MLLMs) generally follow a training process
+              involving pre-training and supervised fine-tuning. However, these models suffer from distribution shifts,
+              which limit their multimodal reasoning, particularly in the Chain-of-Thought (CoT) performance.
+
+              To address this, we introduce a preference optimization (PO) process to enhance the multimodal reasoning
+              capabilities of MLLMs. Specifically, (1) on the data side, we design an automated preference data
+              construction pipeline to create <a href="https://huggingface.co/datasets/OpenGVLab/MMPR">MMPR</a>, a
+              high-quality,
+              large-scale multimodal reasoning preference dataset. and (2) on the model side, we explore integrating PO
+              with MLLMs, developing a simple yet effective method, termed Mixed Preference Optimization (MPO), which
+              boosts multimodal CoT performance.
+
+              Our approach demonstrates improved performance across multiple benchmarks, particularly in multimodal
+              reasoning tasks. Notably, our model,
+              <a href="https://huggingface.co/OpenGVLab/InternVL2-8B-MPO">InternVL2-8B-MPO</a>, achieves an accuracy of
+              67.0 on
+              MathVista, outperforming InternVL2-8B by 8.7 points and achieving performance comparable to the 10x
+              larger InternVL2-76B. We hope this study could inspire further advancements in MLLMs.
+            </p>
+
+            <div style="text-align: center;">
+              <img id="teaser_scatter" width="60%"
+                src="https://cdn-uploads.huggingface.co/production/uploads/619507e7b74b6c591f794340/sy8aVC1Y5wtAjG-OQzrDI.jpeg">
+              <p>
+                <b>Open-source model performance on MathVista.</b>
+                The X- and Y-axes represent the accuracy evaluated with direct-answer responses and CoT responses,
+                respectively. The bubble size is positively correlated with the number of model parameters.
+                The values in parentheses indicate the performance gap between CoT and direct-answer responses.
+                Notably, most open-source models perform worse when answering with CoT.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" style="background-color:#efeff081">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3" id="Mix-Preference-Optimization">Mixed Preference Optimization</h2>
+      </div>
+    </div>
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+
+          <div class="content has-text-justified">
+            <p>
+              The key insight behind MPO is that
+              <i>
+                an effective PO process should enable the model to learn the
+                relative preference between pairs of responses, the absolute quality of individual responses, and the
+                process for generating preferred responses.
+              </i>
+              We define the training objective as a combination of
+
+              preference loss <span id="pref-loss-left"></span>,
+              quality loss <span id="quality-loss-left"></span>,
+              and generation loss <span id="gen-loss-left"></span>,
+
+              referred to as Mixed Preference Optimization:
+            </p>
+
+            <div id="overall-loss" style="text-align: center"></div>
+            <p>
+              where <span id="w_i"></span> represents the weight assigned to each loss component.
+              In this work, we empirically compare different variants of preference loss.
+              Based on the experimental results, we use DPO as our preference loss and BCO as our quality loss.
+            </p>
+
+            </p>
+            Specifically, the DPO serves as the preference loss to enable the model to learn the
+            relative preference between chosen and rejected responses.
+            This algorithm optimizes the following loss function:
+            </p>
+
+            <div id="pref-loss" style="text-align: center"></div>
+            <p>
+              where
+              <span id="beta" style="text-align: center"></span>
+              is the KL penalty coefficient,
+              and
+              <span id="x" style="text-align: center"></span>,
+              <span id="y_c" style="text-align: center"></span>,
+              and
+              <span id="y_r" style="text-align: center"></span>
+              are user query, chosen response, and rejected response, respectively.
+              The policy model
+              <span id="pi_theta" style="text-align: center"></span>
+              is initialized from model
+              <span id="pi_0" style="text-align: center"></span>.
+            </p>
+
+            <p>
+              Additionally, the BCO loss is employed as the quality loss, which helps the model to
+              understand the absolute quality of individual responses.
+              The loss function is defined as:
+            </p>
+            <div id="quality-loss" style="text-align: center"></div>
+
+            <p>
+              where <span id="quality-positive-loss-left" style="text-align: center"></span> and
+              <span id="quality-negative-loss-left" style="text-align: center"></span> represent the loss for chosen
+              and rejected responses, respectively.
+              Each response type's loss is calculated independently, requiring the model to differentiate the absolute
+              quality of individual responses. The loss terms are given by:
+            </p>
+            <div id="quality-positive-loss" style="text-align: center"></div>
+            <div id="quality-negative-loss" style="text-align: center"></div>
+
+            <p>
+              where
+              <span id="delta" style="text-align: center"></span>
+              represents the reward shift, calculated as the moving average of previous rewards to
+              stabilize training.
+            </p>
+
+            <p>
+              Finally, the SFT loss is used as the generation loss to help the model learn the generation process of
+              preferred responses.
+              The loss function is defined as:
+            </p>
+
+            <div id="gen-loss" style="text-align: center"></div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <!-- Results. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">MMPR</h2>
+
+      </div>
+    </div>
+    <!-- </div> -->
+    <!--/ Results. -->
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <div class="content has-text-justified">
+            <p>
+              To construct a large-scale preference optimization dataset, we propose an efficient data construction
+              pipeline. Specifically, we categorize the multimodal data into <b>samples with clear ground truths</b> and
+              <b>samples without clear ground truths</b>.
+
+            <ul type="1">
+              <li>
+                <b>For samples with clear ground truths</b>,
+                <span style="font-size: 95%;">
+                  the model is prompted to first provide the reasoning process and then give the final answer in the
+                  format like <i>"Final Answer: xxx"</i>. Responses matching the ground truth answer constitute the
+                  positive set <span class="MMPR-Positive-Set"></span>, while those
+                  that do not match make up the negative set <span class="MMPR-Negative-Set"></span>. Additionally,
+                  responses that fail to provide a clear final answer are also merged into
+                  <span class="MMPR-Negative-Set"></span>. Given these responses labeled as positive or negative, we
+                  build the preference pairs by selecting a chosen response from
+                  <span class="MMPR-Positive-Set"></span> and a negative response from
+                  <span class="MMPR-Negative-Set"></span>.
+                </span>
+              </li>
+              <li>
+                <b>For samples without clear ground truths</b>,
+                <span style="font-size: 95%;">
+                  we propose a simple yet effective method: Dropout Next-Token Prediction (Dropout NTP).
+                  Specifically, we use the responses generated by InternVL2-8B as chosen answers.
+                  Given the chosen answer, we truncate it by half and then prompt InternVL2-8B to complete the remaining
+                  portion of the truncated answer without access to the image input.
+                  This generated completion serves as the rejected answer for the paired sample.
+                  It is worth noting that while the responses generated by InternVL2-8B may not be perfect,
+                  the completions generated without the image input will introduce more hallucinations than those
+                  generated with the image input. Therefore, the partial order relationship between the chosen and
+                  rejected responses holds true.
+                </span>
+              </li>
+              <br>
+            </ul>
+            </p>
+          </div>
+          <centering>
+            <!-- <div style="text-align: center;">
+              <img id="pipeline" width="90%"
+                src="https://cdn-uploads.huggingface.co/production/uploads/619507e7b74b6c591f794340/vzRa4RfzuerxrFNdj8sIp.jpeg">
+              <img id="pipeline" width="90%"
+                src="https://cdn-uploads.huggingface.co/production/uploads/619507e7b74b6c591f794340/PMt4bVowh01nL9MlJk_pp.jpeg">
+            </div> -->
+            <div id="carousel">
+              <div class="arrow left-arrow" onclick="moveSlide(-1)">&#9664;</div>
+              <div class="arrow right-arrow" onclick="moveSlide(1)">&#9654;</div>
+              <ul> <!-- 图片容器 -->
+                <li>
+                  <img
+                    src="https://cdn-uploads.huggingface.co/production/uploads/619507e7b74b6c591f794340/mmXL47UPDFwYOWdn9Z6j5.jpeg">
+                </li>
+                <li>
+                  <img
+                    src="https://cdn-uploads.huggingface.co/production/uploads/619507e7b74b6c591f794340/6fnvI_wCd9JXAs6vYthaG.jpeg">
+                </li>
+                <li>
+                  <img
+                    src="https://cdn-uploads.huggingface.co/production/uploads/619507e7b74b6c591f794340/0zTSIITRWSayDhjLCVp51.jpeg">
+                </li>
+                <li>
+                  <img
+                    src="https://cdn-uploads.huggingface.co/production/uploads/619507e7b74b6c591f794340/eDuVqKVUXZo9NcMyyYJps.jpeg">
+                </li>
+                <li>
+                  <img
+                    src="https://cdn-uploads.huggingface.co/production/uploads/619507e7b74b6c591f794340/xnE-OGscFSiy3XZVXQUiN.jpeg">
+                </li>
+                <li>
+                  <img
+                    src="https://cdn-uploads.huggingface.co/production/uploads/619507e7b74b6c591f794340/syEYaoCH6NqpANHz9gPT7.jpeg">
+                </li>
+                <li>
+                  <img
+                    src="https://cdn-uploads.huggingface.co/production/uploads/619507e7b74b6c591f794340/WpGgpEgJqxwOsKZxbd3NR.jpeg">
+                </li>
+                <li>
+                  <img
+                    src="https://cdn-uploads.huggingface.co/production/uploads/619507e7b74b6c591f794340/GcaMGTc_1aeWGfTNzgS18.jpeg">
+                </li>
+                <li>
+                  <img
+                    src="https://cdn-uploads.huggingface.co/production/uploads/619507e7b74b6c591f794340/5uMvxy2KzIG5dv3HZtnaq.jpeg">
+                </li>
+                <li>
+                  <img
+                    src="https://cdn-uploads.huggingface.co/production/uploads/619507e7b74b6c591f794340/3TFfr5cPtJsw65xD08Ct_.jpeg">
+                </li>
+                <li>
+                  <img
+                    src="https://cdn-uploads.huggingface.co/production/uploads/619507e7b74b6c591f794340/a9GvpQv9nR1qhCe79sByV.jpeg">
+                </li>
+                <li>
+                  <img
+                    src="https://cdn-uploads.huggingface.co/production/uploads/619507e7b74b6c591f794340/Bwn6oMy7LGDZCQP3i5HJi.jpeg">
+                </li>
+
+              </ul>
+            </div>
+          </centering>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <section class="section" style="background-color:#efeff081">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">Experimental Results</h2>
+      </div>
+    </div>
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+
+
+          <div class="content has-text-justified">
+            <p>
+              Our InternVL2-8B-MPO achieves superior performance across 8 benchmarks, particularly excelling in
+              multimodal reasoning tasks.
+              <b>
+                On the MathVista benchmark, our model achieves an accuracy of 67.0%,
+              </b>
+              outperforming InternVL2-8B by 8.7
+              points and achieving performance comparable to the 10$\times$ larger InternVL2-76B.
+              <b>
+                On the MathVision benchmark, our model achieves an accuracy of 25.7%,
+              </b>
+              establishing a new state-of-the-art performance among open-source models.
+              These results demonstrate the effectiveness of our preference optimization approach in enhancing
+              multimodal reasoning capabilities.
+              Additionally, on the POPE benchmark, our model exhibits a 1.2-point improvement over InterVL2-8B,
+              demonstrating the effectiveness of the perception data contained in our MMPR dataset to mitigate
+              hallucinations.
+              Furthermore, our model also shows superior performance compared to the InternVL2-8B on complex VQA
+              benchmarks, indicating that the general abilities of our model are also improved, benefiting from enhanced
+              reasoning abilities and mitigated hallucinations.
+            </p>
+          </div>
+
+
+          <centering>
+            <table class="tg">
+              <thead>
+                <tr>
+                  <th><span>Model Name</span></th>
+                  <th><span>M3CoT</span>
+                  </th>
+                  <th><span>MathVista</span></th>
+                  <th><span>MathVision</span></th>
+                  <th><span>MMVet</span>
+                  </th>
+                  <th><span>LLaVA-Bench</span></th>
+                  <th><span>POPE</span>
+                  </th>
+                  <th><span>CRPE</span>
+                  </th>
+                  <th><span>MMHalBench</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <tr>
+                  <td class="tg-5frq" colspan="9"><span>Closed Source Models</span></td>
+                </tr> -->
+                <tr>
+                  <td><span>Gemini-1.5-Pro</span></td>
+                  <td><span>-</span></td>
+                  <td><span>63.9 </span></td>
+                  <td><span>19.2 </span></td>
+                  <td><span>-</span></td>
+                  <td><span>-</span></td>
+                  <td><span>-</span></td>
+                  <td><span>-</span></td>
+                  <td><span>-</span></td>
+                </tr>
+                <tr>
+                  <td><span>GPT-4o</span></td>
+                  <td><span>64.3 </span></td>
+                  <td><span>63.8 </span></td>
+                  <td><span>30.4 </span></td>
+                  <td><span>69.1 </span></td>
+                  <td><span>97.6 </span></td>
+                  <td><span>86.9 </span></td>
+                  <td><span>76.6 </span></td>
+                  <td><span>4.0 </span></td>
+                </tr>
+                <tr>
+                  <td><span>GPT-4o-Mini</span></td>
+                  <td><span>61.9 </span></td>
+                  <td><span>52.4 </span></td>
+                  <td><span>27.3 </span></td>
+                  <td><span>66.9 </span></td>
+                  <td><span>95.4 </span></td>
+                  <td><span>85.1 </span></td>
+                  <td><span>73.1 </span></td>
+                  <td><span>3.6 </span></td>
+                </tr>
+                <!-- <tr>
+                  <td class="tg-5frq" colspan="9"><span>Open
+                      Source Models</span></td>
+                </tr> -->
+                <tr>
+                  <td><span>LLaVA-1.5-13B</span></td>
+                  <td><span>39.5 </span></td>
+                  <td><span>27.6 </span></td>
+                  <td><span>11.1 </span></td>
+                  <td><span>36.3 </span></td>
+                  <td><span>70.7 </span></td>
+                  <td><span>85.9 </span></td>
+                  <td><span>55.6 </span></td>
+                  <td><span>2.4 </span></td>
+                </tr>
+                <tr>
+                  <td><span>Qwen2-VL-7B</span></td>
+                  <td><span>57.8 </span></td>
+                  <td><span>58.2 </span></td>
+                  <td><span>21.1 </span></td>
+                  <td><span>60.6 </span></td>
+                  <td><span>67.7 </span></td>
+                  <td><span>88.1 </span></td>
+                  <td><span>74.4 </span></td>
+                  <td><span>3.4 </span></td>
+                </tr>
+                <tr>
+                  <td><span>MiniCPM-V-2-6-8B</span></td>
+                  <td><span>56.0 </span></td>
+                  <td><span>60.6 </span></td>
+                  <td><span>23.4 </span></td>
+                  <td><span>57.4 </span></td>
+                  <td><span>83.4 </span></td>
+                  <td><span>87.3 </span></td>
+                  <td><span>75.2 </span></td>
+                  <td><span>3.6 </span></td>
+                </tr>
+                <tr>
+                  <td><span>LLaVA-OneVision-7B</span></td>
+                  <td><span>52.3 </span></td>
+                  <td><span>63.2 </span></td>
+                  <td><span>18.4 </span></td>
+                  <td><span>51.4 </span></td>
+                  <td><span>79.9 </span></td>
+                  <td><span>88.4 </span></td>
+                  <td><span>73.7 </span></td>
+                  <td><span>3.1 </span></td>
+                </tr>
+                <!-- <tr>
+                  <td class="tg-5frq" colspan="9"><span>InternVL Models</span></td>
+                </tr> -->
+                <tr>
+                  <td><span>InternVL2-26B</span></td>
+                  <td><span>58.2 </span></td>
+                  <td><span>59.4 </span></td>
+                  <td><span>23.4 </span></td>
+                  <td><span>62.1 </span></td>
+                  <td><span>92.3 </span></td>
+                  <td><span>88.0 </span></td>
+                  <td><span>75.6 </span></td>
+                  <td><span>3.7 </span></td>
+                </tr>
+                <tr>
+                  <td><span>InternVL2-40B</span></td>
+                  <td><span>63.6 </span></td>
+                  <td><span>63.7 </span></td>
+                  <td><span>21.4 </span></td>
+                  <td><span>65.5 </span></td>
+                  <td><span>100.5 </span></td>
+                  <td><span>88.4 </span></td>
+                  <td><span>77.3 </span></td>
+                  <td><span>3.9 </span></td>
+                </tr>
+                <tr>
+                  <td><span>InternVL2-76B</span></td>
+                  <td><span>65.4 </span></td>
+                  <td><span>67.5 </span></td>
+                  <td><span>23.7 </span></td>
+                  <td><span>65.7 </span></td>
+                  <td><span>99.3 </span></td>
+                  <td><span>89.0 </span></td>
+                  <td><span>77.8 </span></td>
+                  <td><span>3.8 </span></td>
+                </tr>
+                <tr>
+                  <td><span>InternVL2-Pro</span></td>
+                  <td><span>65.6 </span></td>
+                  <td><span>66.3 </span></td>
+                  <td><span>18.8 </span></td>
+                  <td><span>69.4 </span></td>
+                  <td><span>99.5 </span></td>
+                  <td><span>88.2 </span></td>
+                  <td><span>77.6 </span></td>
+                  <td><span>3.7 </span></td>
+                </tr>
+                <tr>
+                  <td><span>InternVL2-8B</span></td>
+                  <td><span>59.3 </span></td>
+                  <td><span>58.3 </span></td>
+                  <td><span>20.4 </span></td>
+                  <td><span>54.2 </span></td>
+                  <td><span>73.2 </span></td>
+                  <td><span>86.9 </span></td>
+                  <td><span>75.0 </span></td>
+                  <td><span>3.3 </span></td>
+                </tr>
+                <tr style="background-color: rgb(255,248,227);">
+                  <td><span>InternVL2-8B-MPO (ours)</span></td>
+                  <td><span>79.2 </span></td>
+                  <td><span>67.0 </span></td>
+                  <td><span>25.7 </span></td>
+                  <td><span>56.2 </span></td>
+                  <td><span>76.7 </span></td>
+                  <td><span>88.1 </span></td>
+                  <td><span>75.4 </span></td>
+                  <td><span>3.5 </span></td>
+                </tr>
+              </tbody>
+            </table>
+          </centering>
+
+
+          <!-- <div class="content has-text-justified">
+            <p>
+              We also empirically compare different variants of preference loss.
+              Our experimental results demonstrate that combining preference loss with generation loss can greatly boost
+              the CoT reasoning performance.
+            </p>
+          </div>
+
+
+          <centering>
+            <div style="text-align: center;">
+              <img id="pipeline" width="100%"
+                src="https://cdn-uploads.huggingface.co/production/uploads/619507e7b74b6c591f794340/q3H4ao1Viw2OUUs4qs6Ft.jpeg">
+            </div>
+          </centering> -->
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="BibTeX" style="background-color:#ffffffff">
+    <div class="container is-max-desktop content">
+      <h2 class="title">Citation</h2>
+      <pre><code>
+  @article{chen2024far,
+    title={How Far Are We to GPT-4V? Closing the Gap to Commercial Multimodal Models with Open-Source Suites},
+    author={Chen, Zhe and Wang, Weiyun and Tian, Hao and Ye, Shenglong and Gao, Zhangwei and Cui, Erfei and Tong, Wenwen and Hu, Kongzhi and Luo, Jiapeng and Ma, Zheng and others},
+    journal={arXiv preprint arXiv:2404.16821},
+    year={2024}
+  }
+
+  @inproceedings{chen2024internvl,
+    title={Internvl: Scaling up vision foundation models and aligning for generic visual-linguistic tasks},
+    author={Chen, Zhe and Wu, Jiannan and Wang, Wenhai and Su, Weijie and Chen, Guo and Xing, Sen and Zhong, Muyan and Zhang, Qinglong and Zhu, Xizhou and Lu, Lewei and others},
+    booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+    pages={24185--24198},
+    year={2024}
+  }
+  </code></pre>
+    </div>
+  </section>
+
+
+  <section class="section" id="Acknowledgement">
+    <div class="container is-max-desktop content">
+      <h2 class="title">Acknowledgement</h2>
+      <p>
+        This website is adapted from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under
+        a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+          Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- 轮播图 -->
+  <script>
+    let currentIndex = 0; // 当前显示的图片索引
+    const slides = document.querySelectorAll('#carousel > ul > li'); // 获取所有图片
+    const totalSlides = slides.length; // 图片总数
+
+    // 设置ul的宽度为总图片数量的百分比
+    document.querySelector('#carousel > ul').style.width = (totalSlides * 100) + '%';
+
+    function moveSlide(direction) {
+      currentIndex += direction; // 根据方向增加或减少索引
+      if (currentIndex < 0) {
+        currentIndex = totalSlides - 1; // 如果小于0，循环到最后一张
+      } else if (currentIndex >= totalSlides) {
+        currentIndex = 0; // 如果超过总数，循环到第一张
+      }
+      updateCarousel(); // 更新轮播图显示
+    }
+
+    function updateCarousel() {
+      const slideWidth = document.querySelector('#carousel').offsetWidth; // 获取轮播图宽度
+      const offset = -currentIndex * slideWidth; // 每张图片的宽度相对于容器宽度
+      document.querySelector('#carousel > ul').style.left = offset + 'px'; // 更新位置
+    }
+  </script>
+
+  <!-- 数学公式 -->
+  <script>
+    elements = document.getElementsByClassName("MMPR-Positive-Set")
+    for (let element of elements) {
+      katex.render("\\mathcal{Y}_p", element);
+    }
+
+    elements = document.getElementsByClassName("MMPR-Negative-Set")
+    for (let element of elements) {
+      katex.render("\\mathcal{Y}_n", element);
+    }
+
+    katex.render("\\mathcal{L}_{\\text{p}}", document.getElementById("pref-loss-left"));
+    katex.render("\\mathcal{L}_{\\text{q}}", document.getElementById("quality-loss-left"));
+    katex.render("\\mathcal{L}_{\\text{q}}^{+}", document.getElementById("quality-positive-loss-left"));
+    katex.render("\\mathcal{L}_{\\text{q}}^{-}", document.getElementById("quality-negative-loss-left"));
+    katex.render("\\mathcal{L}_{\\text{g}}", document.getElementById("gen-loss-left"));
+    katex.render("x", document.getElementById("x"));
+    katex.render("w_*", document.getElementById("w_i"));
+    katex.render("y_c", document.getElementById("y_c"));
+    katex.render("y_r", document.getElementById("y_r"));
+    katex.render("\\pi_0", document.getElementById("pi_0"));
+    katex.render("\\pi_\\theta", document.getElementById("pi_theta"));
+    katex.render("\\delta", document.getElementById("delta"));
+    katex.render("\\beta", document.getElementById("beta"));
+
+    katex.render("\\mathcal{L}=w_{p}\\cdot\\mathcal{ L }_{ \\text{ p }} + w_{q}\\cdot\\mathcal{ L }_{ \\text{ q }} + w_{g}\\cdot\\mathcal{ L }_{ \\text{ g }}, ", document.getElementById("overall-loss"));
+    katex.render("\\mathcal{L}_{\\text{p}}=-\\log \\sigma\\left(\\beta \\log \\frac{\\pi_\\theta\\left(y_c \\mid x\\right)}{\\pi_0\\left(y_c \\mid x\\right)}-\\beta \\log \\frac{\\pi_\\theta\\left(y_r \\mid x\\right)}{\\pi_0\\left(y_r \\mid x\\right)}\\right),", document.getElementById("pref-loss"));
+    katex.render("\\mathcal{L}_{\\text{q}}=\\mathcal{L}_{\\text{q}}^+ + \\mathcal{L}_{\\text{q}}^-,", document.getElementById("quality-loss"));
+    katex.render("\\mathcal{L}_{\\text{q}}^+=-\\log \\sigma\\left(\\beta \\log \\frac{\\pi_\\theta\\left(y_c \\mid x\\right)}{\\pi_0\\left(y_c \\mid x\\right)} - \\delta\\right),", document.getElementById("quality-positive-loss"));
+    katex.render("\\mathcal{L}_{\\text{q}}^-=-\\log \\sigma\\left(-\\left(\\beta \\log \\frac{\\pi_\\theta\\left(y_r \\mid x\\right)}{\\pi_0\\left(y_r \\mid x\\right)} - \\delta\\right) \\right),", document.getElementById("quality-negative-loss"));
+    katex.render("\\mathcal{L}_{\\text{g}}=-\\frac{\\log\\pi_\\theta\\left(y_c \\mid x\\right)}{\\left| y_c \\right|}.", document.getElementById("gen-loss"));
+  </script>
+
+</body>
+
+</html>

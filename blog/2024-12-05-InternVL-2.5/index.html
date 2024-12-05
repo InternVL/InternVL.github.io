@@ -1,0 +1,2088 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>InternVL2.5</title>
+    <link rel="icon" href="https://github.com/OpenGVLab/InternVL/assets/47669167/7037290e-f474-4d11-b90f-1d8316087bf8">
+    <meta name="description" content="...">
+    <link rel="stylesheet" href="/blog/assets/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+    <!-- <link rel="stylesheet" href="/static/css/bulma.min.css"> -->
+    <link rel="stylesheet" href="/static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="/static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+    <style>
+        .results-carousel {
+            overflow: hidden;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/static/js/bulma-carousel.min.js"></script>
+    <script src="/static/js/bulma-slider.min.js"></script>
+    <script src="/static/js/explorer-index.js"></script>
+</head>
+
+<body>
+    <header class="site-header" role="banner">
+        <div class="wrapper">
+            <a class="site-title" rel="author" href="/">InternVL</a>
+            <nav class="site-nav">
+                <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                <label for="nav-trigger">
+                    <span class="menu-icon">
+                        <svg viewBox="0 0 18 15" width="18px" height="15px">
+                            <path
+                                d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z" />
+                        </svg>
+                    </span>
+                </label>
+                <div class="trigger"></div>
+            </nav>
+        </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+        <style>
+            @media (max-width: 768px) {
+                img.responsive {
+                    width: 100% !important;
+                }
+            }
+
+            .no-alternate tr {
+                background-color: white !important;
+            }
+        </style>
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+                <header class="post-header">
+                    <h1 class="post-title p-name" itemprop="name headline">InternVL2.5: Expanding Performance Boundaries
+                        of Open-Source Multimodal Models with Model, Data, and Test-Time Scaling
+                    </h1>
+                    <p class="post-meta">
+                        <time class="dt-published" datetime="2024-04-30" itemprop="datePublished">2024/12/05</time>
+                        •
+                        <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+                            <span class="p-author h-card" itemprop="name">OpenGVLab Team</span>
+                        </span>
+                    </p>
+                </header>
+                <p><a rel="nofollow" href="../">[🆕 Go Back]</a> <a rel="nofollow"
+                        href="https://arxiv.org/abs/2312.14238">[📜 InternVL 1.0 Paper]</a> <a rel="nofollow"
+                        href="https://arxiv.org/abs/2404.16821">[📜 InternVL 1.5 Report]</a> <a rel="nofollow"
+                        href="https://arxiv.org/abs/xxx">[📜 InternVL 2.5 Report]</a> <a rel="nofollow"
+                        href="https://internvl.opengvlab.com/">[🗨️ Chat Demo]</a> <a rel="nofollow"
+                        href="https://huggingface.co/spaces/OpenGVLab/InternVL">[🤗 HF Demo]</a> <a rel="nofollow"
+                        href="https://modelscope.cn/models/OpenGVLab/Mini-InternVL-Chat-4B-V1-5/summary">[<img
+                            src="images/modelscope_logo.png" width="20px" style="max-width: 100%;"> ModelScope]</a> <a
+                        rel="nofollow"
+                        href="https://github.com/OpenGVLab/InternVL?tab=readme-ov-file#quick-start-with-huggingface">[🚀
+                        Quick Start]</a> <a rel="nofollow" href="https://zhuanlan.zhihu.com/p/702946079">[📖 中文解读]</a>
+                </p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Model</th>
+                            <th>Date</th>
+                            <th>HF Link</th>
+                            <th>MS Link</th>
+                            <th>Document</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td rowspan="8">Multimodal Large Language Models</td>
+                            <td>InternVL2.5-1B</td>
+                            <td>2024.12.05</td>
+                            <td><a href="https://huggingface.co/OpenGVLab/InternVL2_5-1B" rel="nofollow">🤗 link</a>
+                            </td>
+                            <td><a href="https://modelscope.cn/models/OpenGVLab/InternVL2_5-1B" rel="nofollow">🤖
+                                    link</a>
+                            </td>
+                            <td><a href="https://huggingface.co/OpenGVLab/InternVL2_5-1B#quick-start" rel="nofollow">📖
+                                    doc</a></td>
+                        </tr>
+                        <tr>
+                            <td>InternVL2.5-2B</td>
+                            <td>2024.12.05</td>
+                            <td><a href="https://huggingface.co/OpenGVLab/InternVL2_5-2B" rel="nofollow">🤗 link</a>
+                            </td>
+                            <td><a href="https://modelscope.cn/models/OpenGVLab/InternVL2_5-2B" rel="nofollow">🤖
+                                    link</a>
+                            </td>
+                            <td><a href="https://huggingface.co/OpenGVLab/InternVL2_5-2B#quick-start" rel="nofollow">📖
+                                    doc</a></td>
+                        </tr>
+                        <tr>
+                            <td>InternVL2.5-4B</td>
+                            <td>2024.12.05</td>
+                            <td><a href="https://huggingface.co/OpenGVLab/InternVL2_5-4B" rel="nofollow">🤗 link</a>
+                            </td>
+                            <td><a href="https://modelscope.cn/models/OpenGVLab/InternVL2_5-4B" rel="nofollow">🤖
+                                    link</a>
+                            </td>
+                            <td><a href="https://huggingface.co/OpenGVLab/InternVL2_5-4B#quick-start" rel="nofollow">📖
+                                    doc</a></td>
+                        </tr>
+                        <tr>
+                            <td>InternVL2.5-8B</td>
+                            <td>2024.12.05</td>
+                            <td><a href="https://huggingface.co/OpenGVLab/InternVL2_5-8B" rel="nofollow">🤗 link</a>
+                            </td>
+                            <td><a href="https://modelscope.cn/models/OpenGVLab/InternVL2_5-8B" rel="nofollow">🤖
+                                    link</a>
+                            </td>
+                            <td><a href="https://huggingface.co/OpenGVLab/InternVL2_5-8B#quick-start" rel="nofollow">📖
+                                    doc</a></td>
+                        </tr>
+                        <tr>
+                            <td>InternVL2.5-26B</td>
+                            <td>2024.12.05</td>
+                            <td><a href="https://huggingface.co/OpenGVLab/InternVL2_5-26B" rel="nofollow">🤗 link</a>
+                            </td>
+                            <td><a href="https://modelscope.cn/models/OpenGVLab/InternVL2_5-26B" rel="nofollow">🤖
+                                    link</a></td>
+                            <td><a href="https://huggingface.co/OpenGVLab/InternVL2_5-26B#quick-start" rel="nofollow">📖
+                                    doc</a></td>
+                        </tr>
+                        <tr>
+                            <td>InternVL2.5-38B</td>
+                            <td>2024.12.05</td>
+                            <td><a href="https://huggingface.co/OpenGVLab/InternVL2_5-38B" rel="nofollow">🤗 link</a>
+                            </td>
+                            <td><a href="https://modelscope.cn/models/OpenGVLab/InternVL2_5-38B" rel="nofollow">🤖
+                                    link</a></td>
+                            <td><a href="https://huggingface.co/OpenGVLab/InternVL2_5-38B#quick-start" rel="nofollow">📖
+                                    doc</a></td>
+                        </tr>
+                        <tr>
+                            <td>InternVL2.5-78B</td>
+                            <td>2024.12.05</td>
+                            <td><a href="https://huggingface.co/OpenGVLab/InternVL2_5-78B" rel="nofollow">🤗
+                                    link</a></td>
+                            <td><a href="https://modelscope.cn/models/OpenGVLab/InternVL2_5-78B" rel="nofollow">🤖
+                                    link</a></td>
+                            <td><a href="https://huggingface.co/OpenGVLab/InternVL2_5-78B#quick-start" rel="nofollow">📖
+                                    doc</a></td>
+                        </tr>
+                        <tr>
+                            <td>InternVL2.5-Pro</td>
+                            <td>TODO</a></td>
+                            <td>TODO</a></td>
+                            <td>TODO</a></td>
+                            <td>TODO</a></td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="2">Vision Foundation Model</td>
+                            <td>
+                                <nobr>InternViT-300M-448px-V2-5</nobr>
+                            </td>
+                            <td>2024.12.05</td>
+                            <td><a href="https://huggingface.co/OpenGVLab/InternViT-300M-448px-V2_5" rel="nofollow">🤗
+                                    link</a>
+                            <td><a href="https://modelscope.cn/models/OpenGVLab/InternViT-300M-448px-V2_5"
+                                    rel="nofollow">🤖
+                                    link</a></td>
+                            <td><a href="https://huggingface.co/OpenGVLab/InternViT-300M-448px-V2_5#model-usage-image-embeddings"
+                                    rel="nofollow">📖 doc</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <nobr>InternViT-6B-448px-V2-5</nobr>
+                            </td>
+                            <td>2024.12.05</td>
+                            <td><a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V2_5" rel="nofollow">🤗
+                                    link</a>
+                            <td><a href="https://modelscope.cn/models/OpenGVLab/InternViT-6B-448px-V2_5"
+                                    rel="nofollow">🤖 link</a></td>
+                            <td><a href="https://huggingface.co/OpenGVLab/InternViT-6B-448px-V2_5#model-usage-image-embeddings"
+                                    rel="nofollow">📖 doc</a></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <div class="post-content e-content" itemprop="articleBody">
+                    <center>
+                        <p><img class="responsive" width="90%" alt="image" src="images/overview_performance.png"></p>
+                    </center>
+
+                    <br>
+
+
+                    <p>
+                        We introduce InternVL 2.5, an advanced multimodal large language model (MLLM) series that builds
+                        upon InternVL 2.0, maintaining its core model architecture while introducing significant
+                        enhancements in training and testing strategies as well as data quality.
+                        In this work, we delve into the relationship between model scaling and performance,
+                        systematically exploring the performance trends in vision encoders, language models, dataset
+                        sizes, and test-time configurations.
+                        Through extensive evaluations on a wide range of benchmarks, including multi-discipline
+                        reasoning, document understanding, multi-image / video understanding, real-world comprehension,
+                        multimodal hallucination detection, visual grounding, multilingual capabilities, and pure
+                        language processing, InternVL 2.5 exhibits competitive performance, rivaling leading commercial
+                        models such as GPT-4o and Claude-3.5-Sonnet. Notably, <b>our model is the first open-source
+                            MLLMs to achieve over 70% on the MMMU benchmark.</b> We hope this model contributes to the
+                        open-source community by setting new standards for developing and applying multimodal AI
+                        systems.
+                    </p>
+                    <p>InternVL2.5 family is built upon the following designs:</p>
+                    <ol>
+                        <!-- 渐进式对齐、更好的训练策略（动态分辨率、数据增强、均方Loss）、更高效的数据组织（packing、filtering） -->
+                        <li>
+                            <b>Progressive Scaling Strategy</b>:
+                            We propose a progressive scaling strategy to efficiently align the vision encoder (e.g.,
+                            InternViT) with LLMs.
+                            This strategy adopts a staged training approach, starting with smaller, resource-efficient
+                            LLMs and progressively scaling up to larger LLMs. This approach stems from our observation
+                            that
+                            <i>
+                                <u>
+                                    even when the ViT and LLM are jointly trained using NTP loss, the resulting
+                                    visual features are generalizable representations that can be easily understood by
+                                    other
+                                    LLMs.
+                                </u>
+                            </i>
+                            Specifically, the InternViT is trained alongside a smaller LLM (e.g., 20B), focusing on
+                            optimizing fundamental visual capabilities and cross-modal alignment. This phase avoids the
+                            high computational costs associated with training directly with a large LLM. Using a
+                            shared-weight mechanism, the trained InternViT can be seamlessly transferred to a larger LLM
+                            (e.g., 72B) without requiring retraining. Consequently, when training a larger model, much
+                            less data is required and the computation cost is significantly reduced.
+                        </li>
+                        <li>
+                            <b>Improved Training Strategy</b>:
+                            To enhance the model’s adaptability to real-world scenarios and overall performance,
+                            we introduce two key techniques: <i><u>Random JPEG Compression</u></i> and
+                            <i><u>Loss Reweighting</u></i>.
+                            For Random JPEG Compression, random JPEG compression with quality levels between 75 and 100
+                            is applied to simulate the degradation commonly found in internet-sourced images.
+                            For Loss Reweighting, we express the widely applied strategies (i.e., token averaging and
+                            sample averaging) in a unified format and propose <i><u>square averaging</u></i> to balance
+                            the gradients biases towards long or short responses.
+                        </li>
+                        <li>
+                            <b>Well-structed Data Organization</b>:
+                            During model development, we observed that even a small fraction of anomalous samples can
+                            lead to aberrant model behavior during inference.
+                            <!-- Among these anomalies, we identify repetitive generation as one of the most detrimental
+                            issues. -->
+                            To address this issue, we propose <i><u>a filtering pipeline</u></i> consisting of LLM-Based
+                            Quality
+                            Scoring and Rule-Based Filtering, which significantly reduced the occurrence of anomalous
+                            behaviors, particularly repetitive generation, with notable improvements in CoT reasoning
+                            tasks.
+                            Additionally, we implement <i><u>a data-packing strategy</u></i> to enhance GPU utilization
+                            and improve
+                            training efficiency, which comprises four steps: Select, Search, Pack, and Maintain.
+                        </li>
+                    </ol>
+
+                    <center>
+                        <p><img class="responsive" width="90%" alt="image" src="images/overview_method.png"></p>
+                    </center>
+
+                    <p>
+                        Additionally, we systematically explore various factors in MLLMs, including how changes in
+                        vision encoders,
+                        language models, dataset sizes, and inference times affect the overall performance of the model,
+                        demonstrating the relationship between scaling and performance in multimodal models.
+                        Specifically, our conclusions are as follows:
+                    </p>
+                    <ol>
+                        <li>
+                            <b>Large vision encoders significantly reduce the dependency on training data when scaling
+                                up MLLMs</b>:
+                            Compared to Qwen2-VL-72B equipped with a 600M vision encoder, our InternVL2.5-78B with a 6B
+                            vision encoder can achieve better performance using only 1/10 of the training tokens. This
+                            greatly reduces the exploration cost when scaling up MLLMs.
+                        </li>
+                        <li>
+                            <b>Data quality matters.</b>:
+                            Upgrading InternVL from 2.0 to 2.5 doubled the dataset size, but strict filtering greatly
+                            improved quality. For example, we carefully excluded the training data with anomalous
+                            samples (e.g., repetitive patterns), achieving substantial improvements in Chain-of-Thought
+                            (CoT) reasoning tasks such as MMMU and complex challenges like the OlympiadBench. Note that,
+                            most existing open-source MLLMs tend to underperform when using CoT.
+                        </li>
+                        <li>
+                            <b>Test-time scaling is beneficial for difficult multimodal QA</b>:
+                            For challenging tasks such as MMMU, the InternVL2.5-78B with CoT reaches 70%, which is 4
+                            points higher than the direct response. Subsequently, we have successfully verified that CoT
+                            can be further combined with majority voting and bring additional improvements.
+                        </li>
+                    </ol>
+
+
+                    <h3 id="model-card">Model Card</h3>
+
+                    <table style="text-align: center;">
+                        <tr>
+                            <th colspan="2">Name</th>
+                            <th>InternVL2.5-1B</th>
+                            <th>InternVL2.5-2B</th>
+                            <th>InternVL2.5-4B</th>
+                            <th>InternVL2.5-8B</th>
+                            <th>InternVL2.5-26B</th>
+                            <th>InternVL2.5-38B</th>
+                            <th>InternVL2.5-78B</th>
+                        </tr>
+                        <tr>
+                            <th rowspan="4">Model Size</th>
+                            <!-- <th colspan="2">Model Size</th> -->
+                            <td>Total</td>
+                            <td><b>938.19M</b></td>
+                            <td><b>2.21B</b></td>
+                            <td><b>3.71B</b></td>
+                            <td><b>8.08B</b></td>
+                            <td><b>25.51B</b></td>
+                            <td><b>38.39B</b></td>
+                            <td><b>78.41B</b></td>
+                        </tr>
+                        <tr>
+                            <td>ViT</td>
+                            <td>304.01M</td>
+                            <td>304.01M</td>
+                            <td>304.01M</td>
+                            <td>304.01M</td>
+                            <td>5.54B</td>
+                            <td>5.54B</td>
+                            <td>5.54B</td>
+                        </tr>
+                        <tr>
+                            <td>MLP</td>
+                            <td>4.48M</td>
+                            <td>12.60M</td>
+                            <td>12.60M</td>
+                            <td>33.57M</td>
+                            <td>116.43M</td>
+                            <td>91.79M</td>
+                            <td>172.01M</td>
+                        </tr>
+                        <tr>
+                            <td>LLM</td>
+                            <td>629.70M</td>
+                            <td>2.21B</td>
+                            <td>3.40B</td>
+                            <td>7.74B</td>
+                            <td>19.86B</td>
+                            <td>32.76B</td>
+                            <td>72.70B</td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Resolution</th>
+                            <td colspan="8">dynamic resolution, max to 36 tiles of 448 × 448 in training, max to 128
+                                tiles in testing.</td>
+                        </tr>
+                        <tr>
+                            <th rowspan="2">
+                                <nobr>Stage-1</nobr>
+                            </th>
+                            <th>Training Data</th>
+                            <!-- <td colspan="7" style="text-align: left;">xxx</td> -->
+                            <td colspan="8" style="text-align: left;">
+                                In this phase, we use a mixture of pre-training data sourced from Captioning, General
+                                Visual Question Answering, Science, Infographics, Charts, Mathematics, Knowledge, OCR,
+                                Documents, Grounding, and Conversation tasks. The data is formatted in a structured
+                                ChatML style and optimized using the NTP loss. For more detailed information on the data
+                                sources, please refer to our technical report.
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Trainable Module</th>
+                            <td colspan="8">MLP</td>
+                            <!-- <td colspan="1">MLP</td> -->
+                        </tr>
+                        <th rowspan="2">
+                            <nobr>Stage-1.5<br>(Optional)</nobr>
+                        </th>
+                        <th>Training Data</th>
+                        <!-- <td colspan="7" style="text-align: left;">xxx</td> -->
+                        <td colspan="8" style="text-align: left;">
+                            We use the same training corpus as in Stage 1 for this phase, while unfreezing the
+                            parameters of ViT.
+                            The aim of this stage is to enhance the vision encoder's ability to extract visual features,
+                            allowing it to capture more comprehensive information, especially for domains that are
+                            relatively rare in web-scale datasets, including multilingual OCR data and
+                            mathematical charts, among others.
+                            <!-- The key insight behind this strategy is that
+                            <b>
+                                even when the ViT and LLM are jointly trained using NTP loss, the resulting visual
+                                features are generalizable representations that can be easily understood by other LLMs.
+                            </b> -->
+                            The resulting vision models can be easily integrated with other LLMs at a significantly
+                            reduced computational cost by skipping this stage and relying solely on the training
+                            of Stage 1 and Stage 2.
+                            <!-- Benefiting from the enhanced visual representations from InternViT, we can easily extend the
+                            leading LLMs with robust visual recognition and understanding capabilities. -->
+                        </td>
+                        </tr>
+                        <tr>
+                            <th>Trainable Module</th>
+                            <td colspan="8">ViT + MLP</td>
+                            <!-- <td colspan="1">MLP</td> -->
+                        </tr>
+                        <tr>
+                            <th rowspan="2">
+                                <nobr>Stage-2</nobr>
+                            </th>
+                            <th>Training Data</th>
+                            <td colspan="8" style="text-align: left;">
+                                We curate a high-quality training dataset consisting of approximately 15 million
+                                samples. This dataset is drawn from diverse domains, including Captioning, General
+                                Visual Question Answering, Science, Charts, Mathematics, Knowledge, OCR, Documents,
+                                Grounding, and Conversation. Additionally, we incorporate a substantial amount of
+                                text-only data to preserve strong text-only performance. For detailed information on the
+                                data sources, please refer to our technical report.
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Trainable Module</th>
+                            <td colspan="8">ViT + MLP + LLM</td>
+                        </tr>
+                    </table>
+
+
+                    <h3 id="performance">Performance</h3>
+                    <p>
+                        To comprehensively evaluate InternVL's performance on multimodal tasks, we employ a diverse set
+                        of benchmarks, including both well-established classic datasets and newly introduced ones
+                        provided by VLMEvalKit.
+                        These benchmarks span a wide range of categories, aiming to provide a thorough and balanced
+                        assessment of InternVL’s capabilities across various multimodal tasks.
+                        We provide the evaluation results in the tables behind.
+                        Please refer to our technical report for more details.
+                    </p>
+                    <!-- 
+                    <center>
+                        <p><img class="responsive" width="90%" alt="image" src="images/img.png"></p>
+                        <p><img class="responsive" width="90%" alt="image" src="images/img_2.png"></p>
+                    </center> -->
+                    <table class="no-alternate">
+                        <thead>
+                            <tr>
+                                <th>Model Name</th>
+                                <th>MMMU<br>(val)</th>
+                                <th>MMMU<br>(test)</th>
+                                <th>MMMU-Pro<br>(std10/vision/overall)</th>
+                                <th>MathVista<br>(mini)</th>
+                                <th>MathVision<br>(mini/full)</th>
+                                <th>MathVerse<br>(mini)</th>
+                                <th>Olympiad<br>Bench</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>GPT-4V</td>
+                                <td>63.1</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>58.1</td>
+                                <td>- / 24.0</td>
+                                <td>32.8</td>
+                                <td>18.0</td>
+                            </tr>
+                            <tr>
+                                <td>GPT-4o-20240513</td>
+                                <td>69.1</td>
+                                <td>-</td>
+                                <td>54.0 / 49.7 / 51.9</td>
+                                <td>63.8</td>
+                                <td>- / 30.4</td>
+                                <td>50.2</td>
+                                <td>25.9</td>
+                            </tr>
+                            <tr>
+                                <td>Claude-3.5-Sonnet</td>
+                                <td>68.3</td>
+                                <td>-</td>
+                                <td>55.0 / 48.0 / 51.5</td>
+                                <td>67.7</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Gemini-1.5-Pro</td>
+                                <td>62.2</td>
+                                <td>-</td>
+                                <td>49.4 / 44.4 / 46.9</td>
+                                <td>63.9</td>
+                                <td>- / 19.2</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Qwen2-VL-2B</td>
+                                <td>41.1</td>
+                                <td>-</td>
+                                <td>25.3 / 17.2 / 21.2</td>
+                                <td>43.0</td>
+                                <td>19.7 / 12.4</td>
+                                <td>21.0</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Qwen2-VL-7B</td>
+                                <td>54.1</td>
+                                <td>-</td>
+                                <td>34.1 / 27.0 / 30.5</td>
+                                <td>58.2</td>
+                                <td>22.0 / 16.3</td>
+                                <td>31.9</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Qwen2-VL-72B</td>
+                                <td>64.5</td>
+                                <td>-</td>
+                                <td>49.2 / 43.3 / 46.2</td>
+                                <td>70.5</td>
+                                <td>- / 25.9</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr style="background-color: rgb(255,248,227) !important;">
+                                <td>InternVL2.5-1B</td>
+                                <td>40.9</td>
+                                <td>35.8</td>
+                                <td>23.3 / 15.5 / 19.4</td>
+                                <td>43.2</td>
+                                <td>16.8 / 14.4</td>
+                                <td>28.0</td>
+                                <td>1.7</td>
+                            </tr>
+                            <tr style="background-color: rgb(255,248,227) !important;">
+                                <td>InternVL2.5-2B</td>
+                                <td>43.6</td>
+                                <td>38.2</td>
+                                <td>27.3 / 20.1 / 23.7</td>
+                                <td>51.3</td>
+                                <td>13.5 / 14.7</td>
+                                <td>30.6</td>
+                                <td>2.0</td>
+                            </tr>
+                            <tr style="background-color: rgb(255,248,227) !important;">
+                                <td>InternVL2.5-4B</td>
+                                <td>52.3</td>
+                                <td>46.3</td>
+                                <td>36.4 / 29.0 / 32.7</td>
+                                <td>60.5</td>
+                                <td>21.7 / 20.9</td>
+                                <td>37.1</td>
+                                <td>3.0</td>
+                            </tr>
+                            <tr style="background-color: rgb(255,248,227) !important;">
+                                <td>InternVL2.5-8B</td>
+                                <td>56.0</td>
+                                <td>48.9</td>
+                                <td>38.2 / 30.4 / 34.3</td>
+                                <td>64.4</td>
+                                <td>22.0 / 19.7</td>
+                                <td>39.5</td>
+                                <td>4.9</td>
+                            </tr>
+                            <tr style="background-color: rgb(255,248,227) !important;">
+                                <td>InternVL2.5-26B</td>
+                                <td>60.0</td>
+                                <td>51.8</td>
+                                <td>41.6 / 32.6 / 37.1</td>
+                                <td>67.7</td>
+                                <td>28.0 / 23.1</td>
+                                <td>40.1</td>
+                                <td>8.8</td>
+                            </tr>
+                            <tr style="background-color: rgb(255,248,227) !important;">
+                                <td>InternVL2.5-38B</td>
+                                <td>63.9</td>
+                                <td>57.6</td>
+                                <td>48.0 / 44.0 / 46.0</td>
+                                <td>71.9</td>
+                                <td>32.2 / 31.8</td>
+                                <td>49.4</td>
+                                <td>12.1</td>
+                            </tr>
+                            <tr style="background-color: rgb(255,248,227) !important;">
+                                <td>InternVL2.5-78B</td>
+                                <td>70.1</td>
+                                <td>61.8</td>
+                                <td>51.4 / 45.9 / 48.6</td>
+                                <td>72.3</td>
+                                <td>34.9 / 32.2</td>
+                                <td>51.7</td>
+                                <td>11.6</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="no-alternate">
+                        <tr>
+                            <th>Model Name</th>
+                            <th>AI2D<br>(w./wo Mask)</th>
+                            <th>ChartQA<br>(test avg.)</th>
+                            <th>TextVQA<br>(val)</th>
+                            <th>DocVQA<br>(test)</th>
+                            <th>InfoVQA<br>(test)</th>
+                            <th>OCR<br>Bench</th>
+                            <th>SEED-2<br>Plus</th>
+                            <th>CharXiv<br>(RQ/DQ)</th>
+                            <th>VCR-EN-Easy<br>(EM/Jaccard)</th>
+                        </tr>
+                        <tr>
+                            <td>GPT-4V</td>
+                            <td>78.2 / 89.4</td>
+                            <td>78.5</td>
+                            <td>78.0</td>
+                            <td>88.4</td>
+                            <td>75.1</td>
+                            <td>645</td>
+                            <td>53.8</td>
+                            <td>37.1 / 79.9</td>
+                            <td>52.0 / 65.4</td>
+                        </tr>
+                        <tr>
+                            <td>GPT-4o-20240513</td>
+                            <td>84.6 / 94.2</td>
+                            <td>85.7</td>
+                            <td>77.4</td>
+                            <td>92.8</td>
+                            <td>79.2</td>
+                            <td>736</td>
+                            <td>72.0</td>
+                            <td>47.1 / 84.5</td>
+                            <td>91.6 / 96.4</td>
+                        </tr>
+                        <tr>
+                            <td>Claude-3-Opus</td>
+                            <td>70.6 / 88.1</td>
+                            <td>80.8</td>
+                            <td>67.5</td>
+                            <td>89.3</td>
+                            <td>55.6</td>
+                            <td>694</td>
+                            <td>44.2</td>
+                            <td>30.2 / 71.6</td>
+                            <td>62.0 / 77.7</td>
+                        </tr>
+                        <tr>
+                            <td>Claude-3.5-Sonnet</td>
+                            <td>81.2 / 94.7</td>
+                            <td>90.8</td>
+                            <td>74.1</td>
+                            <td>95.2</td>
+                            <td>74.3</td>
+                            <td>788</td>
+                            <td>71.7</td>
+                            <td>60.2 / 84.3</td>
+                            <td>63.9 / 74.7</td>
+                        </tr>
+                        <tr>
+                            <td>Gemini-1.5-Pro</td>
+                            <td>79.1 / 94.4</td>
+                            <td>87.2</td>
+                            <td>78.8</td>
+                            <td>93.1</td>
+                            <td>81.0</td>
+                            <td>754</td>
+                            <td>-</td>
+                            <td>43.3 / 72.0</td>
+                            <td>62.7 / 77.7</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2-VL-2B</td>
+                            <td>74.7 / 84.6</td>
+                            <td>73.5</td>
+                            <td>79.7</td>
+                            <td>90.1</td>
+                            <td>65.5</td>
+                            <td>809</td>
+                            <td>62.4</td>
+                            <td>-</td>
+                            <td>81.5 / -</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2-VL-7B</td>
+                            <td>83.0 / 92.1</td>
+                            <td>83.0</td>
+                            <td>84.3</td>
+                            <td>94.5</td>
+                            <td>76.5</td>
+                            <td>866</td>
+                            <td>69.0</td>
+                            <td>-</td>
+                            <td>89.7 / 93.8</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2-VL-72B</td>
+                            <td>88.1 / -</td>
+                            <td>88.3</td>
+                            <td>85.5</td>
+                            <td>96.5</td>
+                            <td>84.5</td>
+                            <td>877</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>91.3 / 94.6</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-1B</td>
+                            <td>69.3 / 77.8</td>
+                            <td>75.9</td>
+                            <td>72.0</td>
+                            <td>84.8</td>
+                            <td>56.0</td>
+                            <td>785</td>
+                            <td>59.0</td>
+                            <td>19.0 / 38.4</td>
+                            <td>91.5 / 97.0</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-2B</td>
+                            <td>74.9 / 83.5</td>
+                            <td>79.2</td>
+                            <td>74.3</td>
+                            <td>88.7</td>
+                            <td>60.9</td>
+                            <td>804</td>
+                            <td>60.9</td>
+                            <td>21.3 / 49.7</td>
+                            <td>93.2 / 97.6</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-4B</td>
+                            <td>81.4 / 90.5</td>
+                            <td>84.0</td>
+                            <td>76.8</td>
+                            <td>91.6</td>
+                            <td>72.1</td>
+                            <td>828</td>
+                            <td>66.9</td>
+                            <td>24.9 / 61.7</td>
+                            <td>93.7 / 97.8</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-8B</td>
+                            <td>84.5 / 92.8</td>
+                            <td>84.8</td>
+                            <td>79.1</td>
+                            <td>93.0</td>
+                            <td>77.6</td>
+                            <td>822</td>
+                            <td>69.7</td>
+                            <td>32.9 / 68.6</td>
+                            <td>92.6 / 97.4</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-26B</td>
+                            <td>86.4 / 94.4</td>
+                            <td>87.2</td>
+                            <td>82.4</td>
+                            <td>94.0</td>
+                            <td>79.8</td>
+                            <td>852</td>
+                            <td>70.8</td>
+                            <td>35.9 / 73.5</td>
+                            <td>94.4 / 98.0</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-38B</td>
+                            <td>87.6 / 95.1</td>
+                            <td>88.2</td>
+                            <td>82.7</td>
+                            <td>95.3</td>
+                            <td>83.6</td>
+                            <td>842</td>
+                            <td>71.2</td>
+                            <td>42.4 / 79.6</td>
+                            <td>94.7 / 98.2</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-78B</td>
+                            <td>89.1 / 95.7</td>
+                            <td>88.3</td>
+                            <td>83.4</td>
+                            <td>95.1</td>
+                            <td>84.1</td>
+                            <td>854</td>
+                            <td>71.3</td>
+                            <td>42.4 / 82.3</td>
+                            <td>95.7 / 94.5</td>
+                        </tr>
+                    </table>
+
+                    <table class="no-alternate">
+                        <tr>
+                            <th>Model Name</th>
+                            <th>BLINK<br>(val)</th>
+                            <th>Mantis<br>Eval</th>
+                            <th>MMIU</th>
+                            <th>Muir<br>Bench</th>
+                            <th>MMT<br>(val)</th>
+                            <th>MIRB<br>(avg)</th>
+                            <th>RealWorld<br>QA</th>
+                            <th>MME-RW<br>(EN)</th>
+                            <th>WildVision<br>(win rate)</th>
+                            <th>R-Bench<br>(dis)</th>
+                        </tr>
+                        <tr>
+                            <td>GPT-4V</td>
+                            <td>54.6</td>
+                            <td>62.7</td>
+                            <td>-</td>
+                            <td>62.3</td>
+                            <td>64.3</td>
+                            <td>53.1</td>
+                            <td>61.4</td>
+                            <td>-</td>
+                            <td>71.8</td>
+                            <td>65.6</td>
+                        </tr>
+                        <tr>
+                            <td>GPT-4o-20240513</td>
+                            <td>68.0</td>
+                            <td>-</td>
+                            <td>55.7</td>
+                            <td>68.0</td>
+                            <td>65.4</td>
+                            <td>-</td>
+                            <td>75.4</td>
+                            <td>45.2</td>
+                            <td>80.6</td>
+                            <td>77.7</td>
+                        </tr>
+                        <tr>
+                            <td>Claude-3.5-Sonnet</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>53.4</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>60.1</td>
+                            <td>51.6</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Gemini-1.5-Pro</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>53.4</td>
+                            <td>-</td>
+                            <td>64.5</td>
+                            <td>-</td>
+                            <td>67.5</td>
+                            <td>38.2</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2-VL-2B</td>
+                            <td>44.4</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>55.1</td>
+                            <td>-</td>
+                            <td>62.6</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2-VL-7B</td>
+                            <td>53.2</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>64.0</td>
+                            <td>-</td>
+                            <td>70.1</td>
+                            <td>56.5</td>
+                            <td>-</td>
+                            <td>64.0</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2-VL-72B</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>71.8</td>
+                            <td>-</td>
+                            <td>77.8</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-1B</td>
+                            <td>42.0</td>
+                            <td>51.2</td>
+                            <td>38.5</td>
+                            <td>29.9</td>
+                            <td>50.3</td>
+                            <td>35.6</td>
+                            <td>57.5</td>
+                            <td>44.2</td>
+                            <td>43.4</td>
+                            <td>59.0</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-2B</td>
+                            <td>44.0</td>
+                            <td>54.8</td>
+                            <td>43.5</td>
+                            <td>40.6</td>
+                            <td>54.5</td>
+                            <td>36.4</td>
+                            <td>60.1</td>
+                            <td>48.8</td>
+                            <td>44.2</td>
+                            <td>62.2</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-4B</td>
+                            <td>50.8</td>
+                            <td>62.7</td>
+                            <td>43.8</td>
+                            <td>45.2</td>
+                            <td>62.4</td>
+                            <td>51.7</td>
+                            <td>64.3</td>
+                            <td>55.3</td>
+                            <td>49.4</td>
+                            <td>66.1</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-8B</td>
+                            <td>54.8</td>
+                            <td>67.7</td>
+                            <td>46.7</td>
+                            <td>51.1</td>
+                            <td>62.3</td>
+                            <td>52.5</td>
+                            <td>70.1</td>
+                            <td>59.1</td>
+                            <td>62.0</td>
+                            <td>70.1</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-26B</td>
+                            <td>61.8</td>
+                            <td>75.6</td>
+                            <td>49.4</td>
+                            <td>61.1</td>
+                            <td>66.9</td>
+                            <td>55.7</td>
+                            <td>74.5</td>
+                            <td>61.8</td>
+                            <td>65.2</td>
+                            <td>72.9</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-38B</td>
+                            <td>63.2</td>
+                            <td>78.3</td>
+                            <td>55.3</td>
+                            <td>62.7</td>
+                            <td>70.0</td>
+                            <td>61.2</td>
+                            <td>73.5</td>
+                            <td>64.0</td>
+                            <td>66.4</td>
+                            <td>72.1</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-78B</td>
+                            <td>63.8</td>
+                            <td>77.0</td>
+                            <td>55.8</td>
+                            <td>63.5</td>
+                            <td>70.8</td>
+                            <td>61.1</td>
+                            <td>78.7</td>
+                            <td>62.9</td>
+                            <td>71.4</td>
+                            <td>77.2</td>
+                        </tr>
+                    </table>
+
+                    <table class="no-alternate">
+                        <tr>
+                            <th>Model Name</th>
+                            <th>MME<br>(sum)</th>
+                            <th>MMB<br>(EN/CN)</th>
+                            <th>MMBv1.1<br>(EN)</th>
+                            <th>MMVet<br>(turbo)</th>
+                            <th>MMVetv2<br>(0613)</th>
+                            <th>MMStar</th>
+                            <th>HallBench<br>(avg.)</th>
+                            <th>MMHal<br>(score)</th>
+                            <th>CRPE<br>(relation)</th>
+                            <th>POPE<br>(avg.)</th>
+                        </tr>
+                        <tr>
+                            <td>GPT-4V</td>
+                            <td>1926.6</td>
+                            <td>81.0 / 80.2</td>
+                            <td>80.0</td>
+                            <td>67.5</td>
+                            <td>66.3</td>
+                            <td>56.0</td>
+                            <td>46.5</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>GPT-4o-20240513</td>
+                            <td>-</td>
+                            <td>83.4 / 82.1</td>
+                            <td>83.1</td>
+                            <td>69.1</td>
+                            <td>71.0</td>
+                            <td>64.7</td>
+                            <td>55.0</td>
+                            <td>4.00</td>
+                            <td>76.6</td>
+                            <td>86.9</td>
+                        </tr>
+                        <tr>
+                            <td>Claude-3-Opus</td>
+                            <td>1586.8</td>
+                            <td>63.3 / 59.2</td>
+                            <td>60.1</td>
+                            <td>51.7</td>
+                            <td>55.8</td>
+                            <td>45.7</td>
+                            <td>37.8</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Claude-3.5-Sonnet</td>
+                            <td>-</td>
+                            <td>82.6 / 83.5</td>
+                            <td>80.9</td>
+                            <td>70.1</td>
+                            <td>71.8</td>
+                            <td>65.1</td>
+                            <td>55.5</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Gemini-1.5-Pro</td>
+                            <td>-</td>
+                            <td>73.9 / 73.8</td>
+                            <td>74.6</td>
+                            <td>64.0</td>
+                            <td>66.9</td>
+                            <td>59.1</td>
+                            <td>45.6</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2-VL-2B</td>
+                            <td>1872.0</td>
+                            <td>74.9 / 73.5</td>
+                            <td>72.2</td>
+                            <td>49.5</td>
+                            <td>-</td>
+                            <td>48.0</td>
+                            <td>41.7</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2-VL-7B</td>
+                            <td>2326.8</td>
+                            <td>83.0 / 80.5</td>
+                            <td>80.7</td>
+                            <td>62.0</td>
+                            <td>-</td>
+                            <td>60.7</td>
+                            <td>50.6</td>
+                            <td>3.40</td>
+                            <td>74.4</td>
+                            <td>88.1</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2-VL-72B</td>
+                            <td>2482.7</td>
+                            <td>86.5 / 86.6</td>
+                            <td>85.9</td>
+                            <td>74.0</td>
+                            <td>66.9</td>
+                            <td>68.3</td>
+                            <td>58.1</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-1B</td>
+                            <td>1950.5</td>
+                            <td>70.7 / 66.3</td>
+                            <td>68.4</td>
+                            <td>48.8</td>
+                            <td>43.2</td>
+                            <td>50.1</td>
+                            <td>39.0</td>
+                            <td>2.49</td>
+                            <td>60.9</td>
+                            <td>89.9</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-2B</td>
+                            <td>2138.2</td>
+                            <td>74.7 / 71.9</td>
+                            <td>72.2</td>
+                            <td>60.8</td>
+                            <td>52.3</td>
+                            <td>53.7</td>
+                            <td>42.6</td>
+                            <td>2.94</td>
+                            <td>70.2</td>
+                            <td>90.6</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-4B</td>
+                            <td>2337.5</td>
+                            <td>81.1 / 79.3</td>
+                            <td>79.3</td>
+                            <td>60.6</td>
+                            <td>55.4</td>
+                            <td>58.3</td>
+                            <td>46.3</td>
+                            <td>3.31</td>
+                            <td>75.5</td>
+                            <td>90.9</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-8B</td>
+                            <td>2344.1</td>
+                            <td>84.6 / 82.6</td>
+                            <td>83.2</td>
+                            <td>62.8</td>
+                            <td>58.1</td>
+                            <td>62.8</td>
+                            <td>50.1</td>
+                            <td>3.65</td>
+                            <td>78.4</td>
+                            <td>90.6</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-26B</td>
+                            <td>2373.3</td>
+                            <td>85.4 / 85.5</td>
+                            <td>84.2</td>
+                            <td>65.0</td>
+                            <td>60.8</td>
+                            <td>66.5</td>
+                            <td>55.0</td>
+                            <td>3.70</td>
+                            <td>79.1</td>
+                            <td>90.6</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-38B</td>
+                            <td>2455.8</td>
+                            <td>86.5 / 86.3</td>
+                            <td>85.5</td>
+                            <td>68.8</td>
+                            <td>62.1</td>
+                            <td>67.9</td>
+                            <td>56.8</td>
+                            <td>3.71</td>
+                            <td>78.3</td>
+                            <td>90.7</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-78B</td>
+                            <td>2494.5</td>
+                            <td>88.3 / 88.5</td>
+                            <td>87.4</td>
+                            <td>72.3</td>
+                            <td>65.5</td>
+                            <td>69.5</td>
+                            <td>57.4</td>
+                            <td>3.89</td>
+                            <td>78.8</td>
+                            <td>90.8</td>
+                        </tr>
+                    </table>
+
+                    <table class="no-alternate">
+                        <tr>
+                            <th rowspan="2">Model Name</th>
+                            <th colspan="3" style="text-align: center; vertical-align: middle;">RefCOCO</th>
+                            <th colspan="3" style="text-align: center; vertical-align: middle;">RefCOCO+</th>
+                            <th colspan="2" style="text-align: center; vertical-align: middle;">RefCOCOg</th>
+                            <th rowspan="2">Avg.</td>
+                        </tr>
+                        <tr>
+                            <!-- <th></th> -->
+                            <th>val</th>
+                            <th>test-A</th>
+                            <th>test-B</th>
+                            <th>val</th>
+                            <th>test-A</th>
+                            <th>test-B</th>
+                            <th>val</th>
+                            <th>test</th>
+                            <!-- <th></th> -->
+                        </tr>
+                        <tr>
+                            <td>Qwen2-VL-7B</td>
+                            <td>91.7</td>
+                            <td>93.6</td>
+                            <td>87.3</td>
+                            <td>85.8</td>
+                            <td>90.5</td>
+                            <td>79.5</td>
+                            <td>87.3</td>
+                            <td>87.8</td>
+                            <td>87.9</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2-VL-72B</td>
+                            <td>93.2</td>
+                            <td>95.3</td>
+                            <td>90.7</td>
+                            <td>90.1</td>
+                            <td>93.8</td>
+                            <td>85.6</td>
+                            <td>89.9</td>
+                            <td>90.4</td>
+                            <td>91.1</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-8B</td>
+                            <td>90.3</td>
+                            <td>94.5</td>
+                            <td>85.9</td>
+                            <td>85.2</td>
+                            <td>91.5</td>
+                            <td>78.8</td>
+                            <td>86.7</td>
+                            <td>87.6</td>
+                            <td>87.6</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-78B</td>
+                            <td>93.7</td>
+                            <td>95.6</td>
+                            <td>92.5</td>
+                            <td>90.4</td>
+                            <td>94.7</td>
+                            <td>86.9</td>
+                            <td>92.7</td>
+                            <td>92.2</td>
+                            <td>92.3</td>
+                        </tr>
+                    </table>
+
+                    <table class="no-alternate">
+                        <tr>
+                            <th rowspan="2">Model Name</th>
+                            <th colspan="6" style="text-align: center; vertical-align: middle;">MMMB</th>
+                            <th colspan="6" style="text-align: center; vertical-align: middle;">Multilingual MMBench
+                            </th>
+                            <th rowspan="2">MTVQA<br>(avg.)</th>
+                        </tr>
+                        <tr>
+                            <!-- <th></th> -->
+                            <th>en</th>
+                            <th>zh</th>
+                            <th>pt</th>
+                            <th>ar</th>
+                            <th>tr</th>
+                            <th>ru</th>
+                            <th>en</th>
+                            <th>zh</th>
+                            <th>pt</th>
+                            <th>ar</th>
+                            <th>tr</th>
+                            <th>ru</th>
+                            <!-- <th></th> -->
+                        </tr>
+                        <tr>
+                            <td>GPT-4V</td>
+                            <td>75.0</td>
+                            <td>74.2</td>
+                            <td>71.5</td>
+                            <td>73.5</td>
+                            <td>69.0</td>
+                            <td>73.1</td>
+                            <td>77.6</td>
+                            <td>74.4</td>
+                            <td>72.5</td>
+                            <td>72.3</td>
+                            <td>70.5</td>
+                            <td>74.8</td>
+                            <td>22.0</td>
+                        </tr>
+                        <tr>
+                            <td>GPT-4o</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>27.8</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen-VL-Max</td>
+                            <td>77.2</td>
+                            <td>75.3</td>
+                            <td>72.2</td>
+                            <td>70.8</td>
+                            <td>66.0</td>
+                            <td>74.2</td>
+                            <td>76.8</td>
+                            <td>77.6</td>
+                            <td>74.6</td>
+                            <td>75.0</td>
+                            <td>69.1</td>
+                            <td>75.0</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Gemini-1.0-Pro</td>
+                            <td>75.0</td>
+                            <td>71.9</td>
+                            <td>70.6</td>
+                            <td>69.9</td>
+                            <td>69.6</td>
+                            <td>72.7</td>
+                            <td>73.6</td>
+                            <td>72.1</td>
+                            <td>70.3</td>
+                            <td>61.1</td>
+                            <td>69.8</td>
+                            <td>70.5</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2-VL-2B</td>
+                            <td>78.3</td>
+                            <td>74.2</td>
+                            <td>72.6</td>
+                            <td>68.3</td>
+                            <td>61.8</td>
+                            <td>72.8</td>
+                            <td>72.1</td>
+                            <td>71.1</td>
+                            <td>69.9</td>
+                            <td>61.1</td>
+                            <td>54.4</td>
+                            <td>69.3</td>
+                            <td>20.0</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2-VL-7B</td>
+                            <td>83.9</td>
+                            <td>82.4</td>
+                            <td>81.2</td>
+                            <td>79.0</td>
+                            <td>74.7</td>
+                            <td>82.4</td>
+                            <td>81.8</td>
+                            <td>81.6</td>
+                            <td>79.1</td>
+                            <td>75.6</td>
+                            <td>74.5</td>
+                            <td>79.3</td>
+                            <td>25.6</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2-VL-72B</td>
+                            <td>86.8</td>
+                            <td>85.3</td>
+                            <td>85.2</td>
+                            <td>84.8</td>
+                            <td>84.2</td>
+                            <td>85.3</td>
+                            <td>86.9</td>
+                            <td>87.2</td>
+                            <td>85.8</td>
+                            <td>83.5</td>
+                            <td>84.4</td>
+                            <td>85.3</td>
+                            <td>30.9</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-1B</td>
+                            <td>78.8</td>
+                            <td>70.2</td>
+                            <td>61.5</td>
+                            <td>55.0</td>
+                            <td>45.3</td>
+                            <td>61.1</td>
+                            <td>72.5</td>
+                            <td>64.7</td>
+                            <td>57.0</td>
+                            <td>43.0</td>
+                            <td>37.8</td>
+                            <td>53.2</td>
+                            <td>21.4</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-2B</td>
+                            <td>81.4</td>
+                            <td>74.4</td>
+                            <td>58.2</td>
+                            <td>48.3</td>
+                            <td>46.4</td>
+                            <td>53.2</td>
+                            <td>76.5</td>
+                            <td>71.6</td>
+                            <td>55.9</td>
+                            <td>37.3</td>
+                            <td>33.9</td>
+                            <td>44.8</td>
+                            <td>21.8</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-4B</td>
+                            <td>83.7</td>
+                            <td>81.0</td>
+                            <td>79.7</td>
+                            <td>76.0</td>
+                            <td>70.5</td>
+                            <td>79.9</td>
+                            <td>82.3</td>
+                            <td>81.1</td>
+                            <td>78.9</td>
+                            <td>73.4</td>
+                            <td>68.1</td>
+                            <td>76.2</td>
+                            <td>28.4</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-8B</td>
+                            <td>84.3</td>
+                            <td>83.1</td>
+                            <td>78.6</td>
+                            <td>69.3</td>
+                            <td>71.5</td>
+                            <td>79.5</td>
+                            <td>83.8</td>
+                            <td>83.2</td>
+                            <td>79.4</td>
+                            <td>64.3</td>
+                            <td>67.8</td>
+                            <td>77.3</td>
+                            <td>27.6</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-26B</td>
+                            <td>86.2</td>
+                            <td>83.8</td>
+                            <td>81.6</td>
+                            <td>73.3</td>
+                            <td>73.7</td>
+                            <td>82.8</td>
+                            <td>86.1</td>
+                            <td>85.5</td>
+                            <td>80.7</td>
+                            <td>67.5</td>
+                            <td>75.0</td>
+                            <td>79.6</td>
+                            <td>28.5</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-38B</td>
+                            <td>86.4</td>
+                            <td>85.1</td>
+                            <td>84.1</td>
+                            <td>84.3</td>
+                            <td>82.8</td>
+                            <td>84.9</td>
+                            <td>87.5</td>
+                            <td>88.6</td>
+                            <td>85.3</td>
+                            <td>84.5</td>
+                            <td>84.0</td>
+                            <td>85.9</td>
+                            <td>31.7</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-78B</td>
+                            <td>86.3</td>
+                            <td>85.6</td>
+                            <td>85.1</td>
+                            <td>84.8</td>
+                            <td>83.1</td>
+                            <td>85.4</td>
+                            <td>90.0</td>
+                            <td>89.7</td>
+                            <td>87.4</td>
+                            <td>83.3</td>
+                            <td>84.9</td>
+                            <td>86.3</td>
+                            <td>31.9</td>
+                        </tr>
+                    </table>
+
+                    <table class="no-alternate">
+                        <tr>
+                            <th>Model Name</th>
+                            <th>Video-MME<br>(wo/w. sub.)</th>
+                            <th>MVBench</th>
+                            <th>MMBench-Video</th>
+                            <th>MLVU<br>(M-Avg)</th>
+                            <th>LongVideoBench<br>(val total)</th>
+                            <th>CG-Bench v1.1<br>(long/clue acc.)</th>
+                        </tr>
+                        <tr>
+                            <td>GPT-4V/4T</td>
+                            <td>59.9 / 63.3</td>
+                            <td>43.7</td>
+                            <td>1.53</td>
+                            <td>49.2</td>
+                            <td>59.1</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>GPT-4o-20240513</td>
+                            <td>71.9 / 77.2</td>
+                            <td>-</td>
+                            <td>1.63</td>
+                            <td>64.6</td>
+                            <td>66.7</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>GPT-4o-20240806</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>1.87</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>41.8 / 56.4</td>
+                        </tr>
+                        <tr>
+                            <td>Gemini-1.5-Pro</td>
+                            <td>75.0 / 81.3</td>
+                            <td>-</td>
+                            <td>1.30</td>
+                            <td>-</td>
+                            <td>64.0</td>
+                            <td>40.1 / 56.4</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2-VL-2B</td>
+                            <td>55.6 / 60.4</td>
+                            <td>63.2</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2-VL-7B</td>
+                            <td>63.3 / 69.0</td>
+                            <td>67.0</td>
+                            <td>1.44</td>
+                            <td>-</td>
+                            <td>55.6</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Qwen2-VL-72B</td>
+                            <td>71.2 / 77.8</td>
+                            <td>73.6</td>
+                            <td>1.70</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>41.3 / 56.2</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-1B</td>
+                            <td>50.3 / 52.3</td>
+                            <td>64.3</td>
+                            <td>1.36</td>
+                            <td>57.3</td>
+                            <td>47.9</td>
+                            <td>-</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-2B</td>
+                            <td>51.9 / 54.1</td>
+                            <td>68.8</td>
+                            <td>1.44</td>
+                            <td>61.4</td>
+                            <td>52.0</td>
+                            <td>-</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-4B</td>
+                            <td>62.3 / 63.6</td>
+                            <td>71.6</td>
+                            <td>1.73</td>
+                            <td>68.3</td>
+                            <td>55.2</td>
+                            <td>-</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-8B</td>
+                            <td>64.2 / 66.9</td>
+                            <td>72.0</td>
+                            <td>1.68</td>
+                            <td>68.9</td>
+                            <td>60.0</td>
+                            <td>-</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-26B</td>
+                            <td>66.9 / 69.2</td>
+                            <td>75.2</td>
+                            <td>1.86</td>
+                            <td>72.3</td>
+                            <td>59.9</td>
+                            <td>-</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-38B</td>
+                            <td>70.7 / 73.1</td>
+                            <td>74.4</td>
+                            <td>1.82</td>
+                            <td>75.3</td>
+                            <td>63.3</td>
+                            <td>-</td>
+                        </tr>
+                        <tr style="background-color: rgb(255,248,227) !important;">
+                            <td>InternVL2.5-78B</td>
+                            <td>72.1 / 74.0</td>
+                            <td>76.4</td>
+                            <td>1.97</td>
+                            <td>75.7</td>
+                            <td>63.6</td>
+                            <td>42.2 / 58.5</td>
+                        </tr>
+                    </table>
+
+                    <!-- <table>
+                        <tr>
+                            <td>Dataset</td>
+                            <td>Settings</td>
+                            <td>\ILMTTB</td>
+                            <td>\IVLTTB</td>
+                            <td>\ILMTDFTB</td>
+                            <td>\IVLTDFTB</td>
+                            <td>\ILMTDFS</td>
+                            <td>\IVLTEB</td>
+                            <td>\IVLTDFEB</td>
+                            <td>\ILMTTTB</td>
+                            <td>\IVLTTSB</td>
+                            <td>\ILMTDFTTB</td>
+                            <td>\IVLTDFTSB</td>
+                        </tr>
+                        <tr>
+                            <td>MMLU</td>
+                            <td>5-shot</td>
+                            <td>47.3</td>
+                            <td>46.4</td>
+                            <td>50.5</td>
+                            <td>52.6</td>
+                            <td>72.8</td>
+                            <td>73.2</td>
+                            <td>74.6</td>
+                            <td>66.5</td>
+                            <td>68.2</td>
+                            <td>73.3</td>
+                            <td>76.6</td>
+                        </tr>
+                        <tr>
+                            <td>CMMLU</td>
+                            <td>5-shot</td>
+                            <td>46.1</td>
+                            <td>47.1</td>
+                            <td>62.7</td>
+                            <td>57.0</td>
+                            <td>78.2</td>
+                            <td>79.2</td>
+                            <td>78.7</td>
+                            <td>64.7</td>
+                            <td>68.1</td>
+                            <td>79.4</td>
+                            <td>81.9</td>
+                        </tr>
+                        <tr>
+                            <td>C-Eval</td>
+                            <td>5-shot</td>
+                            <td>48.6</td>
+                            <td>48.6</td>
+                            <td>60.4</td>
+                            <td>56.2</td>
+                            <td>77.9</td>
+                            <td>80.1</td>
+                            <td>79.7</td>
+                            <td>61.8</td>
+                            <td>67.7</td>
+                            <td>80.2</td>
+                            <td>83.8</td>
+                        </tr>
+                        <tr>
+                            <td>GAOKAO</td>
+                            <td>0-shot</td>
+                            <td>33.1</td>
+                            <td>32.3</td>
+                            <td>54.7</td>
+                            <td>52.6</td>
+                            <td>78.7</td>
+                            <td>75.0</td>
+                            <td>77.3</td>
+                            <td>63.5</td>
+                            <td>62.3</td>
+                            <td>81.0</td>
+                            <td>86.9</td>
+                        </tr>
+                        <tr>
+                            <td>TriviaQA</td>
+                            <td>0-shot</td>
+                            <td>37.3</td>
+                            <td>31.5</td>
+                            <td>32.3</td>
+                            <td>31.2</td>
+                            <td>64.0</td>
+                            <td>62.0</td>
+                            <td>63.4</td>
+                            <td>61.8</td>
+                            <td>61.8</td>
+                            <td>67.3</td>
+                            <td>69.0</td>
+                        </tr>
+                        <tr>
+                            <td>NaturalQuestions</td>
+                            <td>0-shot</td>
+                            <td>15.3</td>
+                            <td>13.2</td>
+                            <td>10.1</td>
+                            <td>11.8</td>
+                            <td>21.1</td>
+                            <td>28.1</td>
+                            <td>29.4</td>
+                            <td>23.6</td>
+                            <td>28.8</td>
+                            <td>21.3</td>
+                            <td>36.1</td>
+                        </tr>
+                        <tr>
+                            <td>C3</td>
+                            <td>0-shot</td>
+                            <td>75.8</td>
+                            <td>76.9</td>
+                            <td>61.4</td>
+                            <td>78.0</td>
+                            <td>88.1</td>
+                            <td>94.2</td>
+                            <td>94.7</td>
+                            <td>92.2</td>
+                            <td>93.2</td>
+                            <td>94.0</td>
+                            <td>95.8</td>
+                        </tr>
+                        <tr>
+                            <td>RACE-High</td>
+                            <td>0-shot</td>
+                            <td>74.0</td>
+                            <td>72.6</td>
+                            <td>78.5</td>
+                            <td>77.4</td>
+                            <td>90.5</td>
+                            <td>90.8</td>
+                            <td>90.8</td>
+                            <td>86.2</td>
+                            <td>86.5</td>
+                            <td>91.3</td>
+                            <td>92.2</td>
+                        </tr>
+                        <tr>
+                            <td>WinoGrande</td>
+                            <td>0-shot</td>
+                            <td>56.5</td>
+                            <td>58.7</td>
+                            <td>56.9</td>
+                            <td>59.1</td>
+                            <td>84.9</td>
+                            <td>85.9</td>
+                            <td>83.5</td>
+                            <td>76.4</td>
+                            <td>79.9</td>
+                            <td>86.4</td>
+                            <td>87.9</td>
+                        </tr>
+                        <tr>
+                            <td>HellaSwag</td>
+                            <td>0-shot</td>
+                            <td>57.9</td>
+                            <td>53.7</td>
+                            <td>76.2</td>
+                            <td>68.2</td>
+                            <td>94.8</td>
+                            <td>94.9</td>
+                            <td>94.1</td>
+                            <td>85.3</td>
+                            <td>87.5</td>
+                            <td>95.9</td>
+                            <td>95.8</td>
+                        </tr>
+                        <tr>
+                            <td>BBH</td>
+                            <td>0-shot</td>
+                            <td>37.9</td>
+                            <td>36.3</td>
+                            <td>43.4</td>
+                            <td>40.9</td>
+                            <td>73.1</td>
+                            <td>72.7</td>
+                            <td>73.4</td>
+                            <td>70.1</td>
+                            <td>69.8</td>
+                            <td>78.4</td>
+                            <td>78.9</td>
+                        </tr>
+                        <tr>
+                            <td>GSM8K</td>
+                            <td>4-shot</td>
+                            <td>42.7</td>
+                            <td>40.7</td>
+                            <td>53.3</td>
+                            <td>55.1</td>
+                            <td>85.1</td>
+                            <td>75.6</td>
+                            <td>77.8</td>
+                            <td>80.7</td>
+                            <td>80.0</td>
+                            <td>88.5</td>
+                            <td>82.9</td>
+                        </tr>
+                        <tr>
+                            <td>MATH</td>
+                            <td>4-shot</td>
+                            <td>11.0</td>
+                            <td>7.0</td>
+                            <td>39.5</td>
+                            <td>33.5</td>
+                            <td>60.6</td>
+                            <td>39.5</td>
+                            <td>49.9</td>
+                            <td>34.9</td>
+                            <td>35.5</td>
+                            <td>54.7</td>
+                            <td>53.7</td>
+                        </tr>
+                        <tr>
+                            <td>TheoremQA</td>
+                            <td>0-shot</td>
+                            <td>13.9</td>
+                            <td>12.3</td>
+                            <td>11.4</td>
+                            <td>12.0</td>
+                            <td>23.4</td>
+                            <td>15.6</td>
+                            <td>23.8</td>
+                            <td>22.1</td>
+                            <td>15.3</td>
+                            <td>23.9</td>
+                            <td>15.4</td>
+                        </tr>
+                        <tr>
+                            <td>HumanEval</td>
+                            <td>4-shot</td>
+                            <td>34.8</td>
+                            <td>32.3</td>
+                            <td>41.5</td>
+                            <td>52.4</td>
+                            <td>74.4</td>
+                            <td>69.5</td>
+                            <td>75.0</td>
+                            <td>71.3</td>
+                            <td>67.1</td>
+                            <td>69.5</td>
+                            <td>68.9</td>
+                        </tr>
+                        <tr>
+                            <td>MBPP</td>
+                            <td>3-shot</td>
+                            <td>40.9</td>
+                            <td>33.1</td>
+                            <td>42.8</td>
+                            <td>50.6</td>
+                            <td>63.0</td>
+                            <td>58.8</td>
+                            <td>68.5</td>
+                            <td>70.8</td>
+                            <td>66.2</td>
+                            <td>70.0</td>
+                            <td>72.0</td>
+                        </tr>
+                        <tr>
+                            <td>MBPP-CN</td>
+                            <td>0-shot</td>
+                            <td>28.2</td>
+                            <td>23.4</td>
+                            <td>33.8</td>
+                            <td>34.2</td>
+                            <td>51.6</td>
+                            <td>48.2</td>
+                            <td>55.2</td>
+                            <td>55.8</td>
+                            <td>54.2</td>
+                            <td>61.0</td>
+                            <td>61.6</td>
+                        </tr>
+                        <tr>
+                            <td>Average</td>
+                            <td>-</td>
+                            <td>41.3</td>
+                            <td>39.2</td>
+                            <td>47.6</td>
+                            <td>48.4</td>
+                            <td>69.5</td>
+                            <td>67.2</td>
+                            <td>70.0</td>
+                            <td>64.0</td>
+                            <td>64.2</td>
+                            <td>71.5</td>
+                            <td>72.9</td>
+                        </tr>
+                        <tr>
+                            <td>Gain</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>\cellcolor{red!15}(-2.1)</td>
+                            <td>-</td>
+                            <td>\cellcolor{green!15}(+0.8)</td>
+                            <td>-</td>
+                            <td>\cellcolor{red!15}(-2.3)</td>
+                            <td>\cellcolor{green!15}(+0.5)</td>
+                            <td>-</td>
+                            <td>\cellcolor{green!15}(+0.2)</td>
+                            <td>-</td>
+                            <td>\cellcolor{green!15}(+1.4)</td>
+                        </tr>
+                    </table> -->
+
+                    <!-- <ul>
+                        <li>We simultaneously use <a
+                                href="https://github.com/OpenGVLab/InternVL/tree/v2.0.0/internvl_chat/eval">InternVL</a>
+                            and <a href="https://github.com/open-compass/VLMEvalKit">VLMEvalKit</a> repositories for
+                            model evaluation. Specifically, the results reported for
+                            <span style="color:red;">
+                                AI2D, ChartQA, DocVQA, InfoVQA, MMBench (check)
+                            </span>were tested using the InternVL repository. The other benchmarks were evaluated
+                            using the VLMEvalKit.
+                        </li>
+                        <li>Please note that evaluating the same model using different testing toolkits like InternVL
+                            and VLMEvalKit can result in slight differences, which is normal. Updates to code versions
+                            and variations in environment and hardware can also cause minor discrepancies in results.
+                        </li>
+                    </ul> -->
+
+                    <!-- <a class="u-url" href="/blog/2024-05-20-InternVL-1-5-vs-GPT-4V" hidden></a> -->
+
+                    <!-- <br> -->
+
+                    <!-- <h3 class="title">Examples</h3>
+                    <div id="results-carousel" class="carousel results-carousel">
+                        <div class="box m-5">
+                            <center>
+                                <div class="content has-text-centered">
+                                    <img src="images/example2.png" alt="" width="50%" />
+                                </div>
+                            </center>
+                        </div>
+                        <div class="box m-5">
+                            <center>
+                                <div class="content has-text-centered">
+                                    <img src="images/example3.png" alt="" width="50%" />
+                                </div>
+                            </center>
+                        </div>
+                        <div class="box m-5">
+                            <center>
+                                <div class="content has-text-centered">
+                                    <img src="images/example1.png" alt="" width="55%" />
+                                </div>
+                            </center>
+                        </div>
+                        <div class="box m-5">
+                            <center>
+                                <div class="content has-text-centered">
+                                    <img src="images/example4.png" alt="" width="55%" />
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                    <h3 id="Usage"></h3> -->
+
+                    <h2 class="title">Citation</h2>
+                    <pre><code>
+  @article{chen2023internvl,
+      title={InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks},
+      author={Chen, Zhe and Wu, Jiannan and Wang, Wenhai and Su, Weijie and Chen, Guo and Xing, Sen and Zhong, Muyan and Zhang, Qinglong and Zhu, Xizhou and Lu, Lewei and Li, Bin and Luo, Ping and Lu, Tong and Qiao, Yu and Dai, Jifeng},
+      journal={arXiv preprint arXiv:2312.14238},
+      year={2023}
+  }
+  @article{chen2024far,
+    title={How Far Are We to GPT-4V? Closing the Gap to Commercial Multimodal Models with Open-Source Suites},
+    author={Chen, Zhe and Wang, Weiyun and Tian, Hao and Ye, Shenglong and Gao, Zhangwei and Cui, Erfei and Tong, Wenwen and Hu, Kongzhi and Luo, Jiapeng and Ma, Zheng and others},
+    journal={arXiv preprint arXiv:2404.16821},
+    year={2024}
+  }
+  </code></pre>
+                    <br>
+                    <h4 class="title"><a href="../">🔙 Go Back</a></h4>
+                </div>
+
+
+            </article>
+        </div>
+    </main>
+    <footer class="site-footer h-card">
+        <data class="u-url" href="/blog/"></data>
+        <div class="wrapper">
+            <div class="footer-col-wrapper">
+                <div class="footer-col footer-col-1">
+                    <ul class="contact-list">
+                    </ul>
+                </div>
+                <div class="footer-col footer-col-2">
+                    <ul class="social-media-list"></ul>
+                </div>
+                <div class="footer-col footer-col-3">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

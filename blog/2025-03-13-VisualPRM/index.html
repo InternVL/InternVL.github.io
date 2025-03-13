@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VisualPRM</title>
+    <link rel="icon" href="https://github.com/OpenGVLab/InternVL/assets/47669167/7037290e-f474-4d11-b90f-1d8316087bf8">
+    <meta name="description" content="...">
+    <link rel="stylesheet" href="/blog/assets/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+    <!-- <link rel="stylesheet" href="/static/css/bulma.min.css"> -->
+    <link rel="stylesheet" href="/static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="/static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+    <style>
+        .results-carousel {
+            overflow: hidden;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/static/js/bulma-carousel.min.js"></script>
+    <script src="/static/js/bulma-slider.min.js"></script>
+    <script src="/static/js/explorer-index.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_1582902_u0zm91pv15i.css">
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #carousel {
+            margin: auto;
+            width: 100%;
+            /* 使用相对宽度 */
+            /* max-width: 600px; */
+            /* 设置最大宽度 */
+            position: relative;
+            overflow: hidden;
+            height: auto;
+        }
+
+        #carousel>ul {
+            display: flex;
+            position: relative;
+            transition: left 0.5s ease;
+            /* 添加过渡效果 */
+            left: 0;
+            /* 初始位置 */
+        }
+
+        #carousel>ul,
+        #carousel>ul>li {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            width: 100%;
+            /* 使每个li宽度相对于#carousel */
+            /* n张图就是n*100%，下面js代码里会动态设置 */
+        }
+
+        #carousel img {
+            width: 100%;
+            /* 使图片宽度相对于li的宽度 */
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 30px;
+            cursor: pointer;
+            color: #fff;
+            /* 箭头颜色 */
+            background: rgba(0, 0, 0, 0.5);
+            /* 箭头背景 */
+            border-radius: 50%;
+            padding: 10px;
+            z-index: 1000;
+            /* 确保箭头在最上层 */
+        }
+
+        .left-arrow {
+            left: 2%;
+        }
+
+        .right-arrow {
+            right: 2%;
+        }
+
+        .green-bold {
+            color: #ee8783;
+            font-weight: bold;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.js"></script>
+</head>
+
+<body>
+    <header class="site-header" role="banner">
+        <div class="wrapper">
+            <a class="site-title" rel="author" href="/">InternVL</a>
+            <nav class="site-nav">
+                <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+                <label for="nav-trigger">
+                    <span class="menu-icon">
+                        <svg viewBox="0 0 18 15" width="18px" height="15px">
+                            <path
+                                d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z" />
+                        </svg>
+                    </span>
+                </label>
+                <div class="trigger"></div>
+            </nav>
+        </div>
+    </header>
+    <main class="page-content" aria-label="Content">
+        <style>
+            @media (max-width: 768px) {
+                img.responsive {
+                    width: 100% !important;
+                }
+            }
+
+            .no-alternate tr {
+                background-color: white !important;
+            }
+        </style>
+        <div class="wrapper">
+            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+                <header class="post-header">
+                    <h1 class="post-title p-name" itemprop="name headline">
+                        VisualPRM: An Effective Process Reward Model for Multimodal Reasoning
+                    </h1>
+                    <p class="post-meta">
+                        <time class="dt-published" datetime="2024-04-30" itemprop="datePublished">2025/03/13</time>
+                        •
+                        <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+                            <span class="p-author h-card" itemprop="name">Weiyun Wang, Zhangwei Gao, Lianjie Chen, Zhe
+                                Chen, Jinguo Zhu, Xiangyu Zhao, Yangzhou Liu, Yue Cao, Shenglong Ye, Xizhou Zhu, Lewei
+                                Lu, Haodong Duan, Yu Qiao, Jifeng Dai, Wenhai Wang</span>
+                        </span>
+                    </p>
+                </header>
+                <p>
+                    <a rel="nofollow" href="../">[🆕 Go Back]</a>
+                    <a rel="nofollow" href="xxx">[📜 VisualPRM Paper]</a>
+                    <a rel="nofollow" href="https://huggingface.co/OpenGVLab/VisualPRM-8B">[🤗 Model]</a>
+                    <a rel="nofollow" href="https://huggingface.co/datasets/OpenGVLab/VisualPRM400K">[🤗 Dataset]</a>
+                    <a rel="nofollow" href="https://huggingface.co/datasets/OpenGVLab/VisualProcessBench">
+                        [🤗 Benchmark]
+                    </a>
+                    <!-- <a rel="nofollow" href="https://github.com/OpenGVLab/InternVL/tree/main">[📂 GitHub]</a>
+                    <a rel="nofollow" href="https://internvl.readthedocs.io/en/latest/">[📖 Documents]</a> -->
+
+                <div class="post-content e-content" itemprop="articleBody">
+                    <center>
+                        <p><img class="responsive" width="80%" alt="image" src="images/teaser.png"></p>
+                    </center>
+                    <p style="text-align: center;">
+                        <b>
+                            The overall Best-of-8 evaluation results across seven multimodal reasoning benchmarks with
+                            different critic models.
+                        </b>
+                        Our VisualPRM greatly enhances the overall performance, while InternVL2.5-8B struggles to be an
+                        effective critic model.
+                    </p>
+
+                    <br>
+                    <p>
+                        We introduce VisualPRM, an advanced multimodal Process Reward Model (PRM) with 8B parameters,
+                        which improves the reasoning abilities of existing Multimodal Large Language Models (MLLMs)
+                        across different model scales and families with Best-of-N (BoN) evaluation strategies.
+                        Specifically,
+                        <b>
+                            our model improves the reasoning performance of three types of MLLMs and four
+                            different model scales. Even when applied to the highly capable InternVL2.5-78B, it achieves
+                            a 5.9-point improvement across seven multimodal reasoning benchmarks.
+                        </b>
+                        Experimental results show that
+                        our model exhibits superior performance compared to Outcome Reward Models and
+                        Self-Consistency during BoN evaluation. To facilitate the training of multimodal PRMs, we
+                        construct a multimodal process supervision dataset VisualPRM400K using an automated data
+                        pipeline. For the evaluation of multimodal PRMs, we propose VisualProcessBench, a benchmark with
+                        human-annotated step-wise correctness labels, to measure the abilities of PRMs to detect
+                        erroneous steps in multimodal reasoning tasks. We hope that our work can inspire more future
+                        research and contribute to the development of MLLMs.
+                    </p>
+                    <p>Our main contributions are as follows:</p>
+                    <ol>
+                        <li>
+                            <a href="https://huggingface.co/OpenGVLab/VisualPRM-8B">
+                                <b>VisualPRM-8B</b>
+                            </a>:
+                            an advanced multimodal Process Reward Model (PRM) with 8B parameters.
+                            <b>
+                                Specifically, VisualPRM improves the overall reasoning performance of MiniCPM-V2.6,
+                                QwenVL2.5-7B, InternVL2.5-8B, and InternVL2.5-78B by 8.0, 3.7, 8.4, and 5.9 points,
+                                respectively, across seven multimodal reasoning benchmarks.
+                            </b>
+                            Additionally, we compare PRMs with Outcome Reward Models and Self-Consistency in BoN
+                            evaluation, finding that PRMs consistently outperform both approaches.
+                        </li>
+                        <li>
+                            <a href="https://huggingface.co/datasets/OpenGVLab/VisualPRM400K">
+                                <b>VisualPRM400K</b>
+                            </a>:
+                            a dataset comprising approximately 400K multimodal process supervision data.
+                            We generate the data using an automatic data pipeline.
+                            The key idea is to estimate the expected accuracy <sapn class="mc_i"></sapn> of the given
+                            step <sapn class="s_>i"></sapn>
+                            based on Monte Carlo sampling and consider the step correct if <sapn class="mc_i>0"></sapn>.
+                        </li>
+                        <li>
+                            <a href="https://huggingface.co/datasets/OpenGVLab/VisualProcessBench">
+                                <b>VisualProcessBench</b>
+                            </a>:
+                            a benchmark designed to measure the abilities of PRMs and MLLMs to identify erroneous steps
+                            in multimodal reasoning tasks.
+                            This benchmark comprises 2,866 samples with a total of 26,950 human-annotated step-wise
+                            correctness labels.
+                        </li>
+                    </ol>
+
+
+                    <h3 id="performance">VisualPRM-8B</h3>
+                    <center>
+                        <p><img class="responsive" width="90%" alt="image" src="images/VisualPRM.png"></p>
+                    </center>
+
+                    <br>
+                    <div>
+                        <p>
+                            <b>During the training process,</b>
+                            we formulate the process supervision problem as a multi-turn
+                            chat task so that we can effectively leverage the generation ability of MLLMs.
+                            The image <sapn class="I"></sapn> , question <sapn class="q"></sapn> , and the first step
+                            <sapn class="s_0"></sapn> of the solution to this question are
+                            included in the first turn and a new step is presented in each subsequent turn. The model is
+                            required to predict the quality of the given step in each turn as
+                            <span id="PRM-Training-Eq" style="text-align: center"></span>
+                            where <sapn class="y_i"></sapn> denotes the quality of <sapn class="i"></sapn>-th step.
+                        </p>
+                        <p>
+                            Following Math-Shepherd, we require the model to predict the correctness <sapn class="c+,-">
+                            </sapn> of
+                            the given step, rather than the exact score of <sapn class="mc_i"></sapn>.
+                            The <sapn class="i"></sapn>-th step is considered correct if <sapn class="mc_i>0"></sapn>.
+                            We also try to set a threshold to reduce false positive steps, but find that such a
+                            threshold negatively impacts the PRM performance.
+                            Notably, unlike previous works, which choose to supervise only up to the first incorrect
+                            step, we always supervise all steps.
+                        </p>
+                        <p>
+                            <b>During inference stage,</b>
+                            we first compute the scores of each step and then merge them to obtain the response score.
+                            Specifically, the score for each step is defined as the weighted sum of the generation
+                            probability for the discretized scores.
+                            The weights for <span class="+,-"></span> are <span class="1,0"></span>.
+                            Without further explanation, we average the scores of each step as the response score.
+                        </p>
+                    </div>
+
+
+                    <center>
+                        <table class="tg">
+                            <thead>
+                                <tr>
+                                    <th>Model</th>
+                                    <th>MMMU</th>
+                                    <th>MathVista</th>
+                                    <th>MathVision</th>
+                                    <th>MathVerse-VO</th>
+                                    <th>DynaMath</th>
+                                    <th>WeMath</th>
+                                    <th>LogicVista</th>
+                                    <th>Overall</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr>
+                                    <td>GPT-4o</td>
+                                    <td>70.7</td>
+                                    <td>60.0</td>
+                                    <td>31.2</td>
+                                    <td>40.6</td>
+                                    <td>34.5</td>
+                                    <td>45.8</td>
+                                    <td>52.8</td>
+                                    <td>47.9</td>
+                                </tr>
+                                <tr>
+                                    <td>Gemini-2.0-Flash</td>
+                                    <td>69.9</td>
+                                    <td>70.4</td>
+                                    <td>43.6</td>
+                                    <td>47.8</td>
+                                    <td>42.1</td>
+                                    <td>47.4</td>
+                                    <td>52.3</td>
+                                    <td>53.4</td>
+                                </tr>
+                                <tr>
+                                    <td>Claude-3.5-Sonnet</td>
+                                    <td>66.4</td>
+                                    <td>65.3</td>
+                                    <td>35.6</td>
+                                    <td>46.3</td>
+                                    <td>35.7</td>
+                                    <td>44.0</td>
+                                    <td>60.4</td>
+                                    <td>50.5</td>
+                                </tr> -->
+                                <tr>
+                                    <td>MiniCPM-V2.6-8B</td>
+                                    <td>49.8</td>
+                                    <td>60.8</td>
+                                    <td>23.4</td>
+                                    <td>18.9</td>
+                                    <td>9.8</td>
+                                    <td>16.4</td>
+                                    <td>27.5</td>
+                                    <td>29.5</td>
+                                </tr>
+                                <tr>
+                                    <td>+VisualPRM</td>
+                                    <td>56.8<span class="green-bold">(+7.0)</span></td>
+                                    <td>65.7<span class="green-bold">(+4.9)</span></td>
+                                    <td>24.7<span class="green-bold">(+1.3)</span></td>
+                                    <td>35.8<span class="green-bold">(+16.9)</span></td>
+                                    <td>11.2<span class="green-bold">(+1.4)</span></td>
+                                    <td>31.0<span class="green-bold">(+14.6)</span></td>
+                                    <td>37.4<span class="green-bold">(+9.8)</span></td>
+                                    <td>37.5<span class="green-bold">(+8.0)</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Qwen2.5-VL-7B</td>
+                                    <td>55.0</td>
+                                    <td>67.8</td>
+                                    <td>25.4</td>
+                                    <td>41.1</td>
+                                    <td>21.0</td>
+                                    <td>35.2</td>
+                                    <td>44.1</td>
+                                    <td>41.4</td>
+                                </tr>
+                                <tr>
+                                    <td>+VisualPRM</td>
+                                    <td>58.6<span class="green-bold">(+3.6)</span></td>
+                                    <td>70.3<span class="green-bold">(+2.5)</span></td>
+                                    <td>31.3<span class="green-bold">(+5.9)</span></td>
+                                    <td>44.3<span class="green-bold">(+3.2)</span></td>
+                                    <td>23.0<span class="green-bold">(+2.0)</span></td>
+                                    <td>39.8<span class="green-bold">(+4.6)</span></td>
+                                    <td>48.3<span class="green-bold">(+4.2)</span></td>
+                                    <td>45.1<span class="green-bold">(+3.7)</span></td>
+                                </tr>
+                                <tr>
+                                    <td>InternVL2.5-8B</td>
+                                    <td>56.2</td>
+                                    <td>64.5</td>
+                                    <td>17.0</td>
+                                    <td>22.8</td>
+                                    <td>9.4</td>
+                                    <td>23.5</td>
+                                    <td>36.0</td>
+                                    <td>32.8</td>
+                                </tr>
+                                <tr>
+                                    <td>+VisualPRM</td>
+                                    <td>60.2<span class="green-bold">(+4.0)</span></td>
+                                    <td>68.5<span class="green-bold">(+4.0)</span></td>
+                                    <td>25.7<span class="green-bold">(+8.7)</span></td>
+                                    <td>35.8<span class="green-bold">(+13.0)</span></td>
+                                    <td>18.0<span class="green-bold">(+8.6)</span></td>
+                                    <td>36.5<span class="green-bold">(+13.0)</span></td>
+                                    <td>43.8<span class="green-bold">(+7.8)</span></td>
+                                    <td>41.2<span class="green-bold">(+8.4)</span></td>
+                                </tr>
+                                <tr>
+                                    <td>InternVL2.5-26B</td>
+                                    <td>60.7</td>
+                                    <td>68.2</td>
+                                    <td>23.4</td>
+                                    <td>24.0</td>
+                                    <td>11.4</td>
+                                    <td>30.9</td>
+                                    <td>39.6</td>
+                                    <td>36.9</td>
+                                </tr>
+                                <tr>
+                                    <td>+VisualPRM</td>
+                                    <td>63.9<span class="green-bold">(+3.2)</span></td>
+                                    <td>73.1<span class="green-bold">(+4.9)</span></td>
+                                    <td>29.6<span class="green-bold">(+6.2)</span></td>
+                                    <td>39.1<span class="green-bold">(+15.2)</span></td>
+                                    <td>23.2<span class="green-bold">(+11.8)</span></td>
+                                    <td>40.8<span class="green-bold">(+9.9)</span></td>
+                                    <td>51.0<span class="green-bold">(+11.4)</span></td>
+                                    <td>45.8<span class="green-bold">(+8.9)</span></td>
+                                </tr>
+                                <tr>
+                                    <td>InternVL2.5-38B</td>
+                                    <td>63.9</td>
+                                    <td>71.9</td>
+                                    <td>32.2</td>
+                                    <td>36.9</td>
+                                    <td>20.0</td>
+                                    <td>38.3</td>
+                                    <td>47.9</td>
+                                    <td>44.4</td>
+                                </tr>
+                                <tr>
+                                    <td>+VisualPRM</td>
+                                    <td>69.0<span class="green-bold">(+5.1)</span></td>
+                                    <td>73.9<span class="green-bold">(+2.0)</span></td>
+                                    <td>35.2<span class="green-bold">(+3.0)</span></td>
+                                    <td>46.7<span class="green-bold">(+9.8)</span></td>
+                                    <td>30.5<span class="green-bold">(+10.5)</span></td>
+                                    <td>46.2<span class="green-bold">(+7.9)</span></td>
+                                    <td>53.7<span class="green-bold">(+5.8)</span></td>
+                                    <td>50.7<span class="green-bold">(+6.3)</span></td>
+                                </tr>
+                                <tr>
+                                    <td>InternVL2.5-78B</td>
+                                    <td>70.0</td>
+                                    <td>72.3</td>
+                                    <td>32.2</td>
+                                    <td>39.2</td>
+                                    <td>19.2</td>
+                                    <td>39.8</td>
+                                    <td>49.0</td>
+                                    <td>46.0</td>
+                                </tr>
+                                <tr>
+                                    <td>+VisualPRM</td>
+                                    <td>70.7<span class="green-bold">(+0.7)</span></td>
+                                    <td>75.1<span class="green-bold">(+2.8)</span></td>
+                                    <td>35.9<span class="green-bold">(+3.7)</span></td>
+                                    <td>47.1<span class="green-bold">(+7.9)</span></td>
+                                    <td>31.3<span class="green-bold">(+12.1)</span></td>
+                                    <td>49.1<span class="green-bold">(+9.3)</span></td>
+                                    <td>53.9<span class="green-bold">(+4.9)</span></td>
+                                    <td>51.9<span class="green-bold">(+5.9)</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </center>
+                    <div>
+                        <p>
+                            We evaluate the reasoning abilities of MLLMs across seven benchmarks, including MMMU,
+                            MathVista, MathVision, MathVerse, DynaMath, WeMath, and LogicVista.
+                            The evaluation samples include subject-based, mathematical, and logical reasoning problems.
+                            We report the worst-case accuracy for DynaMath and the overall accuracy for the remaining
+                            benchmarks.
+                            For MathVerse, we report the performance on the Vision-Only split.
+                        </p>
+                        <p>
+                            As shown in the table below, VisualPRM greatly enhances the reasoning abilities of MLLMs
+                            across different model scales and families.
+                            Specifically, for models with fewer than 10 billion parameters, the overall performance of
+                            InternVL2.5-8B, MiniCPM-V-8B, and Qwen2.5-VL-7B improves by 8.4, 8.0, and 3.7 points,
+                            respectively, demonstrating the effectiveness of test-time scaling across different model
+                            families.
+                            For larger models, InternVL2.5-26B, InternVL2.5-38B, and InternVL2.5-78B also achieve
+                            substantial performance gains over their counterparts without TTS, further validating the
+                            scalability and effectiveness of TTS across different model sizes.
+                        </p>
+                    </div>
+
+
+                    <center>
+                        <p style="display: flex; justify-content: center; gap: 5%;">
+                            <img class="responsive" width="40%" alt="image" src="images/bon-internvl.png">
+                            <img class="responsive" width="40%" alt="image" src="images/bon-minicpmv.png">
+                        </p>
+                    </center>
+                    <div>
+                        <p>
+                            We increase the number of response candidates sampled from InternVL2.5-8B and select the
+                            final response using Self-Consistency (SC), Outcome Reward Model (ORM), and PRM.
+                            The training data for ORM are nearly identical to those used for PRM, except that all steps
+                            are concatenated into a single step and step-wise correctness annotations are converted into
+                            a single correctness label for the outcome.
+                        </p>
+                        <p>
+                            As shown in the figures above, increasing the number of response candidates
+                            <span class="N"></span>
+                            improves the reasoning performance of InternVL2.5-8B and MiniCPM-V2.6-8B when using SC, ORM,
+                            or PRM, with PRM yielding the most significant improvements.
+                            Specifically, when using InternVL2.5-8B as the policy model, PRM outperforms SC and ORM by
+                            2.4 and 1.5 points, respectively, under the Best-of-8 evaluation setting.
+                            Moreover, this performance gap widens as <span class="N"></span> increases,
+                            reaching 3.1 and 4.3 points when <span class="N"></span> is set to 128.
+                            Notably, when using ORM as the critic model, although performance improves during Best-of-8
+                            evaluation, further increasing <span class="N"></span> does not lead to consistent gains for
+                            InternVL2.5-8B. For example, the Best-of-128 performance is inferior to the Best-of-64
+                            performance. These results highlight the effectiveness of PRM in TTS.
+                        </p>
+                    </div>
+
+
+                    <h3 id="performance">VisualPRM400K</h3>
+                    <div>
+                        <div id="carousel" class="carousel-data">
+                            <div class="arrow left-arrow" onclick="moveSlide(-1)">&#9664;</div>
+                            <div class="arrow right-arrow" onclick="moveSlide(1)">&#9654;</div>
+                            <ul>
+                                <li>
+                                    <img src="images/data-examples/example-1.png">
+                                </li>
+                                <li>
+                                    <img src="images/data-examples/ocr.png">
+                                </li>
+                                <li>
+                                    <img src="images/data-examples/document.png">
+                                </li>
+                                <li>
+                                    <img src="images/data-examples/math.png">
+                                </li>
+                                <li>
+                                    <img src="images/data-examples/science.png">
+                                </li>
+                                <li>
+                                    <img src="images/data-examples/general.png">
+                                </li>
+                                <li>
+                                    <img src="images/data-examples/chart.png">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p>
+                            <b>Definition.</b>
+                            As shown in the figures above, each data sample in our VisualPRM400K consists of
+                            an image <sapn class="I_in"></sapn>,
+                            a question <sapn class="q_in"></sapn>,
+                            a step-by-step solution <sapn class="s_in"></sapn>,
+                            and the expected accuracy annotation <sapn class="mc_define"></sapn> for each step,
+                            where <sapn class="n"></sapn> is the
+                            number of steps of a certain solution and <sapn class="mc_i"></sapn>
+                            denotes the expected accuracy of step <sapn class="s_i"></sapn>.
+                            The image sets <sapn class="mathI"></sapn> and
+                            question sets <sapn class="mathQ"></sapn> are collected from MMPR v1.1,
+                            while the step-by-step solutions <sapn class="mathS"></sapn> are sampled using InternVL2.5
+                            series models.
+                        </p>
+                        <p>
+                            <b>Process Supervision Generation.</b>
+                            Given an image $I$, a question <sapn class="q"></sapn>,
+                            and a solution <sapn class="s_series"></sapn>, we annotate
+                            the correctness of each step <sapn class="s_i"></sapn> using an automatic data pipeline.
+                            The key idea is to estimate the expected accuracy of given steps <sapn class="s_>i"></sapn>
+                            based on Monte Carlo sampling.
+                            Specifically, the model is required to complete the solution as follows:
+                            <sapn id="PRM-S-Tile"></sapn>
+                            <!-- <div id="PRM-S-Tile"></div> -->
+                            where <sapn class="s_>i_con"></sapn> is the completion of <sapn class="s_>i"></sapn>.
+                        </p>
+                        <p>
+                            Besides, the expected accuracy of <sapn class="s_i"></sapn> is defined as:
+                            <sapn id="PRM-MC-Compute"></sapn>
+                            Notably, to reduce the data construction costs, we set the max number of steps to 12 and
+                            evenly merge the steps if the number of current steps exceeds the threshold.
+                        </p>
+                    </div>
+
+
+                    <h3 id="performance">VisualProcessBench</h3>
+                    <div>
+                        <div id="carousel" class="carousel-benchmark">
+                            <div class="arrow left-arrow" onclick="moveSlide_benchmark(-1)">&#9664;</div>
+                            <div class="arrow right-arrow" onclick="moveSlide_benchmark(1)">&#9654;</div>
+                            <ul>
+                                <li>
+                                    <img src="images/benchmark-examples/example-1.png">
+                                </li>
+                                <li>
+                                    <img src="images/benchmark-examples/mmmu-1.png">
+                                </li>
+                                <li>
+                                    <img src="images/benchmark-examples/mmmu-2.png">
+                                </li>
+                                <li>
+                                    <img src="images/benchmark-examples/mmmu-3.png">
+                                </li>
+                                <li>
+                                    <img src="images/benchmark-examples/mathverse-1.png">
+                                </li>
+                                <li>
+                                    <img src="images/benchmark-examples/mathverse-2.png">
+                                </li>
+                                <li>
+                                    <img src="images/benchmark-examples/mathverse-3.png">
+                                </li>
+                                <li>
+                                    <img src="images/benchmark-examples/mathvision-1.png">
+                                </li>
+                                <li>
+                                    <img src="images/benchmark-examples/mathvision-2.png">
+                                </li>
+                                <li>
+                                    <img src="images/benchmark-examples/mathvision-3.png">
+                                </li>
+                                <li>
+                                    <img src="images/benchmark-examples/DynaMath-1.png">
+                                </li>
+                                <li>
+                                    <img src="images/benchmark-examples/DynaMath-2.png">
+                                </li>
+                                <li>
+                                    <img src="images/benchmark-examples/DynaMath-3.png">
+                                </li>
+                                <li>
+                                    <img src="images/benchmark-examples/wemath-1.png">
+                                </li>
+                                <li>
+                                    <img src="images/benchmark-examples/wemath-2.png">
+                                </li>
+                                <li>
+                                    <img src="images/benchmark-examples/wemath-3.png">
+                                </li>
+                                <li>
+                                    <img src="images/benchmark-examples/reflection.png">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p>
+                            <b>Definition.</b>
+                            Each sample in our benchmark consists of a multimodal reasoning question, a step-by-step
+                            solution, and correctness annotations for each step.
+                            Considering that recent models begin to demonstrate reflection abilities to rectify their
+                            own reasoning process, the evaluation setting used in previous works, which only requires
+                            the model to find the first erroneous step, may lead to a false negative estimation.
+                            Therefore, our benchmark requires the model to identify all erroneous steps in the given
+                            solution instead of only the first erroneous step.
+                        </p>
+                        <p>
+                            <b>Data Source.</b>
+                            Our benchmark focuses on multimodal reasoning tasks, collecting images and questions from
+                            existing representative multimodal reasoning benchmarks, including MMMU, MathVision,
+                            MathVerse, DynaMath, and WeMath.
+                            Given these questions, we generate step-by-step solutions using leading MLLMs, including
+                            GPT-4o, Claude-3.5-Sonnet, Gemini-2.0-Flash, QvQ-72B-Preview, and InternVL2.5-78B.
+                            The solutions are sampled from different MLLMs to ensure their diversity.
+                        </p>
+                        <p>
+                            <b>Step Correctness Annotation.</b>
+                            We employ a team of human experts with at least a university degree to manually annotate the
+                            correctness of each step in the solutions. Specifically, 13 people worked for 3 days,
+                            resulting in a workload of 39 person-days. The cost per person-day is approximately 37
+                            dollars.
+                            During the annotation process, annotators are provided with the image, question, ground
+                            truth answer, and each step of the solution.
+                            Their task is to assign each step in the solution a label of positive, negative, or neutral.
+                            A positive label indicates that the
+                            step is correct, while a negative label signifies an incorrect step. The neural label is
+                            assigned to steps that do not involve any reasoning process or provide no additional
+                            information.
+                            To ensure the annotation quality, annotators are permitted to skip questions they do not
+                            understand.
+                            During the annotation process, our dataset is divided into 10 splits, each containing
+                            approximately 300 samples. For each split, the authors of this paper manually review about
+                            10% of the samples. Splits with erroneous annotations are sent back for re-annotation.
+                        </p>
+                    </div>
+
+                    <center>
+                        <table class="tg">
+                            <tr>
+                                <th>Model</th>
+                                <th>MMMU</th>
+                                <th>MathVision</th>
+                                <th>MathVerse-VO</th>
+                                <th>DynaMath</th>
+                                <th>WeMath</th>
+                                <th>Overall</th>
+                            </tr>
+                            <!-- <tr>
+                                <td>Random Guessing</td>
+                                <td>50.0</td>
+                                <td>50.0</td>
+                                <td>50.0</td>
+                                <td>50.0</td>
+                                <td>50.0</td>
+                                <td>50.0</td>
+                            </tr>
+                            <tr>
+                                <td>GPT-4o-Mini</td>
+                                <td>53.6</td>
+                                <td>58.9</td>
+                                <td>57.1</td>
+                                <td>56.7</td>
+                                <td>58.5</td>
+                                <td>57.9</td>
+                            </tr>
+                            <tr>
+                                <td>GPT-4o</td>
+                                <td>56.3</td>
+                                <td>60.2</td>
+                                <td>59.7</td>
+                                <td>59.0</td>
+                                <td>63.3</td>
+                                <td>60.3</td>
+                            </tr>
+                            <tr>
+                                <td>Gemini-2.0-Flash</td>
+                                <td>58.5</td>
+                                <td>60.1</td>
+                                <td>62.8</td>
+                                <td>66.7</td>
+                                <td>58.7</td>
+                                <td>62.3</td>
+                            </tr>
+                            <tr>
+                                <td>MiniCPM-V2.6-8B</td>
+                                <td>44.9</td>
+                                <td>50.9</td>
+                                <td>58.9</td>
+                                <td>46.7</td>
+                                <td>57.4</td>
+                                <td>50.4</td>
+                            </tr>
+                            <tr>
+                                <td>LLaVA-OV-7B</td>
+                                <td>45.7</td>
+                                <td>43.0</td>
+                                <td>42.2</td>
+                                <td>44.7</td>
+                                <td>52.5</td>
+                                <td>44.4</td>
+                            </tr>
+                            <tr>
+                                <td>LLaVA-OV-72B</td>
+                                <td>46.1</td>
+                                <td>48.4</td>
+                                <td>53.0</td>
+                                <td>57.0</td>
+                                <td>57.3</td>
+                                <td>52.3</td>
+                            </tr>
+                            <tr>
+                                <td>Qwen2.5-VL-7B</td>
+                                <td>53.1</td>
+                                <td>51.8</td>
+                                <td>47.8</td>
+                                <td>51.3</td>
+                                <td>54.2</td>
+                                <td>51.0</td>
+                            </tr>
+                            <tr>
+                                <td>Qwen2.5-VL-72B</td>
+                                <td>59.2</td>
+                                <td>59.0</td>
+                                <td>59.7</td>
+                                <td>62.9</td>
+                                <td>62.3</td>
+                                <td>60.5</td>
+                            </tr> -->
+                            <tr>
+                                <td>InternVL2.5-8B</td>
+                                <td>47.1</td>
+                                <td>45.5</td>
+                                <td>47.8</td>
+                                <td>50.3</td>
+                                <td>50.8</td>
+                                <td>48.0</td>
+                            </tr>
+                            <tr>
+                                <td>InternVL2.5-26B</td>
+                                <td>48.8</td>
+                                <td>47.4</td>
+                                <td>49.2</td>
+                                <td>50.4</td>
+                                <td>51.4</td>
+                                <td>49.2</td>
+                            </tr>
+                            <tr>
+                                <td>InternVL2.5-38B</td>
+                                <td>51.5</td>
+                                <td>48.4</td>
+                                <td>50.9</td>
+                                <td>51.8</td>
+                                <td>52.5</td>
+                                <td>50.8</td>
+                            </tr>
+                            <tr>
+                                <td>InternVL2.5-78B</td>
+                                <td>52.0</td>
+                                <td>51.7</td>
+                                <td>53.7</td>
+                                <td>50.8</td>
+                                <td>52.5</td>
+                                <td>52.6</td>
+                            </tr>
+                            <tr>
+                                <td>VisualPRM (ours)</td>
+                                <td>58.5</td>
+                                <td>62.1</td>
+                                <td>61.0</td>
+                                <td>62.7</td>
+                                <td>61.8</td>
+                                <td>62.0</td>
+                            </tr>
+                        </table>
+                    </center>
+                    <div>
+                        <p>
+                            As shown in the table above, InternVL2.5 series struggle to accurately assess the
+                            correctness of each step. Specifically, the overall F1 score for random guessing is 50.0,
+                            while most open-source MLLMs achieve scores close to this baseline, highlighting their
+                            limitations as critic models.
+                            We manually check the judgments of these open-source MLLMs and observe that these models
+                            tend to provide positive analysis and label most steps as correct. For example,
+                            InternVL2.5-8B achieves an F1 score of 76.8 for positive steps, while its F1 score for
+                            negative steps is only 19.2, indicating that InternVL2.5-8B rarely identifies steps as
+                            incorrect.
+                        </p>
+                    </div>
+
+
+                    <h2 class="title">Citation</h2>
+                    <pre><code>
+  @article{wang2024mpo,
+    title={Enhancing the Reasoning Ability of Multimodal Large Language Models via Mixed Preference Optimization},
+    author={Wang, Weiyun and Chen, Zhe and Wang, Wenhai and Cao, Yue and Liu, Yangzhou and Gao, Zhangwei and Zhu, Jinguo and Zhu, Xizhou and Lu, Lewei and Qiao, Yu and Dai, Jifeng},
+    journal={arXiv preprint arXiv:2411.10442},
+    year={2024}
+    }
+
+  @article{chen2024expanding,
+    title={Expanding Performance Boundaries of Open-Source Multimodal Models with Model, Data, and Test-Time Scaling},
+    author={Chen, Zhe and Wang, Weiyun and Cao, Yue and Liu, Yangzhou and Gao, Zhangwei and Cui, Erfei and Zhu, Jinguo and Ye, Shenglong and Tian, Hao and Liu, Zhaoyang and others},
+    journal={arXiv preprint arXiv:2412.05271},
+    year={2024}
+  }
+
+  @article{chen2024far,
+    title={How Far Are We to GPT-4V? Closing the Gap to Commercial Multimodal Models with Open-Source Suites},
+    author={Chen, Zhe and Wang, Weiyun and Tian, Hao and Ye, Shenglong and Gao, Zhangwei and Cui, Erfei and Tong, Wenwen and Hu, Kongzhi and Luo, Jiapeng and Ma, Zheng and others},
+    journal={arXiv preprint arXiv:2404.16821},
+    year={2024}
+  }
+
+  @inproceedings{chen2024internvl,
+    title={Internvl: Scaling up vision foundation models and aligning for generic visual-linguistic tasks},
+    author={Chen, Zhe and Wu, Jiannan and Wang, Wenhai and Su, Weijie and Chen, Guo and Xing, Sen and Zhong, Muyan and Zhang, Qinglong and Zhu, Xizhou and Lu, Lewei and others},
+    booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+    pages={24185--24198},
+    year={2024}
+  }
+
+</code></pre>
+                    <br>
+                    <h4 class="title"><a href="../">🔙 Go Back</a></h4>
+                </div>
+
+
+            </article>
+        </div>
+    </main>
+    <footer class="site-footer h-card">
+        <data class="u-url" href="/blog/"></data>
+        <div class="wrapper">
+            <div class="footer-col-wrapper">
+                <div class="footer-col footer-col-1">
+                    <ul class="contact-list">
+                    </ul>
+                </div>
+                <div class="footer-col footer-col-2">
+                    <ul class="social-media-list"></ul>
+                </div>
+                <div class="footer-col footer-col-3">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 轮播图 -->
+    <script>
+        let currentIndex = 0; // 当前显示的图片索引
+        const slides = document.querySelectorAll('.carousel-data > ul > li'); // 获取所有图片
+        const slides_benchmark = document.querySelectorAll('.carousel-benchmark > ul > li'); // 获取所有图片
+        const totalSlides = slides.length; // 图片总数
+        const totalSlides_benchmark = slides_benchmark.length; // 图片总数
+
+        // 设置ul的宽度为总图片数量的百分比
+        document.querySelector('.carousel-data > ul').style.width = (totalSlides * 100) + '%';
+        document.querySelector('.carousel-benchmark > ul').style.width = (totalSlides_benchmark * 100) + '%';
+
+        function moveSlide(direction) {
+            currentIndex += direction; // 根据方向增加或减少索引
+            if (currentIndex < 0) {
+                currentIndex = totalSlides - 1; // 如果小于0，循环到最后一张
+            } else if (currentIndex >= totalSlides) {
+                currentIndex = 0; // 如果超过总数，循环到第一张
+            }
+            updateCarousel(); // 更新轮播图显示
+        }
+
+        function moveSlide_benchmark(direction) {
+            currentIndex += direction; // 根据方向增加或减少索引
+            if (currentIndex < 0) {
+                currentIndex = totalSlides_benchmark - 1; // 如果小于0，循环到最后一张
+            } else if (currentIndex >= totalSlides_benchmark) {
+                currentIndex = 0; // 如果超过总数，循环到第一张
+            }
+            updateCarousel_benchmark(); // 更新轮播图显示
+        }
+
+        function updateCarousel() {
+            const slideWidth = document.querySelector('.carousel-data').offsetWidth; // 获取轮播图宽度
+            const offset = -currentIndex * slideWidth; // 每张图片的宽度相对于容器宽度
+            document.querySelector('.carousel-data > ul').style.left = offset + 'px'; // 更新位置
+        }
+        function updateCarousel_benchmark() {
+            const slideWidth = document.querySelector('.carousel-benchmark').offsetWidth; // 获取轮播图宽度
+            const offset = -currentIndex * slideWidth; // 每张图片的宽度相对于容器宽度
+            document.querySelector('.carousel-benchmark > ul').style.left = offset + 'px'; // 更新位置
+        }
+    </script>
+
+    <!-- 数学公式 -->
+    <script>
+        elements = document.getElementsByClassName("mc_i")
+        for (let element of elements) {
+            katex.render("mc_i", element);
+        }
+
+        elements = document.getElementsByClassName("mc_i>0")
+        for (let element of elements) {
+            katex.render("mc_i>0", element);
+        }
+
+        elements = document.getElementsByClassName("s_>i")
+        for (let element of elements) {
+            katex.render("s_{\\leq i}", element);
+        }
+
+        elements = document.getElementsByClassName("s_>i_con")
+        for (let element of elements) {
+            katex.render("\\tilde{s}_{> i}", element);
+        }
+
+        elements = document.getElementsByClassName("s_0")
+        for (let element of elements) {
+            katex.render("s_0", element);
+        }
+
+        elements = document.getElementsByClassName("s_i")
+        for (let element of elements) {
+            katex.render("s_i", element);
+        }
+
+        elements = document.getElementsByClassName("s_series")
+        for (let element of elements) {
+            katex.render("s=\{s_0,s_1,\\cdots,s_n\}", element);
+        }
+
+        elements = document.getElementsByClassName("I")
+        for (let element of elements) {
+            katex.render("I", element);
+        }
+
+        elements = document.getElementsByClassName("y_i")
+        for (let element of elements) {
+            katex.render("y_i", element);
+        }
+
+        elements = document.getElementsByClassName("i")
+        for (let element of elements) {
+            katex.render("i", element);
+        }
+
+        elements = document.getElementsByClassName("mathI")
+        for (let element of elements) {
+            katex.render("\\mathcal{I}", element);
+        }
+
+        elements = document.getElementsByClassName("mathS")
+        for (let element of elements) {
+            katex.render("\\mathcal{S}", element);
+        }
+
+        elements = document.getElementsByClassName("mathQ")
+        for (let element of elements) {
+            katex.render("\\mathcal{Q}", element);
+        }
+
+        elements = document.getElementsByClassName("q")
+        for (let element of elements) {
+            katex.render("q", element);
+        }
+
+        elements = document.getElementsByClassName("+,-")
+        for (let element of elements) {
+            katex.render("\\{+,-\\}", element);
+        }
+
+        elements = document.getElementsByClassName("c+,-")
+        for (let element of elements) {
+            katex.render("c\\in\\{+,-\\}", element);
+        }
+
+        elements = document.getElementsByClassName("1,0")
+        for (let element of elements) {
+            katex.render("\\{1,0\\}", element);
+        }
+
+        elements = document.getElementsByClassName("N")
+        for (let element of elements) {
+            katex.render("N", element);
+        }
+
+        elements = document.getElementsByClassName("n")
+        for (let element of elements) {
+            katex.render("n", element);
+        }
+
+        elements = document.getElementsByClassName("I_in")
+        for (let element of elements) {
+            katex.render("I\\in \\mathcal{I}", element);
+        }
+
+        elements = document.getElementsByClassName("mc_define")
+        for (let element of elements) {
+            katex.render("mc=\{mc_0,mc_1,\\cdots,mc_n\},mc_i\\in\\mathbb{R}_{\\geq0}", element);
+        }
+
+        elements = document.getElementsByClassName("q_in")
+        for (let element of elements) {
+            katex.render("q \\in \\mathcal{Q}", element);
+        }
+
+        elements = document.getElementsByClassName("s_in")
+        for (let element of elements) {
+            katex.render("s=\{s_0,s_1,\\cdots,s_n\} \\in \\mathcal{S}", element);
+        }
+
+        katex.render("y_i \\sim M(y_i \\mid I, q, s_{ \\leq i }),", document.getElementById("PRM-Training-Eq"));
+        katex.render("\\tilde{s}_{> i} \\sim M(\\tilde{s}_{> i} \\mid I,q, s_{\\leq i}),", document.getElementById("PRM-S-Tile"));
+        katex.render("mc_i=\\frac{\\text{num(correct completions)}}{\\text{num(sampled completions)}}.", document.getElementById("PRM-MC-Compute"));
+
+    </script>
+
+</body>
+
+</html>

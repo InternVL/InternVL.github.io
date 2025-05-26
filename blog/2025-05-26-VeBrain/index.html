@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Dscribe the InternVL">
+  <meta name="keywords" content="multimodal chatbot">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mono-InternVL</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="../../static/css/index.css">
+  <link rel="icon" href="https://github-production-user-asset-6210df.s3.amazonaws.com/47669167/330728723-7037290e-f474-4d11-b90f-1d8316087bf8.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240529%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240529T072300Z&X-Amz-Expires=300&X-Amz-Signature=d12b9e5c3c49a082747f5da55529a4f1247cd17b4329fafc1cb6d1c0678efa77&X-Amz-SignedHeaders=host&actor_id=23737120&key_id=0&repo_id=721995615">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+  <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.35.2/gradio.js"></script>
+</head>
+
+<style>
+  .expandable-card .card-text-container {
+    max-height: 200px;
+    overflow-y: hidden;
+    position: relative;
+  }
+
+  .expandable-card.expanded .card-text-container {
+    max-height: none;
+  }
+
+  .expand-btn {
+    position: relative;
+    display: none;
+    background-color: rgba(255, 255, 255, 0.8);
+    /* margin-top: -20px; */
+    /* justify-content: center; */
+    color: #510c75;
+    border-color: transparent;
+  }
+
+  .expand-btn:hover {
+    background-color: rgba(200, 200, 200, 0.8);
+    text-decoration: none;
+    border-color: transparent;
+    color: #510c75;
+  }
+
+  .expand-btn:focus {
+    outline: none;
+    text-decoration: none;
+  }
+
+  .expandable-card:not(.expanded) .card-text-container:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 1));
+  }
+
+  .expandable-card:not(.expanded) .expand-btn {
+    margin-top: -40px;
+  }
+
+  .card-body {
+    padding-bottom: 5px;
+  }
+
+  .vertical-flex-layout {
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .figure-img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .adjustable-font-size {
+    font-size: calc(0.5rem + 2vw);
+  }
+
+  .chat-history {
+    flex-grow: 1;
+    overflow-y: auto;
+    /* overflow-x: hidden; */
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+
+  #gradio pre {
+    background-color: transparent;
+  }
+</style>
+
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Visual Embodied Brain: Let Multimodal Large Language Models See, Think, and Control in Spaces</h1>
+            <!-- <h5 class="subtitle is-4 publication-awards">CVPR 2025</h5> -->
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?hl=en&user=EyZqU9gAAAAJ" style="color:#f68946;font-weight:normal;">Gen Luo*</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=321C4TQAAAAJ" style="color:#f68946;font-weight:normal;">Ganlin Yang*</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=cWip8QgAAAAJ" style="color:#f68946;font-weight:normal;">Ziyang Gong*</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=pRJXjSUAAAAJ" style="color:#f68946;font-weight:normal;">Guanzhou Chen*</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=4zO4UlcAAAAJ" style="color:#f68946;font-weight:normal;">Haonan Duan</a>,
+                <br>
+                <a href="https://scholar.google.com/citations?hl=en&user=MRTB_-wAAAAJ" style="color:#f68946;font-weight:normal;">Erfei Cui</a>,
+                <a href="https://internvl.github.io/blog/2025-05-26-VeBrain/" style="color:#f68946;font-weight:normal;">Ronglei Tong</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=vpjnH7AAAAAJ" style="color:#f68946;font-weight:normal;">Zhi Hou</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=y6xT-xYAAAAJ" style="color:#f68946;font-weight:normal;">Tianyi Zhang</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=j1rq_lYAAAAJ" style="color:#f68946;font-weight:normal;">Zhe Chen</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=IX_lIFIAAAAJ" style="color:#f68946;font-weight:normal;">Shenglong Ye</a>,
+                <br>
+                <a href="https://scholar.google.com/citations?hl=en&user=zdgKJXIAAAAJ" style="color:#f68946;font-weight:normal;">Lewei Lu</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=WM0OglcAAAAJ" style="color:#f68946;font-weight:normal;">Wenhai Wang</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=SH_-B_AAAAAJ" style="color:#f68946;font-weight:normal;">Jifeng Dai</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=gFtI-8QAAAAJ" style="color:#f68946;font-weight:normal;">Yu Qiao</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=lRSD7PQAAAAJ" style="color:#f68946;font-weight:normal;">Rongrong Ji</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=02RXI00AAAAJ" style="color:#f68946;font-weight:normal;">Xizhou Zhu</a>
+              </span>
+
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><b style="color:#008AD7; font-weight:normal">▶ </b> OpenGVLab, Shanghai AI Laboratory</span>
+              <span class="author-block"><b style="color:#bb52ff; font-weight:normal">▶ </b> Tsinghua University</span>
+              <br>
+              <span class="author-block"><b style="color:#f68946; font-weight:normal">▶ </b> University of Science and Technology of China</span>
+              <span class="author-block"><b style="color:#ff481c; font-weight:normal">▶ </b> Shanghai Jiao Tong University</span>
+              <br>
+              <span class="author-block"><b style="color:#17de2e; font-weight:normal">▶ </b> Xiamen University</span>
+              <span class="author-block"><b style="color:#0f24dd; font-weight:normal">▶ </b> SenseTime Research</span>
+              <span class="author-block"><b style="color:#00f2c2; font-weight:normal">▶ </b> Zhejiang University</span>
+              <span class="author-block"><b style="color:#F2A900; font-weight:normal">▶ </b> Nanjing University</span>
+              <div class="is-size-6 publication-authors">
+                <span class="author-block"><b>*</b> Equal contribution.</span>
+              </div>
+            </div>
+
+            <div class="column has-text-centered">
+
+
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://internvl.github.io/blog/2025-05-26-VeBrain/" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon" style="color:#ffffff">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span style="color:#ffffff">arXiv</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://internvl.github.io/blog/2025-05-26-VeBrain/" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon" style="color:#ffffff">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span style="color:#ffffff">Code</span>
+                  </a>
+                </span>
+
+                <!-- <span class="link-block">
+                  <a href="https://internvl.github.io/blog/2025-05-26-VeBrain/" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon" style="color:#ffffff">
+                      🤗
+                    </span>
+                    <span style="color:#ffffff">Model</span>
+                  </a>
+                </span> -->
+
+                <span class="link-block">
+                  <a href="https://internvl.github.io/blog/2025-05-26-VeBrain/" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon" style="color:#ffffff">
+                      <!-- <i class="fas fa-download"></i> -->
+                      <i class="fas fa-edit"></i>
+                    </span>
+                    <span style="color:#ffffff">Chinese Post</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section"  style="background-color:#ffffffff">
+    <div class="container is-max-desktop">
+      <div style="text-align: center;">
+        <img id="mono_internvl" width="90%" src="images/vebrain_fig1.png">
+      </div>
+
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-six-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              The remarkable progress of Multimodal Large Language Models (MLLMs) has attracted increasing attention to extend them to physical entities like legged robot. This typically requires MLLMs to not only grasp multimodal understanding abilities, but also integrate visual-spatial reasoning and physical interaction capabilities. Nevertheless, existing methods struggle to unify these capabilities due to their fundamental differences. In this paper, we present the <b>V</b>isual <b>E</b>mbodied <b>Brain</b> (<b>VeBrain</b>), a unified framework for perception, reasoning, and control in real world. VeBrain reformulates robotic control into common text-based MLLM tasks in the 2D visual space, thus unifying the objectives and mapping spaces of different tasks. Then, a novel robotic adapter is proposed to convert textual control signals from MLLMs to motion policies of real robots. From the data perspective, we further introduce VeBrain-600<i>k</i>, a high-quality instruction dataset encompassing various capabilities of VeBrain.  In VeBrain-600<i>k</i>, we take hundreds of hours to collect, curate and annotate the data, and adopt multimodal chain-of-thought (CoT) to mix the different capabilities into a single conversation.  Extensive experiments on 13 multimodal benchmarks and 5 spatial intelligence benchmarks demonstrate the superior performance of VeBrain to existing MLLMs like Qwen2.5-VL. When deployed to legged robots and robotic arms, VeBrain shows strong adaptability, flexibility, and compositional capabilities compared to existing methods. For example, compared to Qwen2.5-VL, VeBrain not only achieves substantial gains on MMVet by +5.6%, but also excels in legged robot tasks with +50% average gains.  
+           </p>
+          
+          <!-- <div style="text-align: center;">
+            <img id="mono_internvl" width="90%" src="images/vebrain_fig1.png">
+          </div> -->
+
+          <!-- Paper video. -->
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+              <h2 class="title is-3">Video</h2>
+            
+              <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+                <source src="images/vebrain_demo_v2.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+          </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+<section class="section"  style="background-color:#efeff081">
+  <!-- Results. -->
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3">VeBrain Framework: Unifying</h2>
+
+    </div>
+  </div>
+  <!-- </div> -->
+  <!--/ Results. -->
+<div class="container is-max-desktop">
+
+  <div class="columns is-centered">
+    <div class="column is-full-width">
+      <div class="content has-text-justified">
+        <p>
+          <!-- MLLMs have demonstrate remarkable capabilities in perception, but they are not designed to control physical entities like legged robots or robotic arms. The main bottomneck lies in the inconsistency of the task target space. VeBrain proposes to reformulate robotic control into common MLLM tasks. -->
+
+          VeBrain establishes a closed-loop control system that integrates the MLLM and the robotic adapter. The MLLM is responsible for understanding and thinking. Specifically, the MLLM mainly handles two tasks:
+          
+          <ul type="1">
+            <li><b>(1) Keypoint detection</b>. <span style="font-size: 95%;">Based on the visual input, predict the keypoints required to complete the task. </span></li>
+            <li><b>(2) Skill recognition</b>. <span style="font-size: 95%;">Generate the semantic action to execute upon arriving the keypoint or target.</span></li>
+            <br>
+          </ul>
+
+          <centering>
+            <div style="text-align: center;">
+              <img id="pipeline" width="90%" src="images/vebrain_fig2.png">
+            </div>
+          </centering>
+
+          The robotic adapter is responsible for converting the MLLM decisions into executable policies. With a modular and flexible design, it can adapt to different robotic platforms and tasks. It consists of four main components:
+
+          <ul type="1">
+            <li><b>(1) Point tracker</b>. <span style="font-size: 95%;">During the robot's movement, this module continuously updates the keypoints from the perspective in real time.</span></li>
+            <li><b>(2) Movement controller</b>. <span style="font-size: 95%;">This module leverages depth information captured by the RGB-D camera to convert 2D coordinates into 3D control commands.</span></li>
+            <li><b>(3) Skill executor</b>. <span style="font-size: 95%;">This module executes the collected control policies, such as sitting or grasping.</span></li>
+            <li><b>(4) Dynamic takeover</b>. <span style="font-size: 95%;">When target loss or policy failure occurs, this module automatically triggers the MLLM to replan.</span></li>
+            <br>
+          </ul>
+        </p>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+</section>
+
+
+<section class="section" >
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3">VeBrain-600<i>k</i>: High-quality Dataset Covering Multiple Capabilities</h2>
+    </div>
+  </div>
+  <div class="container is-max-desktop">
+
+  <div class="columns is-centered">
+    <div class="column is-full-width">
+
+
+      <div class="content has-text-justified">
+
+        <p>
+        VeBrain-600<i>k</i> contains extensive datasets covering basic capabilities of VeBrain.
+
+        <ul type="1">
+          <li><b>(1) 200<i>k</i> for multimodal understanding</b>. <span style="font-size: 95%;">These samples integrate images, videos, and text, sourced from datasets such as ShareGPT4V and MMInstruct.</span></li>
+          <li><b>(2) 312<i>k</i> for spatial reasoning</b>. <span style="font-size: 95%;">Generated using ScanNet point cloud data, these samples cover tasks involving counting, measuring distances, object sizes, and other forms of spatial understanding.</span></li>
+          <li><b>(3) 88<i>k</i> for robot control</b>. <span style="font-size: 95%;">This module executes the collected control policies, such as sitting or grasping.</span></li>
+          <br>
+        </ul>
+
+        <centering>
+          <div style="text-align: center;">
+            <img id="pipeline" width="90%" src="images/vebrain_fig3.png">
+          </div>
+        </centering>
+
+        </p>
+      </div>
+
+
+
+      <!-- <centering>
+        <div style="text-align: center;">
+          <img id="evip" width="90%" src="images/mono_internvl_evip.png">
+
+        </div>
+      </centering> -->
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section"   style="background-color:#efeff081">
+  <!-- Results. -->
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3">Performance</h2>
+    </div>
+  </div>
+
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-4">Ablation Study</h2>
+      </div>
+      <centering>
+      <div style="text-align: center;">
+        <img id="benchmark_merged" width="80%" src="images/vebrain_ablation.png">
+      </div>
+      </centering>
+    </div> 
+  </div>
+
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-4">Multimodal Benchmarks</h2>
+      </div>
+      <centering>
+      <div style="text-align: center;">
+        <img id="benchmark_merged" width="80%" src="images/vebrain_multimodal.png">
+      </div>
+      </centering>
+    </div> 
+  </div>
+
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-4">3D Spatial Benchmarks</h2>
+      </div>
+      <centering>
+      <div style="text-align: center;">
+        <img id="benchmark_merged" width="80%" src="images/vebrain_spatial.png">
+      </div>
+      <div style="text-align: center;">
+        <img id="benchmark_merged" width="80%" src="images/vebrain_vsi.png">
+      </div>
+      </centering>
+    </div> 
+  </div>
+
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-4">Real-world Evaluations</h2>
+      </div>
+      <centering>
+      <div style="text-align: center;">
+        <img id="benchmark_merged" width="80%" src="images/vebrain_legged.png">
+      </div>
+      <div style="text-align: center;">
+        <img id="benchmark_merged" width="80%" src="images/vebrain_arm.png">
+      </div>
+      </centering>
+    </div> 
+  </div>
+</section>
+
+<section class="section" style="background-color:#efeff081">
+  <!-- Results. -->
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3">Examples</h2>
+    </div>
+  </div>
+
+  <div class="container is-max-desktop">
+    <!-- Multimodal -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-4">Multimodal Understanding</h2>
+      </div>
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_m1" width="60%" src="images/vebrain_ex_m1.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_m2" width="60%" src="images/vebrain_ex_m2.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_m3" width="60%" src="images/vebrain_ex_m3.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_m4" width="60%" src="images/vebrain_ex_m4.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_m5" width="60%" src="images/vebrain_ex_m5.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_m6" width="60%" src="images/vebrain_ex_m6.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_m7" width="60%" src="images/vebrain_ex_m7.png">
+      </div>
+      </centering>
+    </div>
+    <!-- Spatial -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-4">Spatial Reasoning</h2>
+      </div>
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_s12" width="60%" src="images/vebrain_ex_s12.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_s3" width="60%" src="images/vebrain_ex_s3.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_s4" width="60%" src="images/vebrain_ex_s4.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_s5" width="60%" src="images/vebrain_ex_s5.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_s6" width="60%" src="images/vebrain_ex_s6.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_s7" width="60%" src="images/vebrain_ex_s7.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_s8" width="60%" src="images/vebrain_ex_s8.png">
+      </div>
+      </centering>
+    </div>
+
+    <!-- Control -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-4">Robot Control</h2>
+      </div>
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_s12" width="60%" src="images/vebrain_ex_loco.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_s3" width="60%" src="images/vebrain_ex_mani.png">
+      </div>
+      </centering>
+    </div>
+
+  </div>
+
+  <!-- <div class="container is-max-desktop"> -->
+    <!-- <div class="columns is-centered"> -->
+      <!-- <centering> -->
+      <!-- <div style="text-align: center;"> -->
+        <!-- <img id="caption1" width="70%" src="images/mono_internvl_demo1.jpg"> -->
+      <!-- </div> -->
+      <!-- </centering> -->
+    <!-- </div> -->
+    <!-- <div class="columns is-centered"> -->
+      <!-- <centering> -->
+      <!-- <div style="text-align: center;"> -->
+        <!-- <img id="caption1" width="70%" src="images/mono_internvl_demo2.jpg"> -->
+      <!-- </div> -->
+      <!-- </centering> -->
+    <!-- </div> -->
+    <!-- <div class="columns is-centered"> -->
+      <!-- <centering> -->
+      <!-- <div style="text-align: center;"> -->
+        <!-- <img id="caption1" width="70%" src="images/mono_internvl_demo3.jpg"> -->
+      <!-- </div> -->
+      <!-- </centering> -->
+    <!-- </div> -->
+    <!-- <div class="columns is-centered"> -->
+      <!-- <centering> -->
+      <!-- <div style="text-align: center;"> -->
+        <!-- <img id="caption1" width="70%" src="images/mono_internvl_demo4.jpg"> -->
+      <!-- </div> -->
+      <!-- </centering> -->
+    <!-- </div> -->
+  <!-- </div> -->
+</section>
+
+  <section class="section" id="BibTeX"  style="background-color:#ffffffff">
+    <div class="container is-max-desktop content">
+      <h2 class="title">Citation</h2>
+      <pre><code>
+  @article{luo2024mono,
+    title={Mono-InternVL: Pushing the Boundaries of Monolithic Multimodal Large Language Models with Endogenous Visual Pre-training},
+    author={Luo, Gen and Yang, Xue and Dou, Wenhan and Wang, Zhaokai and Liu, Jiawen and Dai, Jifeng and Qiao, Yu and Zhu, Xizhou},
+    journal={arXiv preprint arXiv:2410.08202},
+    year={2024}
+  }
+
+  @article{chen2024far,
+    title={How Far Are We to GPT-4V? Closing the Gap to Commercial Multimodal Models with Open-Source Suites},
+    author={Chen, Zhe and Wang, Weiyun and Tian, Hao and Ye, Shenglong and Gao, Zhangwei and Cui, Erfei and Tong, Wenwen and Hu, Kongzhi and Luo, Jiapeng and Ma, Zheng and others},
+    journal={arXiv preprint arXiv:2404.16821},
+    year={2024}
+  }
+
+  @inproceedings{chen2024internvl,
+    title={Internvl: Scaling up vision foundation models and aligning for generic visual-linguistic tasks},
+    author={Chen, Zhe and Wu, Jiannan and Wang, Wenhai and Su, Weijie and Chen, Guo and Xing, Sen and Zhong, Muyan and Zhang, Qinglong and Zhu, Xizhou and Lu, Lewei and others},
+    booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+    pages={24185--24198},
+    year={2024}
+  }
+
+  </code></pre>
+    </div>
+  </section>
+
+
+  <section class="section" id="Acknowledgement">
+    <div class="container is-max-desktop content">
+      <h2 class="title">Acknowledgement</h2>
+      <p>
+        This website is adapted from <a
+        href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+        Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </section>
+
+  <script>
+    // Handle message showing
+    function createChatRow(sender, text, imageSrc) {
+      var article = document.createElement("article");
+      article.className = "media"
+
+      var figure = document.createElement("figure");
+      figure.className = "media-left";
+
+      var span = document.createElement("span");
+      span.className = "icon is-large";
+
+      var icon = document.createElement("i");
+      icon.className = "fas fas fa-2x" + (sender === "User" ? " fa-user " : sender === "InternVL" ? " fa-robot" : "");
+
+      var media = document.createElement("div");
+      media.className = "media-content";
+
+      var content = document.createElement("div");
+      content.className = "content";
+
+      var para = document.createElement("p");
+
+      // wrap text in pre tag to preserve whitespace and line breaks
+      var pre_text = document.createElement("pre");
+      pre_text.style = "background-color: white; font-size: 18px; font-family: Arial; padding: 0; margin: 0; white-space: pre-wrap; word-wrap: break-word;";
+      var paraText = document.createTextNode(text);
+      pre_text.appendChild(paraText);
+
+      var strong = document.createElement("strong");
+      strong.innerHTML = sender;
+      var br = document.createElement("br");
+
+      para.appendChild(strong);
+      para.appendChild(br);
+      para.appendChild(pre_text);
+
+      // Add image if imageSrc is provided
+      if (imageSrc) {
+        var img = document.createElement("img");
+        img.src = imageSrc;
+        img.style = "max-width: 100%; max-height: 300px;"; // Adjust the style as needed
+        para.appendChild(img);
+      }
+
+      content.appendChild(para);
+      media.appendChild(content);
+      span.appendChild(icon);
+      figure.appendChild(span);
+      if (sender !== "Description") {
+        article.appendChild(figure);
+      };
+      article.appendChild(media);
+      return article;
+    }
+
+    function addMessageToChatHistory(sender, message, imageSrc) {
+      const chatHistory = document.querySelector('.chat-history');
+      const chatRow = createChatRow(sender, message, imageSrc);
+      chatHistory.appendChild(chatRow);
+      chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+
+    function clearChatHistory() {
+      const chatHistory = document.querySelector('.chat-history');
+      chatHistory.innerHTML = "";
+    }
+
+    // 
+    const conversations = [
+      {
+        "description": "OCR",
+        "turns": [
+          // ["Description", "Please read the description and answer the question."],
+          ["User", "", "/static/images/case_1.png"],
+          ["User", "Tell me the information about the image​"],
+          ["InternVL 1.5",
+          "The image shows a signboard with Chinese text, indicating a business establishment. The signboard reads:\n" +
+          "\"河大西门第一家\" which translates to \"The first shop at the west gate of the river.\"\n" +
+          "\"正宗 老字号 五香味\" which means \"Genuine, old brand, five-spice flavor.\"\n" +
+          "\"曹记焖烤鸡腿\" which translates to \"Cao's roasted and baked chicken legs.\"\n" +
+          "\"营业时间 16:30-22:30\" indicating the business hours from 4:30 PM to 10:30 PM.\n" +
+          "\"7点之后 在门口 路灯下出夜市地摊\" which suggests that after 7 PM, the shop operates in the doorway under the streetlights as a night market stall.\n" +
+          "The signboard also includes a logo that appears to be a stylized rooster, which might be the brand or shop's emblem. The overall style of the signboard is quite traditional and straightforward, commonly seen in Chinese street markets or small businesses."
+          ]
+        ]
+      },
+      {
+        "description": "OCR+understand",
+        "turns": [
+          ["User", "", "/static/images/case_2.jpg"],
+          ["User", "What movement is in the picture? What jersey size player is attacking?​"],
+          ["InternVL 1.5", "The image shows a basketball game in progress. A player wearing a black jersey with the number 1 is in the act of shooting the basketball, while a player in a red jersey with the number 9 is attempting to block the shot. The player in the black jersey is executing a jump shot, and the player in the red jersey is trying to contest the shot by reaching up with his right arm. The movement captured is the dynamic action of a defensive player trying to block the shot while the offensive player attempts to score.​"]
+        ]
+      },
+      {
+        "description": "duck",
+        "turns": [
+          ["User", "", "/static/images/case_3.png"],
+          ["User", "Tell me a person who had made a similar pose to the cute duck."],
+          ["InternVL 1.5", "The pose of the cute duck is reminiscent of a karate stance, which is often associated with martial artists. One famous person who made a similar pose is Bruce Lee, a martial artist and actor known for his contributions to martial arts and film.​"]
+        ]
+      },
+      {
+        "description": "phy",
+        "turns": [
+          ["User", "", "/static/images/case_4.PNG"],
+          ["User", ": If the pH outside the cell decreases, would you expect the amount of amino acids transported into the cell to increase or decrease?"],
+          ["InternVL 1.5", "Based on the image, if the pH outside the cell decreases, we would expect the amount of amino acids transported into the cell to increase. This is because the diagram shows a gradient of amino acids moving from an area of lower concentration (outside the cell) to an area of higher concentration (inside the cell), which is a typical representation of active transport. Active transport is a process that moves substances against their concentration gradient, often using energy, and it is typically more efficient at higher concentrations of the substance being transported. Therefore, a decrease in pH outside the cell would likely increase the concentration gradient, leading to an increase in the transport of amino acids into the cell.​"]
+        ]
+      },
+    ];
+
+    // The current image index
+    let currentIndex = 0;
+
+    // The function to update the displayed chat history
+    function update_dialog_demo() {
+      // Clear the chat history
+      clearChatHistory();
+
+      for (let i = 0; i < conversations[currentIndex].turns.length; i++) {
+        if (conversations[currentIndex].turns[i].length == 2) {
+          addMessageToChatHistory(conversations[currentIndex].turns[i][0], conversations[currentIndex].turns[i][1]);
+        }
+        else {
+          addMessageToChatHistory(conversations[currentIndex].turns[i][0], conversations[currentIndex].turns[i][1], conversations[currentIndex].turns[i][2]);
+        }
+      }
+
+      // scroll to the top of the chat history
+      document.querySelector('.chat-history').scrollTop = 0;
+    }
+
+    // Initialize the displayed image
+    update_dialog_demo();
+
+    // Event listeners for the buttons
+    document.getElementById('prev-question').addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + conversations.length) % conversations.length;
+      update_dialog_demo();
+    });
+
+    document.getElementById('next-question').addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % conversations.length;
+      update_dialog_demo();
+    });
+
+
+  </script>
+
+</body>
+
+</html>

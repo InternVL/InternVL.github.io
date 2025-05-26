@@ -6,7 +6,7 @@
   <meta name="description" content="Dscribe the InternVL">
   <meta name="keywords" content="multimodal chatbot">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mono-InternVL</title>
+  <title>VeBrain</title>
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
@@ -210,17 +210,19 @@
 
   <section class="section"  style="background-color:#ffffffff">
     <div class="container is-max-desktop">
-      <div style="text-align: center;">
-        <img id="mono_internvl" width="90%" src="images/vebrain_fig1.png">
-      </div>
-
+      
       <!-- Abstract. -->
       <div class="columns is-centered has-text-centered">
         <div class="column is-six-fifths">
+          <div style="text-align: center;">
+            <img id="mono_internvl" width="80%" src="images/vebrain_fig1.png">
+          </div>
+          <br>
+          <br>
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              The remarkable progress of Multimodal Large Language Models (MLLMs) has attracted increasing attention to extend them to physical entities like legged robot. This typically requires MLLMs to not only grasp multimodal understanding abilities, but also integrate visual-spatial reasoning and physical interaction capabilities. Nevertheless, existing methods struggle to unify these capabilities due to their fundamental differences. In this paper, we present the <b>V</b>isual <b>E</b>mbodied <b>Brain</b> (<b>VeBrain</b>), a unified framework for perception, reasoning, and control in real world. VeBrain reformulates robotic control into common text-based MLLM tasks in the 2D visual space, thus unifying the objectives and mapping spaces of different tasks. Then, a novel robotic adapter is proposed to convert textual control signals from MLLMs to motion policies of real robots. From the data perspective, we further introduce VeBrain-600<i>k</i>, a high-quality instruction dataset encompassing various capabilities of VeBrain.  In VeBrain-600<i>k</i>, we take hundreds of hours to collect, curate and annotate the data, and adopt multimodal chain-of-thought (CoT) to mix the different capabilities into a single conversation.  Extensive experiments on 13 multimodal benchmarks and 5 spatial intelligence benchmarks demonstrate the superior performance of VeBrain to existing MLLMs like Qwen2.5-VL. When deployed to legged robots and robotic arms, VeBrain shows strong adaptability, flexibility, and compositional capabilities compared to existing methods. For example, compared to Qwen2.5-VL, VeBrain not only achieves substantial gains on MMVet by +5.6%, but also excels in legged robot tasks with +50% average gains.  
+              The remarkable progress of Multimodal Large Language Models (MLLMs) has attracted increasing attention to extend them to physical entities like legged robot. This typically requires MLLMs to not only grasp multimodal understanding abilities, but also integrate visual-spatial reasoning and physical interaction capabilities. Nevertheless, existing methods struggle to unify these capabilities due to their fundamental differences. In this paper, we present the <b>V</b>isual <b>E</b>mbodied <b>Brain</b> (<b>VeBrain</b>), a unified framework for perception, reasoning, and control in real world. VeBrain reformulates robotic control into common text-based MLLM tasks in the 2D visual space, thus unifying the objectives and mapping spaces of different tasks. Then, a novel robotic adapter is proposed to convert textual control signals from MLLMs to motion policies of real robots. From the data perspective, we further introduce VeBrain-600<i>k</i>, a high-quality instruction dataset encompassing various capabilities of VeBrain. In VeBrain-600<i>k</i>, we take hundreds of hours to collect, curate and annotate the data, and adopt multimodal chain-of-thought (CoT) to mix the different capabilities into a single conversation. Extensive experiments on 13 multimodal benchmarks and 5 spatial intelligence benchmarks demonstrate the superior performance of VeBrain to existing MLLMs like Qwen2.5-VL. When deployed to legged robots and robotic arms, VeBrain shows strong adaptability, flexibility, and compositional capabilities compared to existing methods. For example, compared to Qwen2.5-VL, VeBrain not only achieves substantial gains on MMVet by +5.6%, but also excels in legged robot tasks with +50% average gains.  
            </p>
           
           <!-- <div style="text-align: center;">
@@ -250,7 +252,7 @@
   <!-- Results. -->
   <div class="columns is-centered has-text-centered">
     <div class="column is-six-fifths">
-      <h2 class="title is-3">VeBrain Framework: Unifying</h2>
+      <h2 class="title is-3">VeBrain Architecture</h2>
 
     </div>
   </div>
@@ -274,9 +276,11 @@
 
           <centering>
             <div style="text-align: center;">
-              <img id="pipeline" width="90%" src="images/vebrain_fig2.png">
+              <img id="pipeline" width="80%" src="images/vebrain_fig2.png">
             </div>
           </centering>
+          <br>
+          <br>
 
           The robotic adapter is responsible for converting the MLLM decisions into executable policies. With a modular and flexible design, it can adapt to different robotic platforms and tasks. It consists of four main components:
 
@@ -300,7 +304,8 @@
 <section class="section" >
   <div class="columns is-centered has-text-centered">
     <div class="column is-six-fifths">
-      <h2 class="title is-3">VeBrain-600<i>k</i>: High-quality Dataset Covering Multiple Capabilities</h2>
+      <!-- <h2 class="title is-3">VeBrain-600<i>k</i>: High-quality Dataset Covering Multiple Capabilities</h2> -->
+      <h2 class="title is-3">VeBrain-600<i>k</i></h2>
     </div>
   </div>
   <div class="container is-max-desktop">
@@ -323,7 +328,7 @@
 
         <centering>
           <div style="text-align: center;">
-            <img id="pipeline" width="90%" src="images/vebrain_fig3.png">
+            <img id="pipeline" width="80%" src="images/vebrain_fig3.png">
           </div>
         </centering>
 
@@ -355,62 +360,40 @@
     <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-4">Ablation Study</h2>
+        <div style="text-align: center;">  
+          <img id="ablation" width="70%" src="images/vebrain_ablation.png">
+        </div>
       </div>
-      <centering>
-      <div style="text-align: center;">
-        <img id="benchmark_merged" width="80%" src="images/vebrain_ablation.png">
-      </div>
-      </centering>
-    </div> 
-  </div>
-
-  <div class="container is-max-desktop">
+    </div>
     <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-4">Multimodal Benchmarks</h2>
+        <div style="text-align: center;">  
+          <img id="multimodal" width="70%" src="images/vebrain_multimodal.png">
+        </div>
       </div>
-      <centering>
-      <div style="text-align: center;">
-        <img id="benchmark_merged" width="80%" src="images/vebrain_multimodal.png">
-      </div>
-      </centering>
-    </div> 
-  </div>
-
-  <div class="container is-max-desktop">
+    </div>
     <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-4">3D Spatial Benchmarks</h2>
+        <div style="text-align: center;">  
+          <img id="spatial" width="70%" src="images/vebrain_spatial.png">
+        </div>
       </div>
-      <centering>
-      <div style="text-align: center;">
-        <img id="benchmark_merged" width="80%" src="images/vebrain_spatial.png">
-      </div>
-      <div style="text-align: center;">
-        <img id="benchmark_merged" width="80%" src="images/vebrain_vsi.png">
-      </div>
-      </centering>
-    </div> 
-  </div>
-
-  <div class="container is-max-desktop">
+    </div>
     <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-4">Real-world Evaluations</h2>
+        <div style="text-align: center;">  
+          <img id="legged" width="70%" src="images/vebrain_legged.png">
+          <img id="arm" width="70%" src="images/vebrain_arm.png">
+        </div>
       </div>
-      <centering>
-      <div style="text-align: center;">
-        <img id="benchmark_merged" width="80%" src="images/vebrain_legged.png">
-      </div>
-      <div style="text-align: center;">
-        <img id="benchmark_merged" width="80%" src="images/vebrain_arm.png">
-      </div>
-      </centering>
-    </div> 
+    </div>
   </div>
 </section>
 
-<section class="section" style="background-color:#efeff081">
+<section class="section" style="background-color:#ffffff">
   <!-- Results. -->
   <div class="columns is-centered has-text-centered">
     <div class="column is-six-fifths">
@@ -419,133 +402,180 @@
   </div>
 
   <div class="container is-max-desktop">
-    <!-- Multimodal -->
     <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-4">Multimodal Understanding</h2>
+        <div style="text-align: center;">  
+          <img id="ex_m1" width="60%" src="images/vebrain_ex_m1.png">
+          <img id="ex_m2" width="60%" src="images/vebrain_ex_m2.png">
+          <img id="ex_m3" width="60%" src="images/vebrain_ex_m3.png">
+          <img id="ex_m4" width="60%" src="images/vebrain_ex_m4.png">
+          <img id="ex_m4" width="60%" src="images/vebrain_ex_m5.png">
+          <img id="ex_m4" width="60%" src="images/vebrain_ex_m6.png">
+          <img id="ex_m4" width="60%" src="images/vebrain_ex_m7.png">
+        </div>
       </div>
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_m1" width="60%" src="images/vebrain_ex_m1.png">
-      </div>
-      </centering>
     </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_m2" width="60%" src="images/vebrain_ex_m2.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_m3" width="60%" src="images/vebrain_ex_m3.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_m4" width="60%" src="images/vebrain_ex_m4.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_m5" width="60%" src="images/vebrain_ex_m5.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_m6" width="60%" src="images/vebrain_ex_m6.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_m7" width="60%" src="images/vebrain_ex_m7.png">
-      </div>
-      </centering>
-    </div>
-    <!-- Spatial -->
     <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-4">Spatial Reasoning</h2>
+        <div style="text-align: center;">  
+          <img id="ex_s12" width="60%" src="images/vebrain_ex_s12.png">
+          <img id="ex_s3" width="60%" src="images/vebrain_ex_s3.png">
+          <img id="ex_s4" width="60%" src="images/vebrain_ex_s4.png">
+          <img id="ex_s5" width="60%" src="images/vebrain_ex_s5.png">
+          <img id="ex_s6" width="60%" src="images/vebrain_ex_s6.png">
+          <img id="ex_s7" width="60%" src="images/vebrain_ex_s7.png">
+          <img id="ex_s8" width="60%" src="images/vebrain_ex_s8.png">
+        </div>
       </div>
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_s12" width="60%" src="images/vebrain_ex_s12.png">
-      </div>
-      </centering>
     </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_s3" width="60%" src="images/vebrain_ex_s3.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_s4" width="60%" src="images/vebrain_ex_s4.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_s5" width="60%" src="images/vebrain_ex_s5.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_s6" width="60%" src="images/vebrain_ex_s6.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_s7" width="60%" src="images/vebrain_ex_s7.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_s8" width="60%" src="images/vebrain_ex_s8.png">
-      </div>
-      </centering>
-    </div>
-
-    <!-- Control -->
     <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-4">Robot Control</h2>
+        <div style="text-align: center;">  
+          <img id="ex_loco" width="60%" src="images/vebrain_ex_loco.png">
+          <img id="ex_mani" width="60%" src="images/vebrain_ex_mani.png">
+        </div>
       </div>
+    </div>
+  </div>
+
+  <!-- <div class="container is-max-desktop">
+    <div class="column is-full-width">
+      <h2 class="title is-4">Multimodal Understanding</h2>
+    </div>
+  </div>
+
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
       <centering>
       <div style="text-align: center;">
-        <img id="ex_s12" width="60%" src="images/vebrain_ex_loco.png">
+        <img id="ex_m1" width="100%" src="images/vebrain_ex_m1.png">
       </div>
       </centering>
     </div>
     <div class="columns is-centered">
       <centering>
       <div style="text-align: center;">
-        <img id="ex_s3" width="60%" src="images/vebrain_ex_mani.png">
+        <img id="ex_m2" width="100%" src="images/vebrain_ex_m2.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_m3" width="100%" src="images/vebrain_ex_m3.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_m4" width="100%" src="images/vebrain_ex_m4.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_m5" width="100%" src="images/vebrain_ex_m5.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_m6" width="100%" src="images/vebrain_ex_m6.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_m7" width="100%" src="images/vebrain_ex_m7.png">
+      </div>
+      </centering>
+    </div>
+    
+    <div class="container is-max-desktop">
+      <div class="column is-full-width">
+        <h2 class="title is-4">Spatial Reasoning</h2>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_s12" width="100%" src="images/vebrain_ex_s12.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_s3" width="100%" src="images/vebrain_ex_s3.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_s4" width="100%" src="images/vebrain_ex_s4.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_s5" width="100%" src="images/vebrain_ex_s5.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_s6" width="100%" src="images/vebrain_ex_s6.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_s7" width="100%" src="images/vebrain_ex_s7.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_s8" width="100%" src="images/vebrain_ex_s8.png">
       </div>
       </centering>
     </div>
 
-  </div>
+    <div class="container is-max-desktop">
+      <div class="column is-full-width">
+        <h2 class="title is-4">Robot Control</h2>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_s12" width="100%" src="images/vebrain_ex_loco.png">
+      </div>
+      </centering>
+    </div>
+    <div class="columns is-centered">
+      <centering>
+      <div style="text-align: center;">
+        <img id="ex_s3" width="100%" src="images/vebrain_ex_mani.png">
+      </div>
+      </centering>
+    </div>
+
+  </div> -->
 
   <!-- <div class="container is-max-desktop"> -->
     <!-- <div class="columns is-centered"> -->

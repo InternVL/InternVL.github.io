@@ -104,6 +104,29 @@
   #gradio pre {
     background-color: transparent;
   }
+
+  .video-container {
+    display: flex;
+    flex-wrap: wrap;       /* 自动换行 */
+    gap: 16px;             /* 视频之间的间距 */
+    max-width: 1100px;      /* 容器最大宽度，可根据需要调整 */
+    margin: 0 auto;        /* 居中 */
+  }
+  .video-wrapper {
+    flex: 0 0 calc(33% - 8px); /* 每个视频占宽50%，减去间距的一半 */
+    box-sizing: border-box;
+  }
+  .video-title {
+    margin-bottom: 8px; /* 标题和视频之间间距 */
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+  }
+  video {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
 </style>
 
 <body>
@@ -180,15 +203,15 @@
                   </a>
                 </span>
 
-                <!-- <span class="link-block">
-                  <a href="https://internvl.github.io/blog/2025-05-26-VeBrain/" target="_blank"
+                <span class="link-block">
+                  <a href="https://huggingface.co/OpenGVLab/VeBrain" target="_blank"
                     class="external-link button is-normal is-rounded is-dark">
                     <span class="icon" style="color:#ffffff">
                       🤗
                     </span>
                     <span style="color:#ffffff">Model</span>
                   </a>
-                </span> -->
+                </span>
 
                 <span class="link-block">
                   <a href="https://internvl.github.io/blog/2025-05-26-VeBrain/" target="_blank"
@@ -214,8 +237,19 @@
       <!-- Abstract. -->
       <div class="columns is-centered has-text-centered">
         <div class="column is-six-fifths">
-          <div style="text-align: center;">
+          <!-- <div style="text-align: center;">
             <img id="mono_internvl" width="80%" src="images/vebrain_fig1.png">
+          </div> -->
+          <!-- Paper video. -->
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+              <h2 class="title is-3">Video</h2>
+            
+              <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+                <source src="videos/vebrain_demo_v2.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
           </div>
           <br>
           <br>
@@ -229,18 +263,6 @@
             <img id="mono_internvl" width="90%" src="images/vebrain_fig1.png">
           </div> -->
 
-          <!-- Paper video. -->
-          <div class="columns is-centered has-text-centered">
-            <div class="column is-four-fifths">
-              <h2 class="title is-3">Video</h2>
-            
-              <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-                <source src="images/vebrain_demo_v2.mp4"
-                        type="video/mp4">
-              </video>
-            </div>
-          </div>
-
           </div>
         </div>
       </div>
@@ -248,7 +270,79 @@
     </div>
   </section>
 
-<section class="section"  style="background-color:#efeff081">
+
+<section class="section" style="background-color:#efeff081">
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3">Demonstrations</h2>
+    </div>
+  </div>
+
+  <div class="container is-max-desktop">
+    <h2 class="title is-4">Manipulation Tasks</h2>
+    <div class="video-container">
+      <div class="video-wrapper">
+        <div class="video-title">Long Horizon (Carrot)</div>
+        <video controls src="videos/long_horizon_carrot.mp4"></video>
+      </div>
+      <div class="video-wrapper">
+        <div class="video-title">Long Horizon (Pepper)</div>
+        <video controls src="videos/long_horizon_pepper.mp4"></video>
+      </div>
+      <div class="video-wrapper">
+        <div class="video-title">Move In (Banana)</div>
+        <video controls src="videos/move_in_banana.mp4"></video>
+      </div>
+      <div class="video-wrapper">
+        <div class="video-title">Move In (Pepper)</div>
+        <video controls src="videos/move_in_pepper.mp4"></video>
+      </div>
+      <div class="video-wrapper">
+        <div class="video-title">Move Out (Carrot)</div>
+        <video controls src="videos/move_out_carrot.mp4"></video>
+      </div>
+      <div class="video-wrapper">
+        <div class="video-title">Open Drawer</div>
+        <video controls src="videos/open_drawer.mp4"></video>
+      </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="container is-max-desktop">
+      <h2 class="title is-4">Locomotion Tasks</h2>
+      <div class="video-container">
+        <div class="video-wrapper">
+          <div class="video-title">Complex Transport</div>
+          <video controls src="videos/complex_transport.mp4"></video>
+        </div>
+        <div class="video-wrapper">
+          <div class="video-title">Complex Interaction (Shake)</div>
+          <video controls src="videos/complex_shake.mp4"></video>
+        </div>
+        <div class="video-wrapper">
+          <div class="video-title">Complex Find (Pineapple)</div>
+          <video controls src="videos/complex_find.mp4"></video>
+        </div>
+        <div class="video-wrapper">
+          <div class="video-title">Find (Orange)</div>
+          <video controls src="videos/find.mp4"></video>
+        </div>
+        <div class="video-wrapper">
+          <div class="video-title">Interaction (Touch)</div>
+          <video controls src="videos/touch.mp4"></video>
+        </div>
+        <div class="video-wrapper">
+          <div class="video-title">Transport</div>
+          <video controls src="videos/transport.mp4"></video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section"  style="background-color:#ffffffff">
   <!-- Results. -->
   <div class="columns is-centered has-text-centered">
     <div class="column is-six-fifths">
@@ -301,7 +395,7 @@
 </section>
 
 
-<section class="section" >
+<section class="section" style="background-color: #efeff081;">
   <div class="columns is-centered has-text-centered">
     <div class="column is-six-fifths">
       <!-- <h2 class="title is-3">VeBrain-600<i>k</i>: High-quality Dataset Covering Multiple Capabilities</h2> -->
@@ -348,7 +442,7 @@
 </div>
 </section>
 
-<section class="section"   style="background-color:#efeff081">
+<section class="section"   style="background-color:#ffffffff">
   <!-- Results. -->
   <div class="columns is-centered has-text-centered">
     <div class="column is-six-fifths">
@@ -393,8 +487,7 @@
   </div>
 </section>
 
-<section class="section" style="background-color:#ffffff">
-  <!-- Results. -->
+<!-- <section class="section" style="background-color:#ffffff">
   <div class="columns is-centered has-text-centered">
     <div class="column is-six-fifths">
       <h2 class="title is-3">Examples</h2>
@@ -441,173 +534,7 @@
     </div>
   </div>
 
-  <!-- <div class="container is-max-desktop">
-    <div class="column is-full-width">
-      <h2 class="title is-4">Multimodal Understanding</h2>
-    </div>
-  </div>
-
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_m1" width="100%" src="images/vebrain_ex_m1.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_m2" width="100%" src="images/vebrain_ex_m2.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_m3" width="100%" src="images/vebrain_ex_m3.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_m4" width="100%" src="images/vebrain_ex_m4.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_m5" width="100%" src="images/vebrain_ex_m5.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_m6" width="100%" src="images/vebrain_ex_m6.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_m7" width="100%" src="images/vebrain_ex_m7.png">
-      </div>
-      </centering>
-    </div>
-    
-    <div class="container is-max-desktop">
-      <div class="column is-full-width">
-        <h2 class="title is-4">Spatial Reasoning</h2>
-      </div>
-    </div>
-
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_s12" width="100%" src="images/vebrain_ex_s12.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_s3" width="100%" src="images/vebrain_ex_s3.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_s4" width="100%" src="images/vebrain_ex_s4.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_s5" width="100%" src="images/vebrain_ex_s5.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_s6" width="100%" src="images/vebrain_ex_s6.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_s7" width="100%" src="images/vebrain_ex_s7.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_s8" width="100%" src="images/vebrain_ex_s8.png">
-      </div>
-      </centering>
-    </div>
-
-    <div class="container is-max-desktop">
-      <div class="column is-full-width">
-        <h2 class="title is-4">Robot Control</h2>
-      </div>
-    </div>
-
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_s12" width="100%" src="images/vebrain_ex_loco.png">
-      </div>
-      </centering>
-    </div>
-    <div class="columns is-centered">
-      <centering>
-      <div style="text-align: center;">
-        <img id="ex_s3" width="100%" src="images/vebrain_ex_mani.png">
-      </div>
-      </centering>
-    </div>
-
-  </div> -->
-
-  <!-- <div class="container is-max-desktop"> -->
-    <!-- <div class="columns is-centered"> -->
-      <!-- <centering> -->
-      <!-- <div style="text-align: center;"> -->
-        <!-- <img id="caption1" width="70%" src="images/mono_internvl_demo1.jpg"> -->
-      <!-- </div> -->
-      <!-- </centering> -->
-    <!-- </div> -->
-    <!-- <div class="columns is-centered"> -->
-      <!-- <centering> -->
-      <!-- <div style="text-align: center;"> -->
-        <!-- <img id="caption1" width="70%" src="images/mono_internvl_demo2.jpg"> -->
-      <!-- </div> -->
-      <!-- </centering> -->
-    <!-- </div> -->
-    <!-- <div class="columns is-centered"> -->
-      <!-- <centering> -->
-      <!-- <div style="text-align: center;"> -->
-        <!-- <img id="caption1" width="70%" src="images/mono_internvl_demo3.jpg"> -->
-      <!-- </div> -->
-      <!-- </centering> -->
-    <!-- </div> -->
-    <!-- <div class="columns is-centered"> -->
-      <!-- <centering> -->
-      <!-- <div style="text-align: center;"> -->
-        <!-- <img id="caption1" width="70%" src="images/mono_internvl_demo4.jpg"> -->
-      <!-- </div> -->
-      <!-- </centering> -->
-    <!-- </div> -->
-  <!-- </div> -->
-</section>
+</section> -->
 
   <section class="section" id="BibTeX"  style="background-color:#ffffffff">
     <div class="container is-max-desktop content">

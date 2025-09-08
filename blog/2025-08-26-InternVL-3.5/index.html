@@ -324,7 +324,7 @@
 
                     </p>
                     <p>
-                        Our training pipeline comprises four stages: Multimodal Continual Pre-Training (<b>CPT</b>), Supervised Fine-Tuning (<b>SFT</b>), and Cascade Reinforcement Learning (<b>CascadeRL</b>). In CascadeRL, we first fine-tune the model using Mixed Preference Optimization (<b>MPO</b>) under an offline RL setting, followed by GSPO under an oneline RL setting. For the Flash version of InternVL3.5, we additionally introduce a lightweight training stage, termed Visual Consistency Learning (<b>ViCO</b>), which reduces the token cost required to represent an image patch.
+                        Our training pipeline comprises four stages: Multimodal Continual Pre-Training (<b>CPT</b>), Supervised Fine-Tuning (<b>SFT</b>), and Cascade Reinforcement Learning (<b>Cascade RL</b>). In Cascade RL, we first fine-tune the model using Mixed Preference Optimization (<b>MPO</b>) under an offline RL setting, followed by GSPO under an oneline RL setting. For the Flash version of InternVL3.5, we additionally introduce a lightweight training stage, termed Visual Consistency Learning (<b>ViCO</b>), which reduces the token cost required to represent an image patch.
                     </p>
                     <center>
                         <p><img class="responsive" width="90%" alt="image" src="https://huggingface.co/OpenGVLab/InternVL3_5-241B-A28B/resolve/main/images/training_pipeline.jpg"></p>
@@ -373,7 +373,7 @@
                             </tr>
                             <tr>
                                 <td>InternVL3_5-1B</td>
-                                <td>CPT + SFT + CascadeRL</td>
+                                <td>CPT + SFT + Cascade RL</td>
                                 <td><a href="https://huggingface.co/OpenGVLab/InternVL3_5-1B" rel="nofollow">🤗 link</a>
                                 </td>
                                 <td><a href="https://www.modelscope.cn/models/OpenGVLab/InternVL3_5-1B" rel="nofollow">🤖
@@ -410,7 +410,7 @@
                             </tr>
                             <tr>
                                 <td>InternVL3_5-2B</td>
-                                <td>CPT + SFT + CascadeRL</td>
+                                <td>CPT + SFT + Cascade RL</td>
                                 <td><a href="https://huggingface.co/OpenGVLab/InternVL3_5-2B" rel="nofollow">🤗 link</a>
                                 </td>
                                 <td><a href="https://www.modelscope.cn/models/OpenGVLab/InternVL3_5-2B" rel="nofollow">🤖
@@ -447,7 +447,7 @@
                             </tr>
                             <tr>
                                 <td>InternVL3_5-4B</td>
-                                <td>CPT + SFT + CascadeRL</td>
+                                <td>CPT + SFT + Cascade RL</td>
                                 <td><a href="https://huggingface.co/OpenGVLab/InternVL3_5-4B" rel="nofollow">🤗 link</a>
                                 </td>
                                 <td><a href="https://www.modelscope.cn/models/OpenGVLab/InternVL3_5-4B" rel="nofollow">🤖
@@ -484,7 +484,7 @@
                             </tr>
                             <tr>
                                 <td>InternVL3_5-8B</td>
-                                <td>CPT + SFT + CascadeRL</td>
+                                <td>CPT + SFT + Cascade RL</td>
                                 <td><a href="https://huggingface.co/OpenGVLab/InternVL3_5-8B" rel="nofollow">🤗 link</a>
                                 </td>
                                 <td><a href="https://www.modelscope.cn/models/OpenGVLab/InternVL3_5-8B" rel="nofollow">🤖
@@ -521,7 +521,7 @@
                             </tr>
                             <tr>
                                 <td>InternVL3_5-14B</td>
-                                <td>CPT + SFT + CascadeRL</td>
+                                <td>CPT + SFT + Cascade RL</td>
                                 <td><a href="https://huggingface.co/OpenGVLab/InternVL3_5-14B" rel="nofollow">🤗 link</a>
                                 </td>
                                 <td><a href="https://www.modelscope.cn/models/OpenGVLab/InternVL3_5-14B" rel="nofollow">🤖
@@ -558,7 +558,7 @@
                             </tr>
                             <tr>
                                 <td>InternVL3.5-30B-A3B</td>
-                                <td>CPT + SFT + CascadeRL</td>
+                                <td>CPT + SFT + Cascade RL</td>
                                 <td><a href="https://huggingface.co/OpenGVLab/InternVL3_5-30B-A3B" rel="nofollow">🤗 link</a>
                                 </td>
                                 <td><a href="https://www.modelscope.cn/models/OpenGVLab/InternVL3_5-30B-A3B" rel="nofollow">🤖
@@ -595,7 +595,7 @@
                             </tr>
                             <tr>
                                 <td>InternVL3_5-38B</td>
-                                <td>CPT + SFT + CascadeRL</td>
+                                <td>CPT + SFT + Cascade RL</td>
                                 <td><a href="https://huggingface.co/OpenGVLab/InternVL3_5-38B" rel="nofollow">🤗 link</a>
                                 </td>
                                 <td><a href="https://www.modelscope.cn/models/OpenGVLab/InternVL3_5-38B" rel="nofollow">🤖
@@ -632,7 +632,7 @@
                             </tr>
                             <tr>
                                 <td>InternVL3.5-241B-A28B</td>
-                                <td>CPT + SFT + CascadeRL</td>
+                                <td>CPT + SFT + Cascade RL</td>
                                 <td><a href="https://huggingface.co/OpenGVLab/InternVL3_5-241B-A28B" rel="nofollow">🤗 link</a>
                                 </td>
                                 <td><a href="https://www.modelscope.cn/models/OpenGVLab/InternVL3_5-241B-A28B" rel="nofollow">🤖
@@ -832,12 +832,12 @@
                         </tr>
                         <tr>
                             <th rowspan="2">
-                                <nobr>Pre-Training</nobr>
+                                <nobr>CPT</nobr>
                             </th>
                             <th>Training Data</th>
                             <!-- <td colspan="7" style="text-align: left;">xxx</td> -->
                             <td colspan="9" style="text-align: left;">
-                                The pre-training corpora can be classified into two categories: (1) Multimodal data: this subset of data is mainly sourced from the training corpora of InternVL3, covering a diverse range of domains such as image captioning, general question answering, mathematics, scientific disciplines, charts, optical character recognition (OCR), knowledge grounding, document understanding, multi-turn dialogue, and medical data. (2) Text-only data: this part of data is constructed based on the training corpora of InternLM series and is further augmented with open-source datasets. The pre-training corpora contains approximately 116M samples, corresponding to about 250B tokens. The ratio between text-only and multimodal data is approximately <b>1 : 2.5</b>. The maximum sequence length is set to 32K tokens to adapt long-context understanding and reasoning.
+                                The pre-training corpora can be classified into two categories: (1) Multimodal data: this subset of data is mainly sourced from the training corpora of InternVL3, covering a diverse range of domains such as image captioning, general question answering, mathematics, scientific disciplines, charts, optical character recognition (OCR), knowledge grounding, document understanding, multi-turn dialogue, and medical data. (2) Text-only data: this part of data is constructed based on the training corpora of InternLM series and is further augmented with open-source datasets. The pre-training corpora contains approximately 116M samples, corresponding to about 250B tokens. The ratio between text-only and multimodal data is approximately 1:2.5. The maximum sequence length is set to 32K tokens to adapt long-context understanding and reasoning.
                             </td>
                         </tr>
                         <tr>

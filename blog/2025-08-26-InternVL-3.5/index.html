@@ -202,7 +202,7 @@
 
                         <tr>
                             <td rowspan="9">Multimodal Large Language Models (HuggingFace Format)</td>
-                            <td>InternVL3_5-1B</td>
+                            <td>InternVL3_5-1B-HF</td>
                             <td>2025.08.26</td>
                             <td><a href="https://huggingface.co/OpenGVLab/InternVL3_5-1B-HF" rel="nofollow">🤗 link</a>
                             </td>
@@ -213,7 +213,7 @@
                                     doc</a></td>
                         </tr>
                         <tr>
-                            <td>InternVL3_5-2B</td>
+                            <td>InternVL3_5-2B-HF</td>
                             <td>2025.08.26</td>
                             <td><a href="https://huggingface.co/OpenGVLab/InternVL3_5-2B-HF" rel="nofollow">🤗 link</a>
                             </td>
@@ -224,7 +224,7 @@
                                     doc</a></td>
                         </tr>
                         <tr>
-                            <td>InternVL3_5-4B</td>
+                            <td>InternVL3_5-4B-HF</td>
                             <td>2025.08.26</td>
                             <td><a href="https://huggingface.co/OpenGVLab/InternVL3_5-4B-HF" rel="nofollow">🤗 link</a>
                             </td>
@@ -235,7 +235,7 @@
                                     doc</a></td>
                         </tr>
                         <tr>
-                            <td>InternVL3_5-8B</td>
+                            <td>InternVL3_5-8B-HF</td>
                             <td>2025.08.26</td>
                             <td><a href="https://huggingface.co/OpenGVLab/InternVL3_5-8B-HF" rel="nofollow">🤗 link</a>
                             </td>
@@ -246,7 +246,7 @@
                                     doc</a></td>
                         </tr>
                         <tr>
-                            <td>InternVL3_5-14B</td>
+                            <td>InternVL3_5-14B-HF</td>
                             <td>2025.08.26</td>
                             <td><a href="https://huggingface.co/OpenGVLab/InternVL3_5-14B-HF" rel="nofollow">🤗 link</a>
                             </td>
@@ -256,7 +256,7 @@
                                     doc</a></td>
                         </tr>
                         <tr>
-                            <td>InternVL3_5-38B</td>
+                            <td>InternVL3_5-38B-HF</td>
                             <td>2025.08.26</td>
                             <td><a href="https://huggingface.co/OpenGVLab/InternVL3_5-38B-HF" rel="nofollow">🤗 link</a>
                             </td>
@@ -266,7 +266,7 @@
                                     doc</a></td>
                         </tr>
                         <tr>
-                            <td>InternVL3_5-20B-A4B</td>
+                            <td>InternVL3_5-20B-A4B-HF</td>
                             <td>2025.08.26</td>
                             <td><a href="https://huggingface.co/OpenGVLab/InternVL3_5-GPT-OSS-20B-A4B-Preview-HF" rel="nofollow">🤗
                                     link</a></td>
@@ -276,7 +276,7 @@
                                     doc</a></td>
                         </tr>
                         <tr>
-                            <td>InternVL3_5-30B-A3B</td>
+                            <td>InternVL3_5-30B-A3B-HF</td>
                             <td>2025.08.26</td>
                             <td><a href="https://huggingface.co/OpenGVLab/InternVL3_5-30B-A3B-HF" rel="nofollow">🤗
                                     link</a></td>
@@ -286,7 +286,7 @@
                                     doc</a></td>
                         </tr>
                         <tr>
-                            <td>InternVL3_5-241B-A28B</td>
+                            <td>InternVL3_5-241B-A28B-HF</td>
                             <td>2025.08.26</td>
                             <td><a href="https://huggingface.co/OpenGVLab/InternVL3_5-241B-A28B-HF" rel="nofollow">🤗
                                     link</a></td>
@@ -301,7 +301,7 @@
 
                 <div class="post-content e-content" itemprop="articleBody">
                     <center>
-                        <p><img class="responsive" width="90%" alt="image" src="images/overview_performance.jpg"></p>
+                        <p><img class="responsive" width="90%" alt="image" src="https://huggingface.co/OpenGVLab/InternVL3_5-241B-A28B/resolve/main/images/performance.jpg"></p>
                     </center>
 
                     <br>
@@ -327,7 +327,7 @@
                         Our training pipeline comprises four stages: Multimodal Continual Pre-Training (<b>CPT</b>), Supervised Fine-Tuning (<b>SFT</b>), and Cascade Reinforcement Learning (<b>CascadeRL</b>). In CascadeRL, we first fine-tune the model using Mixed Preference Optimization (<b>MPO</b>) under an offline RL setting, followed by GSPO under an oneline RL setting. For the Flash version of InternVL3.5, we additionally introduce a lightweight training stage, termed Visual Consistency Learning (<b>ViCO</b>), which reduces the token cost required to represent an image patch.
                     </p>
                     <center>
-                        <p><img class="responsive" width="90%" alt="image" src="images/training_process.png"></p>
+                        <p><img class="responsive" width="90%" alt="image" src="https://huggingface.co/OpenGVLab/InternVL3_5-241B-A28B/resolve/main/images/training_pipeline.jpg"></p>
                     </center>
 
                     <br>
@@ -655,7 +655,7 @@
                             InternVL3.5-Flash incorporates the <i>Visual Resolution Router (ViR)</i> to enable adaptive compression of visual tokens. Each image patch is routed to an appropriate compression rate depending on its semantic richness. This patch-aware routing reduces the number of tokens by up to 50% while maintaining nearly full performance, making the Flash variants highly efficient in resource-constrained scenarios.
                         </li>
                         <center>
-                            <p><img class="responsive" width="90%" alt="image" src="images\architecture.png"></p>
+                            <p><img class="responsive" width="90%" alt="image" src="https://huggingface.co/OpenGVLab/InternVL3_5-241B-A28B/resolve/main/images/architecture.jpg"></p>
                         </center>
                         <li>
                             <b>Progressive Training with Cascade RL</b>:
@@ -748,31 +748,31 @@
                         <tr>
                             <th colspan="2">Name</th>
                             <th>
-                                <nobr>InternVL3_5-1B</nobr>
+                                <nobr>1B</nobr>
                             </th>
                             <th>
-                                <nobr>InternVL3_5-2B</nobr>
+                                <nobr>2B</nobr>
                             </th>
                             <th>
-                                <nobr>InternVL3_5-4B</nobr>
+                                <nobr>4B</nobr>
                             </th>
                             <th>
-                                <nobr>InternVL3_5-8B</nobr>
+                                <nobr>8B</nobr>
                             </th>
                             <th>
-                                <nobr>InternVL3_5-14B</nobr>
+                                <nobr>14B</nobr>
                             </th>
                             <th>
-                                <nobr>InternVL3_5-38B</nobr>
+                                <nobr>38B</nobr>
                             </th>
                             <th>
-                                <nobr>InternVL3_5-20B-A4B</nobr>
+                                <nobr>20B-A4B</nobr>
                             </th>
                             <th>
-                                <nobr>InternVL3_5-30B-A3B</nobr>
+                                <nobr>30B-A3B</nobr>
                             </th>
                             <th>
-                                <nobr>InternVL3_5-241B-A28B</nobr>
+                                <nobr>241B-A28B</nobr>
                             </th>
                         </tr>
                         <tr>
@@ -832,7 +832,7 @@
                         </tr>
                         <tr>
                             <th rowspan="2">
-                                <nobr>Native Multimodal Pre-Training</nobr>
+                                <nobr>Pre-Training</nobr>
                             </th>
                             <th>Training Data</th>
                             <!-- <td colspan="7" style="text-align: left;">xxx</td> -->
@@ -845,7 +845,7 @@
                             <td colspan="9">ViT + MLP + LLM</td>
                         </tr>
                         <th rowspan="2">
-                            <nobr>Supervised Fine-Tuning</nobr>
+                            <nobr>SFT</nobr>
                         </th>
                         <th>Training Data</th>
                         <!-- <td colspan="7" style="text-align: left;">xxx</td> -->
@@ -859,11 +859,11 @@
                         </tr>
                         <tr>
                             <th rowspan="2">
-                                <nobr>Cascade Reinforcement Learning</nobr>
+                                <nobr>Cascade RL</nobr>
                             </th>
                             <th>Training Data</th>
                             <td colspan="9" style="text-align: left;">
-                                We use <a href="https://huggingface.co/datasets/OpenGVLab/MMPR-v1.2">MMPR v1.2</a> as the training data for offline RL, which contains about 200K sample pairs. Based on MMPR-v1.2, we compute the accuracy of each query using the provided rollouts and select those whose model accuracy falls between 0.2 and 0.8 for online RL. We further extend the dataset with recent multimodal datasets to enhance diversity. The resulting dataset, termed MMPR-Tiny, consists of approximately 70K queries. We directly reuse the rollouts from MMPR-v1.2 for both offline RL and data filtering in online RL, thereby reducing the cost of sampling additional rollouts.
+                                We use <a href="https://huggingface.co/datasets/OpenGVLab/MMPR-v1.2">MMPR v1.2</a> as the training data for offline RL, which contains about 200K sample pairs. Based on MMPR-v1.2, we compute the accuracy of each query using the provided rollouts and select those whose model accuracy falls between 0.2 and 0.8 for online RL. We further extend the dataset with recent multimodal datasets to enhance diversity. The resulting dataset, termed <a href="https://huggingface.co/datasets/OpenGVLab/MMPR-Tiny">MMPR-Tiny</a>, consists of approximately 70K queries. We directly reuse the rollouts from MMPR-v1.2 for both offline RL and data filtering in online RL, thereby reducing the cost of sampling additional rollouts.
                             </td>
                         </tr>
                         <tr>
@@ -872,7 +872,7 @@
                         </tr>
                         <tr>
                             <th rowspan="2">
-                                <nobr>Visual Consistency Learning</nobr>
+                                <nobr>ViCO</nobr>
                             </th>
                             <th>Training Data</th>
                             <td colspan="9" style="text-align: left;">
@@ -889,7 +889,7 @@
                     <h3 id="performance">Performance</h3>
 
                     <center>
-                        <p><img class="responsive" width=90% alt="image" src="images/performance_overall.jpg"></p>
+                        <p><img class="responsive" width=90% alt="image" src="https://huggingface.co/OpenGVLab/InternVL3_5-241B-A28B/resolve/main/images/performance_overall.jpg"></p>
                     </center>
 
                     <b>Please see <a href="https://huggingface.co/papers/2508.18265">our paper</a> for more experimental results.</b>
@@ -4652,35 +4652,6 @@
     author={Wang, Weiyun and Gao, Zhangwei and Gu, Lixin and Pu, Hengjun and Cui, Long and Wei, Xingguang and Liu, Zhaoyang and Jing, Linglin and Ye, Shenglong and Shao, Jie and others},
     journal={arXiv preprint arXiv:2508.18265},
     year={2025}
-  }
-  
-  @article{wang2024mpo,
-    title={Enhancing the Reasoning Ability of Multimodal Large Language Models via Mixed Preference Optimization},
-    author={Wang, Weiyun and Chen, Zhe and Wang, Wenhai and Cao, Yue and Liu, Yangzhou and Gao, Zhangwei and Zhu, Jinguo and Zhu, Xizhou and Lu, Lewei and Qiao, Yu and Dai, Jifeng},
-    journal={arXiv preprint arXiv:2411.10442},
-    year={2024}
-  }
-
-  @article{chen2024expanding,
-    title={Expanding Performance Boundaries of Open-Source Multimodal Models with Model, Data, and Test-Time Scaling},
-    author={Chen, Zhe and Wang, Weiyun and Cao, Yue and Liu, Yangzhou and Gao, Zhangwei and Cui, Erfei and Zhu, Jinguo and Ye, Shenglong and Tian, Hao and Liu, Zhaoyang and others},
-    journal={arXiv preprint arXiv:2412.05271},
-    year={2024}
-  }
-
-  @article{chen2024far,
-    title={How Far Are We to GPT-4V? Closing the Gap to Commercial Multimodal Models with Open-Source Suites},
-    author={Chen, Zhe and Wang, Weiyun and Tian, Hao and Ye, Shenglong and Gao, Zhangwei and Cui, Erfei and Tong, Wenwen and Hu, Kongzhi and Luo, Jiapeng and Ma, Zheng and others},
-    journal={arXiv preprint arXiv:2404.16821},
-    year={2024}
-  }
-
-  @inproceedings{chen2024internvl,
-    title={Internvl: Scaling up vision foundation models and aligning for generic visual-linguistic tasks},
-    author={Chen, Zhe and Wu, Jiannan and Wang, Wenhai and Su, Weijie and Chen, Guo and Xing, Sen and Zhong, Muyan and Zhang, Qinglong and Zhu, Xizhou and Lu, Lewei and others},
-    booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
-    pages={24185--24198},
-    year={2024}
   }
 
 </code></pre>

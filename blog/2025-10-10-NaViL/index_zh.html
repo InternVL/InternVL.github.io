@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="NaViL: 数据约束下原生多模态大语言模型扩展性的再思考">
+  <meta name="keywords" content="多模态, MLLM, 扩展法则, 原生训练">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NaViL: Rethinking Scaling Properties of Native MLLMs</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+
+  <style>
+    .publication-title {
+      font-family: 'Google Sans', sans-serif;
+    }
+
+    .publication-authors {
+      font-family: 'Google Sans', sans-serif;
+    }
+
+    .publication-awards {
+      color: #d73a49;
+      font-weight: 600;
+    }
+
+    .author-block {
+      display: inline-block;
+      margin: 0 5px;
+    }
+
+    .content h2 {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .content h3 {
+      margin-top: 1.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    img {
+      border-radius: 8px;
+    }
+
+    pre code {
+      background-color: #f6f8fa;
+      border-radius: 6px;
+      padding: 16px;
+      display: block;
+      overflow-x: auto;
+    }
+
+    .button.is-dark {
+      background-color: #363636;
+      border-color: transparent;
+      color: #fff;
+    }
+
+    .button.is-dark:hover {
+      background-color: #292929;
+    }
+
+    .performance-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.9em;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .performance-table thead tr {
+      background-color: #acaaaa;
+      color: #ffffff;
+      text-align: left;
+    }
+
+    .performance-table th,
+    .performance-table td {
+      padding: 12px 15px;
+      text-align: center;
+    }
+
+    .performance-table tbody tr {
+      border-bottom: 1px solid #dddddd;
+    }
+
+    .performance-table tbody tr:nth-of-type(even) {
+      background-color: #f3f3f3;
+    }
+
+    .performance-table tbody tr.category-row {
+      background-color: #e8e8e8;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    .performance-table tbody tr:last-of-type {
+      border-bottom: 2px solid #363636;
+    }
+
+    .performance-table tbody tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .performance-table tbody tr.category-row:hover {
+      background-color: #e8e8e8;
+    }
+
+    .performance-table .model-name {
+      text-align: left;
+      font-weight: 500;
+    }
+
+    .performance-table .our-model:hover {
+      background-color: #ffe69c;
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    .table-notes {
+      font-size: 0.85em;
+      color: #666;
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">NaViL: Rethinking Scaling Properties of Native Multimodal Large Language Models under Data Constraints</h1>
+            <h5 class="subtitle is-4 publication-awards">NeurIPS 2025</h5>
+            
+            <div class="is-size-5 publication-authors">
+                <span class="author-block">
+                  <a href="https://scholar.google.com/citations?user=kQ3AisQAAAAJ" style="color:#f68946;font-weight:normal;">Changyao Tian<sup>2,1*</sup></a>,
+                  <a href="https://scholar.google.com/citations?user=qHqQsY4AAAAJ" style="color:#f68946;font-weight:normal;">Hao Li<sup>1*</sup></a>,
+                  <a href="https://scholar.google.com/citations?user=EyZqU9gAAAAJ" style="color:#f68946;font-weight:normal;">Gen Luo<sup>1*</sup></a>,
+                  <a href="https://scholar.google.com/citations?user=02RXI00AAAAJ" style="color:#f68946;font-weight:normal;">Xizhou Zhu<sup>3,1*</sup></a>,
+                  <br>
+                  <a href="https://scholar.google.com/citations?user=ECDe6IIAAAAJ" style="color:#f68946;font-weight:normal;">Weijie Su<sup>1</sup></a>,
+                  <a href="https://scholar.google.com/citations?user=NSeqMYIAAAAJ" style="color:#f68946;font-weight:normal;">Hanming Deng<sup>4</sup></a>,
+                  <a href="https://scholar.google.com/citations?user=YfHg5lQAAAAJ" style="color:#f68946;font-weight:normal;">Jinguo Zhu<sup>1</sup></a>,
+                  <a href="https://scholar.google.com/citations?user=jvy3964AAAAJ" style="color:#f68946;font-weight:normal;">Jie Shao<sup>5,1</sup></a>,
+                  <a href="https://scholar.google.com/citations?user=_93cp-sAAAAJ" style="color:#f68946;font-weight:normal;">Ziran Zhu<sup>4</sup></a>,
+                  <br>
+                  <a href="#" style="color:#f68946;font-weight:normal;">Yunpeng Liu<sup>4</sup></a>,
+                  <a href="https://scholar.google.com/citations?user=zdgKJXIAAAAJ" style="color:#f68946;font-weight:normal;">Lewei Lu<sup>4</sup></a>,
+                  <a href="https://scholar.google.com/citations?user=WM0OglcAAAAJ" style="color:#f68946;font-weight:normal;">Wenhai Wang<sup>2,1</sup></a>,
+                  <a href="https://scholar.google.com/citations?user=BN2Ze-QAAAAJ" style="color:#f68946;font-weight:normal;">Hongsheng Li<sup>2</sup></a>,
+                  <a href="https://scholar.google.com/citations?user=SH_-B_AAAAAJ" style="color:#f68946;font-weight:normal;">Jifeng Dai<sup>3,1✉</sup></a>
+                </span>
+              </div>
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block"><b style="color:#008AD7; font-weight:normal">▶ </b><sup>1</sup> Shanghai AI Laboratory</span>
+                <span class="author-block"><b style="color:#f68946; font-weight:normal">▶ </b><sup>2</sup> The Chinese University of Hong Kong</span>
+                <br>
+                <span class="author-block"><b style="color:#bb52ff; font-weight:normal">▶ </b><sup>3</sup> Tsinghua University</span>
+                <span class="author-block"><b style="color:#17de2e; font-weight:normal">▶ </b><sup>4</sup> Sensetime Research</span>
+                <span class="author-block"><b style="color:#ff481c; font-weight:normal">▶ </b><sup>5</sup> Nanjing University</span>
+                <div class="is-size-6 publication-authors">
+                  <span class="author-block"><b>*</b> Equal contribution.</span>
+                </div>
+              </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/xxx" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon" style="color:#ffffff">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span style="color:#ffffff">论文</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://github.com/OpenGVLab/NaViL" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon" style="color:#ffffff">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span style="color:#ffffff">代码</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://huggingface.co/collections/OpenGVLab/navil-68e62e7d20ea3e4097b56778" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon" style="color:#ffffff">
+                      🤗
+                    </span>
+                    <span style="color:#ffffff">模型</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="index.html" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon" style="color:#ffffff">
+                      <i class="fas fa-language"></i>
+                    </span>
+                    <span style="color:#ffffff">English</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background-color:#ffffffff">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-six-fifths">
+          <h2 class="title is-3">摘要</h2>
+          <div class="content has-text-justified">
+            <p>
+            在现有的多模态大语言模型（MLLM）中，组合式训练已成为事实上的主流范式，即通过持续多模态预训练，将预训练的视觉编码器与预训练的大语言模型（LLM）连接起来。然而，由于其分离式的训练方式，探索该范式的多模态参数扩展特性仍然十分困难。
+          </p>
+          <p>
+            在本文中，我们专注于以端到端方式进行原生训练的 MLLM，并在数据受限这一实际情况下，系统地研究了其设计空间和扩展属性。通过对 MLLM 中各种设计选择的深入研究，我们找到了一个能够最佳平衡性能与训练成本的元架构。在此基础上，我们进一步探索了原生 MLLM 的参数扩展法则，并揭示了视觉编码器与 LLM 之间存在正相关的扩展关系。
+          </p>
+          <p>
+            基于这些发现，我们提出了一个名为 NaViL 的原生 MLLM，并结合了一套简单且经济高效的训练方案。在 14 个多模态基准上的实验结果证实，NaViL 的性能与现有顶尖 MLLM 相当。除此之外，我们的发现和成果为未来原生 MLLM 的研究提供了深刻的见解。
+          </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background-color:#efeff081">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">核心洞见</h2>
+      </div>
+    </div>
+    
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <div class="content has-text-justified">
+            <p>
+              我们对原生 MLLM 的设计和扩展属性进行了系统性研究，得出了指导 NaViL 设计的五个关键结论：
+            </p>
+            
+            <h3 class="title is-4">1. 大语言模型（LLM）的初始化至关重要</h3>
+            <p>
+              从一个预训练的 LLM 初始化模型，能显著加速多模态训练的收敛。即使拥有大量多模态数据，其性能通常也优于从零开始训练。
+            </p>
+            <centering>
+              <div style="text-align: center;">
+                <img id="llm-init" width="70%" src="images/comparison_llm_init.png">
+              </div>
+            </centering>
+            
+            <h3 class="title is-4">2. 混合专家（MoE）架构行之有效</h3>
+            <p>
+              混合专家（MoE）架构可以在不增加推理成本（激活参数量）的情况下，显著增强模型处理异构数据的能力并提升整体性能。我们发现，为注意力机制和前馈网络（FFN）同时引入模态特定的专家能产生最佳效果。
+            </p>
+            <centering>
+              <div style="text-align: center;">
+                <img id="moe" width="50%" src="images/comparison_moe.png">
+              </div>
+            </centering>
+            
+            <h3 class="title is-4">3. 视觉编码器架构的灵活性</h3>
+            <p>
+              在给定的参数预算下，视觉编码器的性能在广泛的深度和宽度配置中都接近最优。较浅的编码器在训练早期收敛更快，而较深的编码器在数据更多时表现略好。
+            </p>
+            <centering>
+              <div style="text-align: center;">
+                <img id="visual encoder" width="100%" src="images/caption_metrics_comparison_by_depth.png">
+              </div>
+            </centering>
+            
+            <h3 class="title is-4">4. 非对称的扩展效应</h3>
+            <p>
+              扩展 LLM 的规模能够持续提升多模态性能，这遵循了传统的语言模型扩展法则。然而，扩展视觉编码器带来的收益会递减，其性能上限受到 LLM 能力的制约。
+            </p>
+            <centering>
+              <div style="text-align: center;">
+                <img id="llm loss" width="100%" src="images/llm_validation_loss_comparison_by_data_size.png">
+              </div>
+            </centering>
+            
+            <h3 class="title is-4">5. 视觉与语言的联合扩展法则</h3>
+            <p>
+              我们的研究首次揭示：<strong>视觉编码器的最优规模与 LLM 的规模在对数尺度上成正比</strong>。这意味着它们应当被联合扩展，同时也凸显了现有组合式 MLLM 将固定大小的视觉编码器与不同大小的 LLM 配对的次优性。
+            </p>
+            <centering>
+              <div style="text-align: center;">
+                <img id="scaling" width="50%" src="images/comparison_vit_size_vs_llm_size.png">
+              </div>
+            </centering>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">NaViL 架构</h2>
+      </div>
+    </div>
+    
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <div class="content has-text-justified">
+            <p>
+              基于以上洞见，我们构建了 NaViL。它是一个原生的、基于 MoE 的 MLLM，可以进行端到端训练，并原生支持任意分辨率的图像。
+            </p>
+            
+            <ul>
+              <li><b>视觉编码器</b>: <span style="font-size: 95%;">负责初步提取视觉信息。</span></li>
+              <li><b>MLP 连接器</b>: <span style="font-size: 95%;">将视觉特征投影到 LLM 的特征空间。</span></li>
+              <li><b>MoE 扩展的 LLM</b>: <span style="font-size: 95%;">包含模态特定的注意力（MHA-MMoE）和前馈网络（FFN-MMoE），以更有效地融合视觉和文本信息。</span></li>
+              <li><b>视觉多尺度打包</b>: <span style="font-size: 95%;">通过在推理时处理多尺度的图像输入，进一步提升模型性能。</span></li>
+            </ul>
+          </div>
+          <centering>
+            <div style="text-align: center;">
+              <img id="architecture" width="90%" src="images/arch.png">
+            </div>
+          </centering>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background-color:#efeff081">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">性能表现</h2>
+      </div>
+    </div>
+    
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <div class="content has-text-justified">
+            <p>
+              我们在 14 个主流多模态基准上对 NaViL 进行了全面评估，涵盖了通用能力、视觉问答、OCR、图表和文档理解。在可比较的参数规模下，NaViL-2B 和 NaViL-9B 在<strong>平均性能上超过了所有现有的原生 MLLM</strong>，并达到了与顶尖组合式 MLLM（如 InternVL-2.5, Qwen2.5-VL）相当的水平。
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="table-container">
+        <table class="performance-table">
+          <thead>
+            <tr>
+              <th class="model-name">模型</th>
+              <th>#激活参数</th>
+              <th>平均分</th>
+              <th>MMVet</th>
+              <th>MMMU</th>
+              <th>MMB</th>
+              <th>MME</th>
+              <th>MathVista</th>
+              <th>OCR-Bench</th>
+              <th>TextVQA</th>
+              <th>DocVQA</th>
+              <th>AI2D</th>
+              <th>ChartQA</th>
+              <th>InfoVQA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="category-row">
+              <td colspan="14">组合式 MLLM</td>
+            </tr>
+            <tr>
+              <td class="model-name"><a href="https://github.com/QwenLM/Qwen-VL" target="_blank">Qwen2.5-VL</a></td>
+              <td>8.2B</td>
+              <td>80.2</td>
+              <td>67.1</td>
+              <td>58.6</td>
+              <td>83.5</td>
+              <td>2347</td>
+              <td>68.2</td>
+              <td>864</td>
+              <td>84.9</td>
+              <td>95.7</td>
+              <td>83.9</td>
+              <td>87.3</td>
+              <td>82.6</td>
+            </tr>
+            <tr>
+              <td class="model-name"><a href="https://github.com/OpenGVLab/InternVL" target="_blank">InternVL-2.5</a></td>
+              <td>8.1B</td>
+              <td>77.3</td>
+              <td>62.8</td>
+              <td>56.0</td>
+              <td>84.6</td>
+              <td>2344</td>
+              <td>64.4</td>
+              <td>822</td>
+              <td>79.1</td>
+              <td>91.9</td>
+              <td>84.5</td>
+              <td>84.8</td>
+              <td>75.7</td>
+            </tr>
+            <tr class="category-row">
+              <td colspan="14">原生 MLLM</td>
+            </tr>
+            <tr>
+              <td class="model-name"><a href="https://github.com/baaivision/EVE" target="_blank">EVEv2</a></td>
+              <td>7B</td>
+              <td>62.3</td>
+              <td>45.0</td>
+              <td>39.3</td>
+              <td>66.3</td>
+              <td>1709</td>
+              <td>60.0*</td>
+              <td>702</td>
+              <td>71.1</td>
+              <td>77.4*</td>
+              <td>74.8</td>
+              <td>73.9</td>
+              <td>45.8*</td>
+            </tr>
+            <tr>
+              <td class="model-name"><a href="https://github.com/ByteDance-Seed/SAIL" target="_blank">SAIL</a></td>
+              <td>7B</td>
+              <td>63.7</td>
+              <td>46.3</td>
+              <td>38.6*</td>
+              <td>70.1</td>
+              <td>1719</td>
+              <td>57.0</td>
+              <td>783</td>
+              <td>77.1</td>
+              <td>78.4*</td>
+              <td>76.7</td>
+              <td>69.7*</td>
+              <td>47.3*</td>
+            </tr>
+            <tr class="our-model">
+              <td class="model-name"><strong>NaViL-2B (我们的模型)</strong></td>
+              <td><strong>2.4B</strong></td>
+              <td><strong>68.8</strong></td>
+              <td><strong>78.3</strong></td>
+              <td><strong>41.8</strong></td>
+              <td><strong>71.2</strong></td>
+              <td><strong>1822</strong></td>
+              <td><strong>50.0</strong></td>
+              <td><strong>796</strong></td>
+              <td><strong>76.9</strong></td>
+              <td><strong>85.4</strong></td>
+              <td><strong>74.6</strong></td>
+              <td><strong>78.0</strong></td>
+              <td><strong>56.0</strong></td>
+            </tr>
+            <tr class="our-model">
+              <td class="model-name"><strong>NaViL-9B (我们的模型)</strong></td>
+              <td><strong>9.2B</strong></td>
+              <td><strong>77.0</strong></td>
+              <td><strong>79.6</strong></td>
+              <td><strong>54.7</strong></td>
+              <td><strong>76.5</strong></td>
+              <td><strong>2225</strong></td>
+              <td><strong>66.7</strong></td>
+              <td><strong>837</strong></td>
+              <td><strong>77.2</strong></td>
+              <td><strong>90.6</strong></td>
+              <td><strong>82.4</strong></td>
+              <td><strong>85.4</strong></td>
+              <td><strong>70.2</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <div class="content has-text-justified">
+            <p class="table-notes">
+              * 表示使用 <a href="https://github.com/open-compass/VLMEvalKit" target="_blank">VLMEvalKit</a> 和 <a href="https://rank.opencompass.org.cn/leaderboard-multimodal/?m=REALTIME" target="_blank">OpenCompass</a> 在本地测试的结果。<br>
+              平均分是通过将每个指标归一化到 0-100 的范围计算得出的。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-six-fifths">
+        <h2 class="title is-3">定性分析</h2>
+      </div>
+    </div>
+    
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <div class="content has-text-justified">
+            <p>
+              通过可视化注意力图，我们发现一个足够大的视觉编码器（遵循我们的联合扩展法则）有助于模型在较浅的层中关注全局信息，并促进视觉和文本特征之间更早的交互，这解释了性能的提升。
+            </p>
+          </div>
+          <centering>
+            <div style="text-align: center;">
+              <img id="attention" width="90%" src="images/visualization_attention_matrix.png">
+              
+              <p style="text-align: center; color: #586069; margin-top: 10px; font-style: italic;">
+                上：使用 1.5 亿参数的视觉编码器；下：使用 12 亿参数的视觉编码器。后者即使在浅层（第 1 层）也表现出更强的全局注意力和跨模态交互。
+              </p>
+            </div>
+          </centering>
+        </div>
+      </div>
+    </div>
+</section>
+
+<section class="section" id="BibTeX" style="background-color:#ffffffff">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Citation</h2>
+    <pre><code>@article{tian2025navil,
+title={NaViL: Rethinking Scaling Properties of Native Multimodal Large Language Models under Data Constraints},
+author={Tian, Changyao and Li, Hao and Luo, Gen and Zhu, Xizhou and Su, Weijie and Deng, Hanming and Zhu, Jinguo and Shao, Jie and Zhu, Ziran and Liu, Yunpeng and Lu, Lewei and Wang, Wenhai and Li, Hongsheng and Dai, Jifeng},
+journal={arXiv preprint},
+year={2025}
+}</code></pre>
+  </div>
+</section>
+
+<section class="section" id="Acknowledgement">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Acknowledgement</h2>
+    <p>
+      This website is adapted from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+    </p>
+  </div>
+</section>
+
+</body>
+
+</html>

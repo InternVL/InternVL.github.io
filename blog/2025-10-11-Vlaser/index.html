@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Dscribe the InternVL">
+  <meta name="keywords" content="multimodal chatbot">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vlaser</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="../../static/css/index.css">
+  <link rel="icon" href="https://github-production-user-asset-6210df.s3.amazonaws.com/47669167/330728723-7037290e-f474-4d11-b90f-1d8316087bf8.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240529%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240529T072300Z&X-Amz-Expires=300&X-Amz-Signature=d12b9e5c3c49a082747f5da55529a4f1247cd17b4329fafc1cb6d1c0678efa77&X-Amz-SignedHeaders=host&actor_id=23737120&key_id=0&repo_id=721995615">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+  <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.35.2/gradio.js"></script>
+</head>
+
+<style>
+  .expandable-card .card-text-container {
+    max-height: 200px;
+    overflow-y: hidden;
+    position: relative;
+  }
+
+  .expandable-card.expanded .card-text-container {
+    max-height: none;
+  }
+
+  .expand-btn {
+    position: relative;
+    display: none;
+    background-color: rgba(255, 255, 255, 0.8);
+    /* margin-top: -20px; */
+    /* justify-content: center; */
+    color: #510c75;
+    border-color: transparent;
+  }
+
+  .expand-btn:hover {
+    background-color: rgba(200, 200, 200, 0.8);
+    text-decoration: none;
+    border-color: transparent;
+    color: #510c75;
+  }
+
+  .expand-btn:focus {
+    outline: none;
+    text-decoration: none;
+  }
+
+  .expandable-card:not(.expanded) .card-text-container:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 1));
+  }
+
+  .expandable-card:not(.expanded) .expand-btn {
+    margin-top: -40px;
+  }
+
+  .card-body {
+    padding-bottom: 5px;
+  }
+
+  .vertical-flex-layout {
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .figure-img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .adjustable-font-size {
+    font-size: calc(0.5rem + 2vw);
+  }
+
+  .chat-history {
+    flex-grow: 1;
+    overflow-y: auto;
+    /* overflow-x: hidden; */
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+
+  #gradio pre {
+    background-color: transparent;
+  }
+
+  .video-container {
+    display: flex;
+    flex-wrap: wrap;       /* 自动换行 */
+    gap: 16px;             /* 视频之间的间距 */
+    max-width: 1100px;      /* 容器最大宽度，可根据需要调整 */
+    margin: 0 auto;        /* 居中 */
+  }
+  .video-wrapper {
+    flex: 0 0 calc(33% - 8px); /* 每个视频占宽50%，减去间距的一半 */
+    box-sizing: border-box;
+  }
+  .video-title {
+    margin-bottom: 8px; /* 标题和视频之间间距 */
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+  }
+  video {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+</style>
+
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Vlaser: Vision-Language-Action Model with Synergistic Embodied Reasoning</h1>
+            <!-- <h5 class="subtitle is-4 publication-awards">CVPR 2025</h5> -->
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?hl=en&user=321C4TQAAAAJ" style="color:#f68946;font-weight:normal;">Ganlin Yang*</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=y6xT-xYAAAAJ" style="color:#f68946;font-weight:normal;">Tianyi Zhang*</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=sBHFXCYAAAAJ" style="color:#f68946;font-weight:normal;">Haoran Hao*</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=GJYzDkYAAAAJ" style="color:#f68946;font-weight:normal;">Weiyun Wang</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=WbnbTWoAAAAJ" style="color:#f68946;font-weight:normal;">Yibin Liu</a>,
+                <a href="https://openreview.net/profile?id=~Dehui_Wang1" style="color:#f68946;font-weight:normal;">Dehui Wang</a>,
+                <br>
+                <a href="https://scholar.google.com/citations?hl=en&user=pRJXjSUAAAAJ" style="color:#f68946;font-weight:normal;">Guanzhou Chen</a>,
+                <a href="https://openreview.net/profile?id=~Zijian_Cai3" style="color:#f68946;font-weight:normal;">Zijian Cai</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=ldKXxEAAAAAJ" style="color:#f68946;font-weight:normal;">Junting Chen</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=ECDe6IIAAAAJ" style="color:#f68946;font-weight:normal;">Weijie Su</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=8s1JF8YAAAAJ" style="color:#f68946;font-weight:normal;">Wengang Zhou</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=gFtI-8QAAAAJ" style="color:#f68946;font-weight:normal;">Yu Qiao</a>,
+                <br>
+                <a href="https://scholar.google.com/citations?hl=en&user=SH_-B_AAAAAJ" style="color:#f68946;font-weight:normal;">Jifeng Dai</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=ssSfKpAAAAAJ" style="color:#f68946;font-weight:normal;">Jiangmiao Pang</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=EyZqU9gAAAAJ" style="color:#f68946;font-weight:normal;">Gen Luo</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=WM0OglcAAAAJ" style="color:#f68946;font-weight:normal;">Wenhai Wang</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=HK4x3fkAAAAJ" style="color:#f68946;font-weight:normal;">Yao Mu</a>,
+                <a href="https://scholar.google.com/citations?hl=en&user=vpjnH7AAAAAJ" style="color:#f68946;font-weight:normal;">Zhi Hou</a>
+              </span>
+
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><b style="color:#008AD7; font-weight:normal">▶ </b> University of Science and Technology of China</span>
+              <span class="author-block"><b style="color:#bb52ff; font-weight:normal">▶ </b> Shanghai AI Laboratory</span>
+              <br>
+              <span class="author-block"><b style="color:#f68946; font-weight:normal">▶ </b> Shanghai Jiao Tong University</span>
+              <span class="author-block"><b style="color:#ff481c; font-weight:normal">▶ </b> Zhejiang University</span>
+              <span class="author-block"><b style="color:#ff1c91; font-weight:normal">▶ </b> Nanjing University</span>
+              <span class="author-block"><b style="color:#b3ff1c; font-weight:normal">▶ </b> Fudan University</span>
+              <br>
+              <span class="author-block"><b style="color:#17de2e; font-weight:normal">▶ </b> Tsinghua University</span>
+              <span class="author-block"><b style="color:#0f24dd; font-weight:normal">▶ </b> NUS</span>
+              <span class="author-block"><b style="color:#00f2c2; font-weight:normal">▶ </b> Northeastern University</span>
+              <span class="author-block"><b style="color:#F2A900; font-weight:normal">▶ </b> Shenzhen University</span>
+              <div class="is-size-6 publication-authors">
+                <span class="author-block"><b>*</b> Equal contribution.</span>
+              </div>
+            </div>
+
+            <div class="column has-text-centered">
+
+
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon" style="color:#ffffff">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span style="color:#ffffff">arXiv</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://github.com/OpenGVLab/Vlaser" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon" style="color:#ffffff">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span style="color:#ffffff">Code</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://huggingface.co/collections/OpenGVLab/vlaser-68e9fd4178da453c348997f8" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon" style="color:#ffffff">
+                      🤗
+                    </span>
+                    <span style="color:#ffffff">Model</span>
+                  </a>
+                </span>
+
+                <!-- <i class="fas fa-download"></i> -->
+                <!-- <span class="link-block">
+                  <a href="https://internvl.github.io/blog/2025-05-26-VeBrain/" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon" style="color:#ffffff">
+                      <i class="fas fa-edit"></i>
+                    </span>
+                    <span style="color:#ffffff">Chinese Post</span>
+                  </a>
+                </span> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section"  style="background-color:#ffffffff">
+    <div class="container is-max-desktop">
+      
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-six-fifths">
+          <!-- <div style="text-align: center;">
+            <img id="mono_internvl" width="80%" src="images/vebrain_fig1.png">
+          </div> -->
+          <!-- Paper video. -->
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+                While significant research has focused on developing embodied reasoning capabilities using Vision-Language Models (VLMs) or integrating advanced VLMs into Vision-Language-Action (VLA) models for end-to-end robot control, few studies directly address the critical gap between upstream VLM-based reasoning and downstream VLA policy learning. In this work, we take an initial step toward bridging embodied reasoning with VLA policy learning by introducing <b>Vlaser</b> -- a <b>V</b>ision-<b>L</b>anguage-<b>A</b>ction Model with <b>s</b>ynergistic <b>e</b>mbodied <b>r</b>easoning capability, which is a foundational vision-language model designed to integrate high-level reasoning with low-level control for embodied agents. Built upon the high-quality <b>Vlaser-6M</b> dataset, Vlaser achieves state-of-the-art performance across a range of embodied reasoning benchmarks—including spatial reasoning, embodied grounding, embodied QA, and task planning.
+                Furthermore, we systematically examine how different VLM initializations affect supervised VLA fine-tuning, offering novel insights into mitigating the domain shift between internet-scale pre-training data and embodied-specific policy learning data. Based on these insights, our approach achieves state-of-the-art results on the WidowX benchmark and competitive performance on the Google Robot benchmark. 
+                The code, model and data are available at <a href="https://github.com/OpenGVLab/Vlaser/" target="_blank">https://github.com/OpenGVLab/Vlaser/</a>.
+           </p>
+          
+          <!-- <div style="text-align: center;">
+            <img id="mono_internvl" width="90%" src="images/vebrain_fig1.png">
+          </div> -->
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+<section class="section" style="background-color: #efeff081;">
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <!-- <h2 class="title is-3">VeBrain-600<i>k</i>: High-quality Dataset Covering Multiple Capabilities</h2> -->
+      <h2 class="title is-3">Overview</h2>
+    </div>
+  </div>
+  <div class="container is-max-desktop">
+
+  <div class="columns is-centered">
+    <div class="column is-full-width">
+
+
+      <div class="content has-text-justified">
+
+        <p>
+        Vlaser contains the following key contributions:
+
+        <ul type="1">
+          <li> We propose <b>Vlaser-6M dataset</b>, which comprises multi-task embodied reasoning data sources including embodied QA, grounding, spaital intelligence, planning as well as in-domain simulation-sourced data.</span></li>
+          <li> Vlaser-8B achieves <b>state-of-the-art embodied reasoning capabilities</b> compared to other embodied reasoning VLMs. </span></li>
+          <li> The pretrained Vlaser VLM <b>significantly accelerates convergence</b> in downstream VLA policy learning. </span></li>
+          <li> Vlaser VLA achieves state-of-the-art results on the WidowX benchmark and competitive performance on the Google Robot benchmark on <b>downstream closed-loop simulation evaluation</b>. </span></li>
+          <br>
+        </ul>
+
+        <centering>
+          <div style="text-align: center;">
+            <img id="pipeline" width="80%" src="images/embodied_fig1_1.png">
+          </div>
+        </centering>
+
+        </p>
+      </div>
+
+
+
+      <!-- <centering>
+        <div style="text-align: center;">
+          <img id="evip" width="90%" src="images/mono_internvl_evip.png">
+
+        </div>
+      </centering> -->
+    </div>
+  </div>
+</div>
+</section>
+
+
+
+<section class="section"  style="background-color:#ffffffff">
+  <!-- Results. -->
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3">Vlaser Architecture</h2>
+
+    </div>
+  </div>
+  <!-- </div> -->
+  <!--/ Results. -->
+<div class="container is-max-desktop">
+
+  <div class="columns is-centered">
+    <div class="column is-full-width">
+      <div class="content has-text-justified">
+        <p>
+          <!-- MLLMs have demonstrate remarkable capabilities in perception, but they are not designed to control physical entities like legged robots or robotic arms. The main bottomneck lies in the inconsistency of the task target space. VeBrain proposes to reformulate robotic control into common MLLM tasks. -->
+
+          Vlaser adopts a two-stage training recipe, designed to optimize both embodied reasoning and end-to-end robot control. It includes a VLM pretraining followed by a VLA finetuning:
+          
+          <ul type="1">
+            <li><b>(1) VLM Pretraining</b>. <span style="font-size: 95%;">The multimodal pretraining process for Vlaser is conducted by supervised fine-tuning (SFT) on <b>Vlaser-6M dataset</b> based on InternVL3 to empower VLM with stronger embodied reasoning capability. </span></li>
+            <li><b>(2) VLA Finetuning</b>. <span style="font-size: 95%;">Vlaser-VLA is finetuned by incorporating a flow-matching-based action expert on robot-specific datasets.</span></li>
+            <br>
+          </ul>
+
+          <centering>
+            <div style="text-align: center;">
+              <img id="pipeline" width="80%" src="images/embodied_fig2_1.png">
+            </div>
+          </centering>
+          <br>
+          <br>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+</section>
+
+
+
+<section class="section"   style="background-color:#ffffffff">
+  <!-- Results. -->
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3">Performance</h2>
+    </div>
+  </div>
+
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-4">Embodied Reasoning Capability</h2>
+        <div style="text-align: center;">  
+          <img id="ablation" width="70%" src="images/embodied reasoning.png">
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-4">Closed-loop Evaluation on WidowX</h2>
+        <div style="text-align: center;">  
+          <img id="multimodal" width="70%" src="images/bridge.png">
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-4">Closed-loop Evaluation on Google Robot</h2>
+        <div style="text-align: center;">  
+          <img id="spatial" width="70%" src="images/fractal.png">
+        </div>
+      </div>
+    </div>
+</section>
+
+<!-- <section class="section" style="background-color:#ffffff">
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-six-fifths">
+      <h2 class="title is-3">Examples</h2>
+    </div>
+  </div>
+
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-4">Multimodal Understanding</h2>
+        <div style="text-align: center;">  
+          <img id="ex_m1" width="60%" src="images/vebrain_ex_m1.png">
+          <img id="ex_m2" width="60%" src="images/vebrain_ex_m2.png">
+          <img id="ex_m3" width="60%" src="images/vebrain_ex_m3.png">
+          <img id="ex_m4" width="60%" src="images/vebrain_ex_m4.png">
+          <img id="ex_m4" width="60%" src="images/vebrain_ex_m5.png">
+          <img id="ex_m4" width="60%" src="images/vebrain_ex_m6.png">
+          <img id="ex_m4" width="60%" src="images/vebrain_ex_m7.png">
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-4">Spatial Reasoning</h2>
+        <div style="text-align: center;">  
+          <img id="ex_s12" width="60%" src="images/vebrain_ex_s12.png">
+          <img id="ex_s3" width="60%" src="images/vebrain_ex_s3.png">
+          <img id="ex_s4" width="60%" src="images/vebrain_ex_s4.png">
+          <img id="ex_s5" width="60%" src="images/vebrain_ex_s5.png">
+          <img id="ex_s6" width="60%" src="images/vebrain_ex_s6.png">
+          <img id="ex_s7" width="60%" src="images/vebrain_ex_s7.png">
+          <img id="ex_s8" width="60%" src="images/vebrain_ex_s8.png">
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-4">Robot Control</h2>
+        <div style="text-align: center;">  
+          <img id="ex_loco" width="60%" src="images/vebrain_ex_loco.png">
+          <img id="ex_mani" width="60%" src="images/vebrain_ex_mani.png">
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section> -->
+
+  <section class="section" id="BibTeX"  style="background-color:#ffffffff">
+    <div class="container is-max-desktop content">
+      <h2 class="title">Citation</h2>
+      <pre><code>
+  @article{luo2025visual,
+    title={Visual Embodied Brain: Let Multimodal Large Language Models See, Think, and Control in Spaces},
+    author={Luo, Gen and Yang, Ganlin and Gong, Ziyang and Chen, Guanzhou and Duan, Haonan and Cui, Erfei and Tong, Ronglei and Hou, Zhi and Zhang, Tianyi and Chen, Zhe and others},
+    journal={arXiv preprint arXiv:2506.00123},
+    year={2025}
+  }
+
+  </code></pre>
+    </div>
+  </section>
+
+
+  <section class="section" id="Acknowledgement">
+    <div class="container is-max-desktop content">
+      <h2 class="title">Acknowledgement</h2>
+      <p>
+        This website is adapted from <a
+        href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>, licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+        Commons Attribution-ShareAlike 4.0 International License</a>.
+      </p>
+    </div>
+  </section>
+
+  <script>
+    // Handle message showing
+    function createChatRow(sender, text, imageSrc) {
+      var article = document.createElement("article");
+      article.className = "media"
+
+      var figure = document.createElement("figure");
+      figure.className = "media-left";
+
+      var span = document.createElement("span");
+      span.className = "icon is-large";
+
+      var icon = document.createElement("i");
+      icon.className = "fas fas fa-2x" + (sender === "User" ? " fa-user " : sender === "InternVL" ? " fa-robot" : "");
+
+      var media = document.createElement("div");
+      media.className = "media-content";
+
+      var content = document.createElement("div");
+      content.className = "content";
+
+      var para = document.createElement("p");
+
+      // wrap text in pre tag to preserve whitespace and line breaks
+      var pre_text = document.createElement("pre");
+      pre_text.style = "background-color: white; font-size: 18px; font-family: Arial; padding: 0; margin: 0; white-space: pre-wrap; word-wrap: break-word;";
+      var paraText = document.createTextNode(text);
+      pre_text.appendChild(paraText);
+
+      var strong = document.createElement("strong");
+      strong.innerHTML = sender;
+      var br = document.createElement("br");
+
+      para.appendChild(strong);
+      para.appendChild(br);
+      para.appendChild(pre_text);
+
+      // Add image if imageSrc is provided
+      if (imageSrc) {
+        var img = document.createElement("img");
+        img.src = imageSrc;
+        img.style = "max-width: 100%; max-height: 300px;"; // Adjust the style as needed
+        para.appendChild(img);
+      }
+
+      content.appendChild(para);
+      media.appendChild(content);
+      span.appendChild(icon);
+      figure.appendChild(span);
+      if (sender !== "Description") {
+        article.appendChild(figure);
+      };
+      article.appendChild(media);
+      return article;
+    }
+
+    function addMessageToChatHistory(sender, message, imageSrc) {
+      const chatHistory = document.querySelector('.chat-history');
+      const chatRow = createChatRow(sender, message, imageSrc);
+      chatHistory.appendChild(chatRow);
+      chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+
+    function clearChatHistory() {
+      const chatHistory = document.querySelector('.chat-history');
+      chatHistory.innerHTML = "";
+    }
+
+    // 
+    const conversations = [
+      {
+        "description": "OCR",
+        "turns": [
+          // ["Description", "Please read the description and answer the question."],
+          ["User", "", "/static/images/case_1.png"],
+          ["User", "Tell me the information about the image​"],
+          ["InternVL 1.5",
+          "The image shows a signboard with Chinese text, indicating a business establishment. The signboard reads:\n" +
+          "\"河大西门第一家\" which translates to \"The first shop at the west gate of the river.\"\n" +
+          "\"正宗 老字号 五香味\" which means \"Genuine, old brand, five-spice flavor.\"\n" +
+          "\"曹记焖烤鸡腿\" which translates to \"Cao's roasted and baked chicken legs.\"\n" +
+          "\"营业时间 16:30-22:30\" indicating the business hours from 4:30 PM to 10:30 PM.\n" +
+          "\"7点之后 在门口 路灯下出夜市地摊\" which suggests that after 7 PM, the shop operates in the doorway under the streetlights as a night market stall.\n" +
+          "The signboard also includes a logo that appears to be a stylized rooster, which might be the brand or shop's emblem. The overall style of the signboard is quite traditional and straightforward, commonly seen in Chinese street markets or small businesses."
+          ]
+        ]
+      },
+      {
+        "description": "OCR+understand",
+        "turns": [
+          ["User", "", "/static/images/case_2.jpg"],
+          ["User", "What movement is in the picture? What jersey size player is attacking?​"],
+          ["InternVL 1.5", "The image shows a basketball game in progress. A player wearing a black jersey with the number 1 is in the act of shooting the basketball, while a player in a red jersey with the number 9 is attempting to block the shot. The player in the black jersey is executing a jump shot, and the player in the red jersey is trying to contest the shot by reaching up with his right arm. The movement captured is the dynamic action of a defensive player trying to block the shot while the offensive player attempts to score.​"]
+        ]
+      },
+      {
+        "description": "duck",
+        "turns": [
+          ["User", "", "/static/images/case_3.png"],
+          ["User", "Tell me a person who had made a similar pose to the cute duck."],
+          ["InternVL 1.5", "The pose of the cute duck is reminiscent of a karate stance, which is often associated with martial artists. One famous person who made a similar pose is Bruce Lee, a martial artist and actor known for his contributions to martial arts and film.​"]
+        ]
+      },
+      {
+        "description": "phy",
+        "turns": [
+          ["User", "", "/static/images/case_4.PNG"],
+          ["User", ": If the pH outside the cell decreases, would you expect the amount of amino acids transported into the cell to increase or decrease?"],
+          ["InternVL 1.5", "Based on the image, if the pH outside the cell decreases, we would expect the amount of amino acids transported into the cell to increase. This is because the diagram shows a gradient of amino acids moving from an area of lower concentration (outside the cell) to an area of higher concentration (inside the cell), which is a typical representation of active transport. Active transport is a process that moves substances against their concentration gradient, often using energy, and it is typically more efficient at higher concentrations of the substance being transported. Therefore, a decrease in pH outside the cell would likely increase the concentration gradient, leading to an increase in the transport of amino acids into the cell.​"]
+        ]
+      },
+    ];
+
+    // The current image index
+    let currentIndex = 0;
+
+    // The function to update the displayed chat history
+    function update_dialog_demo() {
+      // Clear the chat history
+      clearChatHistory();
+
+      for (let i = 0; i < conversations[currentIndex].turns.length; i++) {
+        if (conversations[currentIndex].turns[i].length == 2) {
+          addMessageToChatHistory(conversations[currentIndex].turns[i][0], conversations[currentIndex].turns[i][1]);
+        }
+        else {
+          addMessageToChatHistory(conversations[currentIndex].turns[i][0], conversations[currentIndex].turns[i][1], conversations[currentIndex].turns[i][2]);
+        }
+      }
+
+      // scroll to the top of the chat history
+      document.querySelector('.chat-history').scrollTop = 0;
+    }
+
+    // Initialize the displayed image
+    update_dialog_demo();
+
+    // Event listeners for the buttons
+    document.getElementById('prev-question').addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + conversations.length) % conversations.length;
+      update_dialog_demo();
+    });
+
+    document.getElementById('next-question').addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % conversations.length;
+      update_dialog_demo();
+    });
+
+
+  </script>
+
+</body>
+
+</html>
